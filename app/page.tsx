@@ -1,6 +1,3 @@
-import EmailActions from "./components/EmailActions";
-const FORMSPARK_ENDPOINT = "https://submit-form.com/ERoDYQUub";
-
 function Logo() {
   return (
     <div className="flex items-center gap-3">
@@ -308,7 +305,7 @@ export default function Home() {
           </div>
 
           <form
-            action={FORMSPARK_ENDPOINT}
+            action="/api/rate-check"
             method="POST"
             className="rounded-3xl bg-[#f7f2e9] p-6 shadow-xl"
           >
@@ -317,12 +314,6 @@ export default function Home() {
                 type="hidden"
                 name="form_name"
                 value="Hotel Rate Check Enquiry"
-              />
-
-              <input
-                type="hidden"
-                name="_redirect"
-                value="https://www.hotelratecheck.com/thank-you"
               />
 
               <input
@@ -529,7 +520,15 @@ export default function Home() {
         <div className="mx-auto flex max-w-7xl flex-col gap-4 text-sm text-gray-600 md:flex-row md:items-center md:justify-between">
           <p>© 2026 Hotel Rate Check. All rights reserved.</p>
 
-                    <EmailActions />
+          <div className="flex flex-col gap-2 md:items-end">
+            <a
+              href="mailto:quotes@hotelratecheck.com?subject=Hotel%20Rate%20Check%20enquiry"
+              className="font-semibold text-[#071526] hover:text-[#b88434]"
+            >
+              quotes@hotelratecheck.com
+            </a>
+            <p>Hotel rate checking service.</p>
+          </div>
         </div>
       </footer>
     </main>
