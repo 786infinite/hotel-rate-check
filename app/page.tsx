@@ -1,3 +1,7 @@
+"use client";
+
+import { FormEvent, useState } from "react";
+
 const FORMSPARK_ENDPOINT = "https://submit-form.com/ERoDYQUub";
 
 function Logo() {
@@ -81,6 +85,53 @@ const faqs = [
 ];
 
 export default function Home() {
+  const [submitStatus, setSubmitStatus] = useState<
+    "idle" | "sending" | "success" | "error"
+  >("idle");
+
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    setSubmitStatus("sending");
+
+    const formElement = event.currentTarget;
+    const formData = new FormData(formElement);
+
+    const payload = {
+      form_name: "Hotel Rate Check Enquiry",
+      full_name: formData.get("full_name"),
+      email: formData.get("email"),
+      phone: formData.get("phone"),
+      hotel_name: formData.get("hotel_name"),
+      destination: formData.get("destination"),
+      check_in: formData.get("check_in"),
+      check_out: formData.get("check_out"),
+      adults: formData.get("adults"),
+      children: formData.get("children"),
+      price_found: formData.get("price_found"),
+      notes: formData.get("notes"),
+    };
+
+    try {
+      const response = await fetch(FORMSPARK_ENDPOINT, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify(payload),
+      });
+
+      if (!response.ok) {
+        throw new Error("Form submission failed");
+      }
+
+      setSubmitStatus("success");
+      formElement.reset();
+    } catch {
+      setSubmitStatus("error");
+    }
+  }
+
   return (
     <main className="min-h-screen bg-[#f7f2e9] text-[#071526]">
       <section className="relative overflow-hidden bg-[#071526] text-white">
@@ -307,17 +358,10 @@ export default function Home() {
           </div>
 
           <form
-            action={FORMSPARK_ENDPOINT}
-            method="POST"
+            onSubmit={handleSubmit}
             className="rounded-3xl bg-[#f7f2e9] p-6 shadow-xl"
           >
             <div className="grid gap-4">
-              <input
-                type="hidden"
-                name="form_name"
-                value="Hotel Rate Check Enquiry"
-              />
-
               <input
                 required
                 name="full_name"
@@ -404,10 +448,27 @@ export default function Home() {
 
               <button
                 type="submit"
-                className="rounded-full bg-[#d8a84f] px-7 py-4 font-black text-[#071526] hover:bg-[#f0c76b]"
+                disabled={submitStatus === "sending"}
+                className="rounded-full bg-[#d8a84f] px-7 py-4 font-black text-[#071526] hover:bg-[#f0c76b] disabled:cursor-not-allowed disabled:opacity-60"
               >
-                Submit Rate Check
+                {submitStatus === "sending"
+                  ? "Sending..."
+                  : "Submit Rate Check"}
               </button>
+
+              {submitStatus === "success" && (
+                <p className="rounded-2xl bg-green-50 p-4 text-sm font-semibold text-green-800">
+                  Thank you. Your rate check request has been sent. We will
+                  contact you if a suitable rate is available.
+                </p>
+              )}
+
+              {submitStatus === "error" && (
+                <p className="rounded-2xl bg-red-50 p-4 text-sm font-semibold text-red-800">
+                  Sorry, the form could not be sent. Please email
+                  quotes@hotelratecheck.com.
+                </p>
+              )}
 
               <p className="text-xs leading-5 text-gray-500">
                 No booking is made from this form. We will check availability
