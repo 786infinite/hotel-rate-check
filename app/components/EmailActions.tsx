@@ -16,8 +16,8 @@ export default function EmailActions() {
         setCopied(false);
       }, 2500);
     } catch {
-      setCopied(false);
-      window.location.href = `mailto:${EMAIL}`;
+      window.location.href =
+        "mailto:quotes@hotelratecheck.com?subject=Hotel%20Rate%20Check%20enquiry";
     }
   }
 
