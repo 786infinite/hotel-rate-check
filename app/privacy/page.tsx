@@ -160,7 +160,30 @@ export default function PrivacyPage() {
 
             <section>
               <h2 className="text-2xl font-bold text-[#071526]">
-                9. Security
+                9. Data protection requests
+              </h2>
+              <p className="mt-3">
+                If you want to access, correct, delete or restrict the personal
+                information we hold about you, email{" "}
+                <a
+                  href="mailto:quotes@hotelratecheck.com?subject=Data%20protection%20request"
+                  className="font-semibold text-[#b88434] underline"
+                >
+                  quotes@hotelratecheck.com
+                </a>
+                .
+              </p>
+              <p className="mt-3">
+                For security, we may need to confirm your identity before
+                providing, changing or deleting personal information. We will
+                handle data protection requests as soon as reasonably possible
+                and in line with applicable data protection law.
+              </p>
+            </section>
+
+            <section>
+              <h2 className="text-2xl font-bold text-[#071526]">
+                10. Security
               </h2>
               <p className="mt-3">
                 We use reasonable steps to protect the information we receive.
@@ -171,7 +194,7 @@ export default function PrivacyPage() {
 
             <section>
               <h2 className="text-2xl font-bold text-[#071526]">
-                10. Updates
+                11. Updates
               </h2>
               <p className="mt-3">
                 We may update this privacy policy from time to time. The latest
