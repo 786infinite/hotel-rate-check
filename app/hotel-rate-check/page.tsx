@@ -85,10 +85,10 @@ export default function HotelRateCheckPage() {
 
         <div className="mt-8">
           <Link
-            href="/"
+            href="/#book"
             className="inline-flex rounded-full bg-[#071526] px-7 py-4 text-base font-bold text-white hover:bg-[#b88434]"
           >
-            Send your hotel details
+            Book a hotel
           </Link>
         </div>
 
@@ -127,15 +127,15 @@ export default function HotelRateCheckPage() {
         </div>
 
         <div className="mt-12 rounded-2xl border border-[#b88434]/30 bg-white p-6">
-          <h2 className="text-xl font-bold">Ready to check a rate?</h2>
+          <h2 className="text-xl font-bold">Ready to book?</h2>
           <p className="mt-3 text-gray-800">
-            Send us the hotel and price you have found and we will take a look. Getting a quote is free.
+            Tell us the hotel and dates and we will confirm availability and a secure link to book online — full price and terms shown before you pay.
           </p>
           <Link
-            href="/"
+            href="/#book"
             className="mt-5 inline-flex rounded-full bg-[#071526] px-6 py-3 text-sm font-bold text-white hover:bg-[#b88434]"
           >
-            Get a free rate check
+            Book a hotel online
           </Link>
         </div>
       </section>

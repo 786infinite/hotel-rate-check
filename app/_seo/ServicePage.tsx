@@ -72,8 +72,8 @@ export default function ServicePage({ slug }: { slug: string }) {
         <p className="mt-5 text-lg leading-8 text-gray-700">{c.intro}</p>
 
         <div className="mt-8">
-          <Link href="/" className="inline-flex rounded-full bg-[#071526] px-7 py-4 text-base font-bold text-white hover:bg-[#b88434]">
-            Send your hotel details
+          <Link href="/#book" className="inline-flex rounded-full bg-[#071526] px-7 py-4 text-base font-bold text-white hover:bg-[#b88434]">
+            Book a hotel
           </Link>
         </div>
 
@@ -97,8 +97,8 @@ export default function ServicePage({ slug }: { slug: string }) {
         <div className="mt-12 rounded-2xl border border-[#b88434]/30 bg-white p-6">
           <h2 className="text-xl font-bold">{c.ctaHeading}</h2>
           <p className="mt-3 text-gray-800">{c.ctaBody}</p>
-          <Link href="/" className="mt-5 inline-flex rounded-full bg-[#071526] px-6 py-3 text-sm font-bold text-white hover:bg-[#b88434]">
-            Get a free rate check
+          <Link href="/#book" className="mt-5 inline-flex rounded-full bg-[#071526] px-6 py-3 text-sm font-bold text-white hover:bg-[#b88434]">
+            Book a hotel online
           </Link>
         </div>
 
