@@ -26,8 +26,9 @@ export default function ContactPage() {
           <h1 className="text-3xl font-bold md:text-5xl">Contact us</h1>
 
           <p className="mt-4 max-w-2xl text-lg leading-8 text-gray-700">
-            Send us your hotel details and the price you found. We will manually
-            check available hotel rates and reply if we can improve the rate.
+            Send us your hotel and dates and we will confirm available rates and
+            a secure link to complete your booking online, with the full price
+            and terms shown before you pay.
           </p>
 
           <div className="mt-8 grid gap-5 md:grid-cols-2">

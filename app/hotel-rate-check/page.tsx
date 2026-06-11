@@ -4,7 +4,7 @@ import Link from "next/link";
 export const metadata: Metadata = {
   title: "Hotel Rate Check — Check Your Hotel Rate Before You Book",
   description:
-    "Already have a hotel price? Send it to us and we will manually check supplier rates to see if we can improve it before you book. Hotel-only, clear terms, no booking until you approve.",
+    "Already have a hotel price? Send it to us and we check live supplier rates to see if we can improve it before you book. Hotel-only, clear terms, no booking until you approve.",
   keywords: [
     "hotel rate check",
     "check hotel rate",
@@ -17,7 +17,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Hotel Rate Check — Check Your Hotel Rate Before You Book",
     description:
-      "Send us your hotel price and we will manually check supplier rates to see if we can improve it. Hotel-only, clear terms, no booking until you approve.",
+      "Send us your hotel price and we check live supplier rates to see if we can improve it. Hotel-only, clear terms, no booking until you approve.",
     url: "https://www.hotelratecheck.com/hotel-rate-check",
     siteName: "Hotel Rate Check",
     type: "website",
@@ -27,7 +27,7 @@ export const metadata: Metadata = {
 const FAQ: { q: string; a: string }[] = [
   {
     q: "What is a hotel rate check?",
-    a: "It is a quick service where you send us a hotel and price you have found, and we manually check our supplier rates to see whether we can improve on it. If we can, we send you a clear quote. If we cannot, we tell you.",
+    a: "It is a quick service where you send us a hotel and price you have found, and we check live supplier rates to see whether we can improve on it. If we can, we send you a clear quote. If we cannot, we tell you.",
   },
   {
     q: "Do you book the hotel for me?",
@@ -65,7 +65,7 @@ export default function HotelRateCheckPage() {
     areaServed: "GB",
     provider: { "@type": "Organization", name: "HotelRateCheck.com", url: "https://www.hotelratecheck.com" },
     description:
-      "Manual hotel rate checking and assisted booking. Send a hotel and price, and we check supplier rates to see if we can improve it before you book.",
+      "Online hotel rate checking and booking. Send a hotel and price, and we check supplier rates to see if we can improve it before you book.",
   };
 
   return (
@@ -77,7 +77,7 @@ export default function HotelRateCheckPage() {
         <p className="mb-3 text-sm font-semibold uppercase tracking-[0.25em] text-[#b88434]">Hotel Rate Check</p>
         <h1 className="text-3xl font-bold md:text-5xl">Check your hotel rate before you book</h1>
         <p className="mt-5 text-lg leading-8 text-gray-700">
-          Found a hotel and a price? Send it to us before you book. We manually check our
+          Found a hotel and a price? Send it to us before you book. We check live
           supplier rates to see whether we can improve on what you have found. If we can, you
           get a clear quote with the full price, cancellation terms and any charges payable at
           the hotel. If we cannot, we tell you plainly. No booking is made unless you approve.
@@ -95,7 +95,7 @@ export default function HotelRateCheckPage() {
         <h2 className="mt-12 text-2xl font-bold">How it works</h2>
         <ol className="mt-4 list-decimal space-y-3 pl-5 text-gray-800">
           <li>You send the hotel, dates, guests and the price you have found.</li>
-          <li>We manually check available supplier rates for the same stay.</li>
+          <li>We check live supplier rates for the same stay.</li>
           <li>If we can offer a suitable rate, we send you a clear quote to review.</li>
           <li>You accept the terms and pay only if you are happy.</li>
           <li>We complete the booking and send your confirmation or voucher.</li>

@@ -44,3 +44,6 @@ next-env.d.ts
 .tbo-build
 
 .pay-build
+
+# temp typecheck config (sandbox artifact)
+tsconfig.check.json

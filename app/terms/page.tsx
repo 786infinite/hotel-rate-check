@@ -37,10 +37,10 @@ export default function TermsPage() {
                 1. About Hotel Rate Check
               </h2>
               <p className="mt-3">
-                Hotel Rate Check provides a hotel rate checking service.
-                Customers send us hotel details and a price they have found, and
-                we manually check available hotel rates through our supply
-                partners.
+                Hotel Rate Check provides an online hotel booking service.
+                Customers can book hotel accommodation online, with rates
+                sourced through our supply partners and the full price and terms
+                shown before payment.
               </p>
               <p className="mt-3">
                 We only deal with hotel accommodation. We do not sell flights,
@@ -51,11 +51,11 @@ export default function TermsPage() {
 
             <section>
               <h2 className="text-2xl font-bold text-[#071526]">
-                2. No guarantee of savings
+                2. Availability and pricing
               </h2>
               <p className="mt-3">
-                We will manually check available rates where possible. We do not
-                guarantee that we will find a lower price, that a rate will stay
+                Rates and availability are live and can change. We do not guarantee
+                that a particular price will be available, that a rate will stay
                 available, or that every hotel or room type can be supplied.
               </p>
               <p className="mt-3">

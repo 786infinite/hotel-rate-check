@@ -32,11 +32,11 @@ export const SEO_CONTENT: Record<string, ServiceContent> = {
     pageType: "service",
     title: "Business Hotel Rate Check — Save on Staff & Work Travel",
     metaDescription:
-      "Booking hotels for work? Send us the hotel and price and we manually check supplier rates to see if we can improve it. Hotel-only, clear terms, no booking until you approve.",
+      "Booking hotels for work? Send us the hotel and price and we check live supplier rates to see if we can improve it. Hotel-only, clear terms, no booking until you approve.",
     keywords: ["business hotel rate check", "corporate hotel booking", "staff travel hotels", "work trip hotel rates"],
     h1: "Business hotel rate check",
     intro:
-      "If you book hotels for staff, projects or work trips, send us the hotel and the price you have found and we will manually check our supplier rates for the same stay. Where we can improve on it, we send a clear quote with the full price, cancellation terms and any charges payable at the hotel. We handle hotel accommodation only, with no booking made until you approve.",
+      "If you book hotels for staff, projects or work trips, send us the hotel and the price you have found and we check live supplier rates for the same stay. Where we can improve on it, we send a clear quote with the full price, cancellation terms and any charges payable at the hotel. We handle hotel accommodation only, with no booking made until you approve.",
     sections: [
       {
         h2: "Built for how businesses actually book",
@@ -68,11 +68,11 @@ export const SEO_CONTENT: Record<string, ServiceContent> = {
     pageType: "service",
     title: "Group Hotel Rate Check — Multiple Rooms, One Clear Quote",
     metaDescription:
-      "Booking several hotel rooms? Send us the details and we manually check supplier rates for the group. Clear pricing, cancellation terms shown up front, no booking until you approve.",
+      "Booking several hotel rooms? Send us the details and we check live supplier rates for the group. Clear pricing, cancellation terms shown up front, no booking until you approve.",
     keywords: ["group hotel rate check", "multiple hotel rooms booking", "group accommodation rates", "team hotel booking"],
     h1: "Group hotel rate check",
     intro:
-      "Booking several rooms for a team, event or family group? Send us the hotel, dates and number of rooms, and we manually check our supplier rates for the group. Where we can help, we send one clear quote covering the rooms, with cancellation terms and any pay-at-hotel charges shown before you pay.",
+      "Booking several rooms for a team, event or family group? Send us the hotel, dates and number of rooms, and we check live supplier rates for the group. Where we can help, we send one clear quote covering the rooms, with cancellation terms and any pay-at-hotel charges shown before you pay.",
     sections: [
       {
         h2: "One request, one clear answer",
@@ -104,11 +104,11 @@ export const SEO_CONTENT: Record<string, ServiceContent> = {
     pageType: "service",
     title: "Contractor Hotel Accommodation — Rate Checks for Project Teams",
     metaDescription:
-      "Putting contractors or project teams up in hotels? Send us the hotel and price and we manually check supplier rates, including for longer stays. Clear terms, no booking until you approve.",
+      "Putting contractors or project teams up in hotels? Send us the hotel and price and we check live supplier rates, including for longer stays. Clear terms, no booking until you approve.",
     keywords: ["contractor hotel accommodation", "project team hotels", "construction crew accommodation", "long stay hotel rates"],
     h1: "Contractor & project-team hotel accommodation",
     intro:
-      "If you arrange hotels for contractors, engineers or project crews, send us the hotel and the price you have, and we manually check our supplier rates for the same stay — including longer runs of nights. Where we can improve on it, you get a clear quote with cancellation terms and any pay-at-hotel charges shown before payment.",
+      "If you arrange hotels for contractors, engineers or project crews, send us the hotel and the price you have, and we check live supplier rates for the same stay — including longer runs of nights. Where we can improve on it, you get a clear quote with cancellation terms and any pay-at-hotel charges shown before payment.",
     sections: [
       {
         h2: "Longer stays, checked properly",
@@ -140,11 +140,11 @@ export const SEO_CONTENT: Record<string, ServiceContent> = {
     pageType: "service",
     title: "Corporate Hotel Rate Check — Tidy, Transparent Work Bookings",
     metaDescription:
-      "A simple way for companies to sanity-check hotel rates before booking. Send the hotel and price; we manually check supplier rates and quote with clear terms. No booking until you approve.",
+      "A simple way for companies to sanity-check hotel rates before booking. Send the hotel and price; we check live supplier rates and quote with clear terms. No booking until you approve.",
     keywords: ["corporate hotel rate check", "company hotel booking", "business travel hotel rates", "managed hotel bookings"],
     h1: "Corporate hotel rate check",
     intro:
-      "A straightforward way for companies to check a hotel rate before booking. Send us the hotel and the price you have found and we manually check our supplier rates for the same stay, then quote clearly where we can help — with the full price, refundability, cancellation policy and any pay-at-hotel charges shown before payment.",
+      "A straightforward way for companies to check a hotel rate before booking. Send us the hotel and the price you have found and we check live supplier rates for the same stay, then quote clearly where we can help — with the full price, refundability, cancellation policy and any pay-at-hotel charges shown before payment.",
     sections: [
       {
         h2: "A second pair of eyes on every rate",
@@ -176,11 +176,11 @@ export const SEO_CONTENT: Record<string, ServiceContent> = {
     pageType: "service",
     title: "Dubai Hotel Rate Check — Check Your Dubai Hotel Rate Before Booking",
     metaDescription:
-      "Booking a Dubai hotel? Send us the hotel and price and we manually check supplier rates. We also flag the Tourism Dirham and any fees payable at the hotel, with clear terms before you pay.",
+      "Booking a Dubai hotel? Send us the hotel and price and we check live supplier rates. We also flag the Tourism Dirham and any fees payable at the hotel, with clear terms before you pay.",
     keywords: ["dubai hotel rate check", "dubai hotel price", "uae hotel rates", "dubai tourism dirham", "check dubai hotel rate"],
     h1: "Dubai hotel rate check",
     intro:
-      "Planning a stay in Dubai? Send us the hotel and the price you have found and we manually check our supplier rates for the same stay. Dubai hotels often charge a Tourism Dirham and other fees directly at the hotel, so we make a point of showing those alongside the room price before you pay.",
+      "Planning a stay in Dubai? Send us the hotel and the price you have found and we check live supplier rates for the same stay. Dubai hotels often charge a Tourism Dirham and other fees directly at the hotel, so we make a point of showing those alongside the room price before you pay.",
     sections: [
       {
         h2: "We flag the pay-at-hotel charges",

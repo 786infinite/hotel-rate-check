@@ -3,22 +3,22 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.hotelratecheck.com"),
-  title: "Hotel Rate Check | Check Your Hotel Rate Before You Book",
+  title: "Hotel Rate Check | Book Hotels Online — Clear Prices & Terms",
   description:
-    "Send us your hotel details and we’ll manually check available rates to see if we can save you money before you book.",
+    "Book hotels online with Hotel Rate Check. See the full price, refundability and cancellation terms up front, with any pay-at-hotel charges shown before you pay.",
   keywords: [
-    "hotel rate check",
-    "check hotel price",
-    "hotel savings",
-    "hotel quote",
-    "business hotel rates",
-    "hotel booking service",
+    "book hotel online",
+    "hotel booking",
+    "hotel rates",
+    "business hotel booking",
+    "online hotel booking uk",
+    "hotel accommodation",
   ],
   openGraph: {
-    title: "Hotel Rate Check",
+    title: "Hotel Rate Check — Book Hotels Online",
     description:
-      "Check your hotel rate before you book. We manually check available rates to see if we can save you money.",
-    url: "https://hotelratecheck.com",
+      "Book hotels online with clear prices and terms. Every charge shown before you pay.",
+    url: "https://www.hotelratecheck.com",
     siteName: "Hotel Rate Check",
     type: "website",
   },
