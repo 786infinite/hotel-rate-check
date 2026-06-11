@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://www.hotelratecheck.com"),
   title: "Hotel Rate Check | Check Your Hotel Rate Before You Book",
   description:
     "Send us your hotel details and we’ll manually check available rates to see if we can save you money before you book.",

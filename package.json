@@ -6,7 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "test:tbo": "tsc lib/tbo/*.ts --outDir .tbo-build --module commonjs --target es2019 --moduleResolution node --esModuleInterop --skipLibCheck && node lib/tbo/__tests__/logic.test.cjs",
+    "test:payments": "tsc lib/tbo/*.ts lib/payments/*.ts --outDir .pay-build --module commonjs --target es2019 --moduleResolution node --esModuleInterop --skipLibCheck && node lib/payments/__tests__/logic.test.cjs"
   },
   "dependencies": {
     "next": "16.2.6",

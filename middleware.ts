@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 
-const PROTECTED_PATHS = ["/quote-link-builder"];
+const PROTECTED_PATHS = ["/quote-link-builder", "/rate-search", "/api/tbo"];
 
 function isProtectedPath(pathname: string) {
   return PROTECTED_PATHS.some(
@@ -85,5 +85,9 @@ export function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/quote-link-builder/:path*"],
+  matcher: [
+    "/quote-link-builder/:path*",
+    "/rate-search/:path*",
+    "/api/tbo/:path*",
+  ],
 };

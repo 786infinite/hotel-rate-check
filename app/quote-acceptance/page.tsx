@@ -3,6 +3,7 @@ import { Suspense } from "react";
 import QuoteAcceptanceClient from "./QuoteAcceptanceClient";
 
 export const metadata: Metadata = {
+  robots: { index: false, follow: false, nocache: true },
   title: "Review, Accept & Pay | Hotel Rate Check",
   description:
     "Review your Hotel Rate Check quote, accept the booking terms and continue to secure payment.",
