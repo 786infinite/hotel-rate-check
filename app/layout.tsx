@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import SiteHeader from "./components/SiteHeader";
+import SiteFooter from "./components/SiteFooter";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.hotelratecheck.com"),
@@ -24,6 +26,16 @@ export const metadata: Metadata = {
   },
 };
 
+const orgJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  name: "Hotel Rate Check",
+  legalName: "786 Infinite Ltd",
+  url: "https://www.hotelratecheck.com",
+  email: "quotes@hotelratecheck.com",
+  description: "Online hotel booking service. Hotel accommodation only, with clear prices and terms shown before payment.",
+};
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -31,7 +43,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body className="flex min-h-screen flex-col bg-[#f7f2e9]">
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(orgJsonLd) }} />
+        <SiteHeader />
+        <div className="flex-1">{children}</div>
+        <SiteFooter />
+      </body>
     </html>
   );
 }

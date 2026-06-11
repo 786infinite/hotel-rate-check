@@ -4,7 +4,7 @@ import Link from "next/link";
 export const metadata: Metadata = {
   title: "Contact | Hotel Rate Check",
   description:
-    "Contact Hotel Rate Check for hotel rate checking enquiries and quote support.",
+    "Contact Hotel Rate Check for hotel booking enquiries, quotes and support.",
 };
 
 export default function ContactPage() {
@@ -37,7 +37,7 @@ export default function ContactPage() {
                 Email enquiries
               </h2>
               <p className="mt-3 text-gray-700">
-                For hotel rate checks, quote questions and booking support,
+                For booking enquiries, quote questions and support,
                 email:
               </p>
               <a
@@ -50,17 +50,17 @@ export default function ContactPage() {
 
             <div className="rounded-2xl border border-gray-200 bg-[#f7f2e9] p-6">
               <h2 className="text-xl font-bold text-[#071526]">
-                Check a hotel rate
+                Book a hotel
               </h2>
               <p className="mt-3 text-gray-700">
-                The quickest way to request a rate check is to use the form on
+                The quickest way to start a booking is to use the form on
                 our homepage.
               </p>
               <Link
                 href="/"
                 className="mt-4 inline-flex rounded-full bg-[#071526] px-5 py-3 text-sm font-bold text-white hover:bg-[#b88434]"
               >
-                Go to rate check form
+                Go to booking form
               </Link>
             </div>
           </div>
@@ -75,8 +75,16 @@ export default function ContactPage() {
               total price you found.
             </p>
             <p className="mt-3 font-semibold text-[#071526]">
-              We only check hotel accommodation. We do not sell flights,
+              We provide hotel accommodation only. We do not sell flights,
               transfers, car hire, sightseeing or package holidays.
+            </p>
+          </div>
+
+          <div className="mt-8 rounded-2xl border border-gray-200 bg-[#f7f2e9] p-6">
+            <h2 className="text-xl font-bold text-[#071526]">Company details</h2>
+            <p className="mt-3 text-gray-700">
+              Hotel Rate Check is a trading name of 786 Infinite Ltd, a company
+              registered in England and Wales.
             </p>
           </div>
         </div>

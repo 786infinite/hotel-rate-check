@@ -171,42 +171,6 @@ export const SEO_CONTENT: Record<string, ServiceContent> = {
     ctaBody: "Send the hotel and price and we will check our supplier rates. Getting a quote is free.",
   },
 
-  "dubai-hotel-rate-check": {
-    slug: "dubai-hotel-rate-check",
-    pageType: "service",
-    title: "Dubai Hotel Rate Check — Check Your Dubai Hotel Rate Before Booking",
-    metaDescription:
-      "Booking a Dubai hotel? Send us the hotel and price and we check live supplier rates. We also flag the Tourism Dirham and any fees payable at the hotel, with clear terms before you pay.",
-    keywords: ["dubai hotel rate check", "dubai hotel price", "uae hotel rates", "dubai tourism dirham", "check dubai hotel rate"],
-    h1: "Dubai hotel rate check",
-    intro:
-      "Planning a stay in Dubai? Send us the hotel and the price you have found and we check live supplier rates for the same stay. Dubai hotels often charge a Tourism Dirham and other fees directly at the hotel, so we make a point of showing those alongside the room price before you pay.",
-    sections: [
-      {
-        h2: "We flag the pay-at-hotel charges",
-        body:
-          "In Dubai, a Tourism Dirham (a per-room, per-night fee) and occasional resort or service fees are commonly paid at the hotel rather than online. Where we are aware of these, we show them in your quote so you can compare the true total, not just the headline room price.",
-      },
-      {
-        h2: "Clear terms before you commit",
-        body:
-          "Every quote shows the full room price, whether it is refundable and the cancellation policy. Many Dubai rates are non-refundable; if so, we make that clear and you must accept it before paying. Nothing is booked until you approve.",
-      },
-      {
-        h2: "Hotel-only, no packages",
-        body:
-          "We provide hotel accommodation only — no flights or packages. A booking is confirmed only once the supplier confirms it, and if a paid booking cannot be completed we offer an alternative or refund in full.",
-      },
-    ],
-    faqs: [
-      { q: "What is the Tourism Dirham?", a: "It is a per-room, per-night fee charged by Dubai hotels, usually paid directly at the hotel at check-out. Where we know it applies, we show it in your quote." },
-      { q: "Are Dubai rates refundable?", a: "Often not. We always show whether a rate is refundable and its cancellation policy before you pay." },
-      { q: "Do you cover all of the UAE?", a: "Send us the hotel and we will check available supplier rates for that property and dates." },
-    ],
-    ctaHeading: "Booking a Dubai hotel?",
-    ctaBody: "Send the hotel and price and we will check the rate and flag any pay-at-hotel fees. Quotes are free.",
-  },
-
   "how-to-check-if-a-hotel-rate-is-good": {
     slug: "how-to-check-if-a-hotel-rate-is-good",
     pageType: "article",

@@ -4,7 +4,7 @@ import Link from "next/link";
 export const metadata: Metadata = {
   title: "Terms & Conditions | Hotel Rate Check",
   description:
-    "Terms and conditions for using Hotel Rate Check hotel rate checking services.",
+    "Terms and conditions for booking hotels online with Hotel Rate Check.",
 };
 
 export default function TermsPage() {
@@ -40,7 +40,8 @@ export default function TermsPage() {
                 Hotel Rate Check provides an online hotel booking service.
                 Customers can book hotel accommodation online, with rates
                 sourced through our supply partners and the full price and terms
-                shown before payment.
+                shown before payment. Hotel Rate Check is a trading name of 786
+                Infinite Ltd, a company registered in England and Wales.
               </p>
               <p className="mt-3">
                 We only deal with hotel accommodation. We do not sell flights,

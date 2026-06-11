@@ -35,7 +35,8 @@ export default function PrivacyPage() {
                 1. Who we are
               </h2>
               <p className="mt-3">
-                Hotel Rate Check is a hotel rate checking service. You can
+                Hotel Rate Check is an online hotel booking service operated by 786
+                Infinite Ltd, a company registered in England and Wales. You can
                 contact us at{" "}
                 <a
                   href="mailto:quotes@hotelratecheck.com"
@@ -52,7 +53,7 @@ export default function PrivacyPage() {
                 2. Information we collect
               </h2>
               <p className="mt-3">
-                When you submit a hotel rate check enquiry, we may collect:
+                When you make a booking enquiry or booking, we may collect:
               </p>
               <ul className="mt-3 list-disc space-y-2 pl-6">
                 <li>Your name</li>
@@ -61,7 +62,6 @@ export default function PrivacyPage() {
                 <li>Hotel name and destination</li>
                 <li>Check-in and check-out dates</li>
                 <li>Guest numbers</li>
-                <li>The price you found</li>
                 <li>Any notes or information you send us</li>
               </ul>
             </section>
@@ -72,8 +72,8 @@ export default function PrivacyPage() {
               </h2>
               <p className="mt-3">We use your information to:</p>
               <ul className="mt-3 list-disc space-y-2 pl-6">
-                <li>Respond to your hotel rate check enquiry</li>
-                <li>Check available hotel rates with supply partners</li>
+                <li>Respond to your booking enquiry</li>
+                <li>Check available hotel rates with our supply partners</li>
                 <li>Send you quotes or booking information</li>
                 <li>Deal with payment, confirmation and customer service</li>
                 <li>Keep business and legal records</li>
@@ -106,6 +106,17 @@ export default function PrivacyPage() {
               </p>
               <p className="mt-3">
                 We do not sell your personal information.
+              </p>
+              <p className="mt-3">
+                Some hotels and suppliers are located outside the UK and the
+                European Economic Area (EEA). Where we transfer your information
+                internationally, we take steps intended to ensure an appropriate
+                level of protection in line with applicable data protection law.
+              </p>
+              <p className="mt-3">
+                Card payments are processed by our payment provider on their
+                secure, hosted payment pages. We do not see or store your full
+                card details.
               </p>
             </section>
 

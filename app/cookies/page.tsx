@@ -73,8 +73,8 @@ export default function CookiesPage() {
                 consent controls before using them.
               </p>
               <p className="mt-3">
-                At this stage, Hotel Rate Check is intended to run with a simple
-                enquiry form and core website functionality.
+                Hotel Rate Check runs with online booking and enquiry functionality
+                and core website features.
               </p>
             </section>
 

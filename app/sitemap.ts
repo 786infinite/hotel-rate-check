@@ -15,7 +15,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/group-hotel-rate-check",
     "/contractor-hotel-accommodation",
     "/corporate-hotel-rate-check",
-    "/dubai-hotel-rate-check",
     "/how-to-check-if-a-hotel-rate-is-good",
     "/non-refundable-hotel-rates-explained",
     "/hotel-local-taxes-explained",
