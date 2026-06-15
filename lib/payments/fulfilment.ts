@@ -12,6 +12,7 @@
  */
 
 import { bookWithRecovery, type BookOutcome } from "../tbo";
+import { getNotifier, composeConfirmationEmail, composeReceivedEmail } from "../notify";
 import type { PaymentEvent } from "./types";
 
 export interface AcceptedQuote {
@@ -27,6 +28,10 @@ export interface AcceptedQuote {
   phone: string;
   /** What the customer was charged, in pence (for records/reconciliation). */
   sellPriceMinor?: number;
+  /** Display context for emails/records (customer-safe). */
+  hotel?: string;
+  checkIn?: string;
+  checkOut?: string;
   providerPaymentId?: string;
   status?: "pending" | "paid" | "booked" | "failed" | "refund_due" | "awaiting_manual_booking";
 }
@@ -81,6 +86,31 @@ export type FulfilmentResult =
   | { status: "no_quote"; reason: string }
   | { status: "ignored"; reason: string };
 
+/** Send a booking email. Best-effort: never throws, never blocks fulfilment. */
+async function sendBookingEmail(
+  kind: "confirmed" | "received",
+  quote: AcceptedQuote,
+  confirmationNumber?: string,
+): Promise<void> {
+  try {
+    const data = {
+      to: quote.email,
+      reference: quote.reference,
+      guestName: `${quote.guest.firstName} ${quote.guest.lastName}`.trim(),
+      hotel: quote.hotel,
+      checkIn: quote.checkIn,
+      checkOut: quote.checkOut,
+      currency: quote.currency,
+      amountMinor: quote.sellPriceMinor,
+      confirmationNumber,
+    };
+    const msg = kind === "confirmed" ? composeConfirmationEmail(data) : composeReceivedEmail(data);
+    await getNotifier().send(msg);
+  } catch {
+    // Email delivery is best-effort; a failure here must not fail the booking.
+  }
+}
+
 export async function onPaymentSucceeded(event: PaymentEvent): Promise<FulfilmentResult> {
   if (event.type !== "payment_succeeded" || !event.reference) {
     return { status: "ignored", reason: `event ${event.rawType ?? event.type} not actionable` };
@@ -104,6 +134,7 @@ export async function onPaymentSucceeded(event: PaymentEvent): Promise<Fulfilmen
       return { status: "ignored", reason: `Reference ${event.reference} already awaiting manual booking` };
     }
     await quotes.update(event.reference, { status: "awaiting_manual_booking" });
+    await sendBookingEmail("received", quote);
     const why =
       bookingMode() === "auto"
         ? "auto mode but quote has no TBO booking code (manual quote)"
@@ -132,6 +163,7 @@ export async function onPaymentSucceeded(event: PaymentEvent): Promise<Fulfilmen
 
   if (outcome.status === "confirmed" || outcome.status === "confirmed_via_recovery") {
     await quotes.update(event.reference, { status: "booked" });
+    await sendBookingEmail("confirmed", quote, outcome.confirmationNumber);
     return { status: "booked", confirmationNumber: outcome.confirmationNumber, outcome };
   }
 

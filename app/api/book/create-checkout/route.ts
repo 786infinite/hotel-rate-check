@@ -76,6 +76,9 @@ export async function POST(request: Request) {
     email: body.email,
     phone: body.phone,
     sellPriceMinor: quote.sellPriceMinor,
+    hotel: body.hotel,
+    checkIn: body.checkIn,
+    checkOut: body.checkOut,
     status: "pending",
   });
 
