@@ -9,6 +9,7 @@
  */
 
 import * as tbo from "@/lib/tbo";
+import { getHotelIndex } from "./destination";
 
 export interface PublicPayAtHotel {
   description: string;
@@ -52,43 +53,17 @@ export interface PublicSearchResult {
   hotels: PublicHotel[];
 }
 
-/**
- * Best-effort hotel display names. TBO Search returns only HotelCode; the real
- * name comes from the static hotel-details API. Until that's wired, we map the
- * known mock fixtures and fall back to a neutral label.
- */
-const MOCK_HOTEL_NAMES: Record<string, string> = {
-  "1120548": "Golden Sands Hotel Apartments",
-  "1435427": "City Centre Hotel",
-};
-
-function hotelNameFor(code: string): string {
-  return MOCK_HOTEL_NAMES[code] ?? `Hotel ${code}`;
-}
-
-/**
- * Resolve a free-text destination / hotel name into TBO hotel codes.
- *
- * Mock mode ignores the input and returns the fixture hotel so the flow is
- * fully clickable offline. Live resolution (CityList → HotelCodeList) is not yet
- * wired — once TBO credentials land, implement it here.
- */
-async function resolveHotelCodes(destination: string): Promise<string> {
-  if (process.env.TBO_MOCK === "1") {
-    return "1120548";
-  }
-  // Already a code or comma-separated codes? Pass through.
-  if (/^[0-9, ]+$/.test(destination.trim())) {
-    return destination.replace(/\s+/g, "");
-  }
-  throw new Error(
-    "Live destination lookup is not configured yet. Provide TBO hotel codes, or wire CityList/HotelCodeList resolution.",
-  );
-}
-
-/** Search live rates and return customer-safe results only. */
+/** Search live rates and return customer-safe results only.
+ *  Destination → hotel codes and hotel display names come from the HotelIndex
+ *  (lib/booking/destination.ts): the spec fixtures in mock mode, the TBO Static
+ *  content API when live. */
 export async function publicSearch(params: PublicSearchParams): Promise<PublicSearchResult> {
-  const hotelCodes = await resolveHotelCodes(params.destination);
+  const index = getHotelIndex();
+  const codes = await index.resolveCodes(params.destination, 50);
+  if (!codes.length) {
+    return { status: "no_availability", hotels: [] };
+  }
+  const hotelCodes = codes.join(",");
 
   const paxRoom: tbo.PaxRoom = {
     Adults: Math.max(1, params.adults || 1),
@@ -109,9 +84,9 @@ export async function publicSearch(params: PublicSearchParams): Promise<PublicSe
     return { status: "no_availability", hotels: [] };
   }
 
-  const hotels: PublicHotel[] = res.HotelResult.map((hotel) => ({
+  const hotels: PublicHotel[] = await Promise.all(res.HotelResult.map(async (hotel) => ({
     hotelCode: hotel.HotelCode,
-    hotelName: hotelNameFor(hotel.HotelCode),
+    hotelName: (await index.name(hotel.HotelCode)) ?? `Hotel ${hotel.HotelCode}`,
     currency: hotel.Currency,
     rooms: hotel.Rooms.map((room): PublicRoom => {
       const price = tbo.priceForCustomer(room, hotel.Currency);
@@ -125,7 +100,7 @@ export async function publicSearch(params: PublicSearchParams): Promise<PublicSe
         payAtHotel: price.payAtHotel,
       };
     }),
-  }));
+  })));
 
   return { status: "ok", hotels };
 }

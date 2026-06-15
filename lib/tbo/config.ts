@@ -63,8 +63,7 @@ export const TBO_TIMEOUTS_MS = {
   Static: 60_000,
 } as const;
 
-/** Full search-to-book session budget. TBO confirmed 40 min (10 Jun 2026);
- *  after this you must re-run Search. */
+/** Full search-to-book session budget. TBO confirmed 40 min (10 Jun 2026); after this, re-run Search. */
 export const TBO_SESSION_TIMEOUT_MS = 40 * 60_000;
 
 /** Mandatory wait before calling BookingDetail after an uncertain Book (spec section 10 note). */
