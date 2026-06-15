@@ -60,24 +60,26 @@ export default function TermsPage() {
                 available, or that every hotel or room type can be supplied.
               </p>
               <p className="mt-3">
-                Any quote we provide is subject to live availability, supplier
-                terms, pricing changes and final confirmation.
+                Any rate shown is subject to live availability, supplier terms,
+                pricing changes and final confirmation.
               </p>
             </section>
 
             <section>
               <h2 className="text-2xl font-bold text-[#071526]">
-                3. Quotes and availability
+                3. Booking and confirmation
               </h2>
               <p className="mt-3">
-                A quote is not a confirmed booking. A hotel booking is only
-                confirmed after you have accepted the quote, paid the required
-                amount, and we have received supplier confirmation.
+                Selecting a rate is not a confirmed booking. A hotel booking is
+                only confirmed after you have accepted the terms, paid, and we
+                have received confirmation from the hotel or supplier. We then
+                send your confirmation or voucher.
               </p>
               <p className="mt-3">
-                Prices can change before payment and confirmation. If a quoted
-                rate is no longer available before confirmation, we may offer an
-                alternative rate or you may choose not to proceed.
+                Prices and availability are live and can change until your
+                booking is confirmed. If a rate is no longer available before
+                confirmation, we may offer an alternative or you may choose not
+                to proceed.
               </p>
             </section>
 
@@ -100,13 +102,12 @@ export default function TermsPage() {
 
             <section>
               <h2 className="text-2xl font-bold text-[#071526]">
-                5. Payment and confirmation
+                5. Payment
               </h2>
               <p className="mt-3">
-                If you choose to proceed with a quote, we may send you a secure
-                payment link or agreed payment instructions. Payment does not
-                automatically guarantee confirmation until the supplier confirms
-                the hotel booking.
+                You pay securely online when you book. Payment does not by itself
+                guarantee confirmation until the hotel or supplier confirms the
+                booking.
               </p>
               <p className="mt-3">
                 If payment is received but the hotel rate is no longer

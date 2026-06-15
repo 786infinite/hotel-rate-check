@@ -3,7 +3,7 @@ import Link from "next/link";
 
 export const metadata: Metadata = {
   title: "Thank You | Hotel Rate Check",
-  description: "Your hotel rate check request has been received.",
+  description: "Your hotel booking request has been received.",
   robots: { index: false, follow: false, nocache: true },
 };
 
@@ -16,17 +16,18 @@ export default function ThankYouPage() {
         </p>
 
         <h1 className="mt-4 text-4xl font-black tracking-tight">
-          Thank you — your hotel rate check has been sent
+          Thank you — your request has been received
         </h1>
 
         <p className="mt-5 text-lg leading-8 text-gray-700">
-          We’ll check the hotel details you submitted and contact you if a
-          suitable rate is available.
+          We’re confirming availability for your dates and will email you a
+          secure link to complete your booking — with the full price,
+          cancellation terms and any pay-at-hotel charges shown before you pay.
         </p>
 
         <p className="mt-4 text-base leading-7 text-gray-600">
-          No booking has been made. Prices are live and subject to availability
-          until confirmed.
+          No payment has been taken and no booking is confirmed yet. Prices are
+          live and subject to availability until confirmed.
         </p>
 
         <Link

@@ -48,7 +48,7 @@ export default function ServicePage({ slug }: { slug: string }) {
           "@context": "https://schema.org",
           "@type": "Service",
           name: c.h1,
-          serviceType: "Hotel rate checking and assisted booking",
+          serviceType: "Online hotel booking",
           areaServed: "GB",
           provider: { "@type": "Organization", name: "HotelRateCheck.com", url: BASE_URL },
           description: c.metaDescription,
@@ -106,7 +106,7 @@ export default function ServicePage({ slug }: { slug: string }) {
           href="/hotel-rate-check"
           className="mt-8 inline-flex rounded-full border border-[#b88434] px-4 py-2 text-sm font-semibold text-[#071526] hover:bg-[#b88434] hover:text-white"
         >
-          ← About hotel rate checks
+          ← About booking with us
         </Link>
       </section>
     </main>

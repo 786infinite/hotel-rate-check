@@ -1,8 +1,12 @@
 /**
  * Content registry for SEO service/guide pages. Each entry renders via
  * app/_seo/ServicePage.tsx. Keep copy DISTINCT per page (no near-duplicates) and
- * on-brand: hotel-only, no "cheapest guaranteed", no booking without approval,
- * always show cancellation terms and pay-at-hotel charges before payment.
+ * on-brand: hotel-only, no "cheapest guaranteed", full price and terms (including
+ * cancellation policy and any pay-at-hotel charges) shown before payment.
+ *
+ * Positioning: online hotel booking. We check the live rate and book it for you
+ * online — NOT a manual "send us your price and we'll get back to you" service.
+ * A booking is confirmed once the hotel confirms it; we email the confirmation/voucher.
  *
  * Add a new page = add an entry here + a thin route file + a sitemap line.
  */
@@ -30,145 +34,145 @@ export const SEO_CONTENT: Record<string, ServiceContent> = {
   "business-hotel-rate-check": {
     slug: "business-hotel-rate-check",
     pageType: "service",
-    title: "Business Hotel Rate Check — Save on Staff & Work Travel",
+    title: "Business Hotel Rate Check — Book Staff & Work Travel Online",
     metaDescription:
-      "Booking hotels for work? Send us the hotel and price and we check live supplier rates to see if we can improve it. Hotel-only, clear terms, no booking until you approve.",
-    keywords: ["business hotel rate check", "corporate hotel booking", "staff travel hotels", "work trip hotel rates"],
-    h1: "Business hotel rate check",
+      "Book hotels for staff and work trips online. See the live rate with the full price, cancellation terms and any pay-at-hotel charges before you pay. Hotel accommodation only.",
+    keywords: ["business hotel rate check", "corporate hotel booking", "staff travel hotels", "book work trip hotels"],
+    h1: "Business hotel booking",
     intro:
-      "If you book hotels for staff, projects or work trips, send us the hotel and the price you have found and we check live supplier rates for the same stay. Where we can improve on it, we send a clear quote with the full price, cancellation terms and any charges payable at the hotel. We handle hotel accommodation only, with no booking made until you approve.",
+      "Booking hotels for staff, projects or work trips? Search the hotel and dates, see the live rate with the full price and terms up front, and book and pay online in one place. We deal with hotel accommodation only — no flights, packages or upsells.",
     sections: [
       {
         h2: "Built for how businesses actually book",
         body:
-          "You usually know the hotel you want and just need the best sensible rate without spending an afternoon comparing tabs. Send us the details and we do the checking, then give you a straight answer: a quote if we can help, or an honest no if we cannot.",
+          "You usually know the hotel you want and just need a clear price and a clean booking without spending an afternoon comparing tabs. Search it, see the live rate, and book — with the total cost and the cancellation terms shown before you pay.",
       },
       {
         h2: "Clear costs before you commit",
         body:
-          "Every quote shows the total price, whether it is refundable, the cancellation policy and any local taxes or fees payable directly at the hotel. Nothing is booked until you accept the terms and pay, and a booking is only confirmed once the supplier confirms it.",
+          "Every booking shows the total price, whether the rate is refundable, the cancellation policy and any local taxes or fees payable directly at the hotel. Nothing is charged until you accept the terms and pay, and your booking is confirmed once the hotel confirms it.",
       },
       {
-        h2: "Suitable for single trips or regular travel",
+        h2: "Single trips or regular travel",
         body:
-          "Whether it is a one-off site visit or recurring staff stays, you can send each request as it comes up. For larger requirements we can look at multiple rooms; very large group bookings are handled individually.",
+          "Whether it is a one-off site visit or recurring staff stays, book each one as it comes up. For several rooms we can help with multiple-room bookings; very large group bookings are handled individually.",
       },
     ],
     faqs: [
-      { q: "Can you invoice my company?", a: "Get in touch with your requirements and we will confirm how payment and documentation work for your booking." },
+      { q: "Can you invoice my company?", a: "Get in touch with your requirements and we will confirm the payment and documentation options for your booking." },
       { q: "Do you book flights or packages?", a: "No. We provide hotel accommodation only — no flights, transfers or packages." },
-      { q: "What if the rate changes before booking?", a: "Hotel rates are live. If a rate or availability changes before we can complete your booking, we offer an alternative or refund you in full." },
+      { q: "What if the rate changes before my booking is confirmed?", a: "Hotel rates are live. If a rate or availability changes before your booking is confirmed, we offer a suitable alternative or refund you in full." },
     ],
-    ctaHeading: "Checking hotels for work?",
-    ctaBody: "Send us the hotel and price and we will see whether we can improve it. Getting a quote is free.",
+    ctaHeading: "Booking hotels for work?",
+    ctaBody: "Search your hotel and dates and book online — full price and terms shown before you pay.",
   },
 
   "group-hotel-rate-check": {
     slug: "group-hotel-rate-check",
     pageType: "service",
-    title: "Group Hotel Rate Check — Multiple Rooms, One Clear Quote",
+    title: "Group Hotel Rate Check — Book Multiple Rooms Online",
     metaDescription:
-      "Booking several hotel rooms? Send us the details and we check live supplier rates for the group. Clear pricing, cancellation terms shown up front, no booking until you approve.",
-    keywords: ["group hotel rate check", "multiple hotel rooms booking", "group accommodation rates", "team hotel booking"],
-    h1: "Group hotel rate check",
+      "Booking several hotel rooms? Book your group online with clear pricing and cancellation terms shown up front. Hotel accommodation only.",
+    keywords: ["group hotel rate check", "book multiple hotel rooms", "group accommodation booking", "team hotel booking"],
+    h1: "Group hotel booking",
     intro:
-      "Booking several rooms for a team, event or family group? Send us the hotel, dates and number of rooms, and we check live supplier rates for the group. Where we can help, we send one clear quote covering the rooms, with cancellation terms and any pay-at-hotel charges shown before you pay.",
+      "Booking several rooms for a team, event or family group? Tell us the hotel, dates and number of rooms and book the group online, with the cancellation terms and any pay-at-hotel charges shown before you pay.",
     sections: [
       {
-        h2: "One request, one clear answer",
+        h2: "Several rooms, one clear booking",
         body:
-          "Instead of pricing rooms one by one, send the whole requirement and we check it together. You get a single quote you can review, accept and pay — no booking made until you approve.",
+          "Instead of pricing rooms one at a time, handle the whole group together. You see one clear total you can review and pay, with the terms shown before anything is charged.",
       },
       {
         h2: "Cancellation terms matter more for groups",
         body:
-          "Group rooms can have stricter cancellation rules. We show the refundability and cancellation policy clearly before payment so you know exactly where you stand for the whole booking.",
+          "Group rooms can carry stricter cancellation rules. We show refundability and the cancellation policy clearly before payment, so you know exactly where you stand for the whole booking.",
       },
       {
         h2: "Large groups handled individually",
         body:
-          "Bookings of around eight rooms or more are treated as group bookings and handled individually with the supplier, so we can confirm terms properly before anything is committed.",
+          "Bookings of around eight rooms or more are treated as group bookings and handled individually with the hotel, so terms are confirmed properly before anything is committed.",
       },
     ],
     faqs: [
-      { q: "How many rooms can you check?", a: "From a couple of rooms upwards. Larger group bookings (around eight rooms or more) are handled individually." },
+      { q: "How many rooms can I book?", a: "From a couple of rooms upwards. Larger group bookings (around eight rooms or more) are handled individually." },
       { q: "Can everyone pay separately?", a: "Tell us how you would like to handle payment and we will let you know what is possible for your booking." },
       { q: "Are group rooms refundable?", a: "It depends on the rate. We always show whether a rate is refundable and its cancellation policy before you pay." },
     ],
     ctaHeading: "Booking rooms for a group?",
-    ctaBody: "Send us the hotel, dates and number of rooms and we will check the rates. Getting a quote is free.",
+    ctaBody: "Tell us the hotel, dates and number of rooms and book the group online — terms shown before you pay.",
   },
 
   "contractor-hotel-accommodation": {
     slug: "contractor-hotel-accommodation",
     pageType: "service",
-    title: "Contractor Hotel Accommodation — Rate Checks for Project Teams",
+    title: "Contractor Hotel Accommodation — Book Project-Team Stays Online",
     metaDescription:
-      "Putting contractors or project teams up in hotels? Send us the hotel and price and we check live supplier rates, including for longer stays. Clear terms, no booking until you approve.",
-    keywords: ["contractor hotel accommodation", "project team hotels", "construction crew accommodation", "long stay hotel rates"],
+      "Putting contractors or project teams up in hotels? Book online, including longer stays, with clear terms and any pay-at-hotel charges shown before you pay. Hotel accommodation only.",
+    keywords: ["contractor hotel accommodation", "project team hotels", "construction crew accommodation", "book long stay hotels"],
     h1: "Contractor & project-team hotel accommodation",
     intro:
-      "If you arrange hotels for contractors, engineers or project crews, send us the hotel and the price you have, and we check live supplier rates for the same stay — including longer runs of nights. Where we can improve on it, you get a clear quote with cancellation terms and any pay-at-hotel charges shown before payment.",
+      "Arranging hotels for contractors, engineers or project crews? Book the stay online — including longer runs of nights — with the full price, cancellation terms and any pay-at-hotel charges shown before payment. Hotel accommodation only.",
     sections: [
       {
-        h2: "Longer stays, checked properly",
+        h2: "Longer stays, booked cleanly",
         body:
-          "Project work often means multi-night or multi-week stays near a site. Send the dates and we check what is available; we will be upfront about refundability and any charges the hotel collects directly.",
+          "Project work often means multi-night or multi-week stays near a site. Search the dates, see what is available, and book — with refundability and any charges the hotel collects directly made clear up front.",
       },
       {
         h2: "No surprises for the person paying",
         body:
-          "We show the full price, cancellation policy and any local taxes or fees payable at the hotel before you commit. Nothing is booked until you approve, and confirmation only follows once the supplier confirms.",
+          "You see the full price, the cancellation policy and any local taxes or fees payable at the hotel before you commit. Nothing is charged until you accept the terms, and your booking is confirmed once the hotel confirms it.",
       },
       {
-        h2: "Repeat requests welcome",
+        h2: "Repeat bookings welcome",
         body:
-          "As crews and sites change, send each request as it comes up. We handle hotel accommodation only — no flights or packages.",
+          "As crews and sites change, book each stay as it comes up. We handle hotel accommodation only — no flights or packages.",
       },
     ],
     faqs: [
-      { q: "Can you handle near-site hotels?", a: "Yes — send the hotel or area and dates and we will check available rates for that location." },
-      { q: "What about long stays?", a: "We can check multi-night and longer stays. Refundability and cancellation terms are always shown before you pay." },
-      { q: "Is anything booked automatically?", a: "No. We never book without your approval, and a booking is confirmed only after the supplier confirms it." },
+      { q: "Can you handle near-site hotels?", a: "Yes — search the hotel or area and dates and book whatever is available for that location." },
+      { q: "What about long stays?", a: "You can book multi-night and longer stays. Refundability and cancellation terms are always shown before you pay." },
+      { q: "When is my booking confirmed?", a: "Your booking is confirmed once the hotel confirms it, and we email your confirmation or voucher." },
     ],
     ctaHeading: "Booking hotels for a crew?",
-    ctaBody: "Send the hotel, dates and price and we will check the rates, including longer stays. Quotes are free.",
+    ctaBody: "Search the hotel and dates and book online, including longer stays — terms shown before you pay.",
   },
 
   "corporate-hotel-rate-check": {
     slug: "corporate-hotel-rate-check",
     pageType: "service",
-    title: "Corporate Hotel Rate Check — Tidy, Transparent Work Bookings",
+    title: "Corporate Hotel Rate Check — Transparent Work Bookings Online",
     metaDescription:
-      "A simple way for companies to sanity-check hotel rates before booking. Send the hotel and price; we check live supplier rates and quote with clear terms. No booking until you approve.",
-    keywords: ["corporate hotel rate check", "company hotel booking", "business travel hotel rates", "managed hotel bookings"],
-    h1: "Corporate hotel rate check",
+      "A simple way for companies to book hotels online with clear, transparent pricing. See the live rate, full price and cancellation terms before you pay. Hotel accommodation only.",
+    keywords: ["corporate hotel rate check", "company hotel booking", "business travel hotel booking", "managed hotel bookings"],
+    h1: "Corporate hotel booking",
     intro:
-      "A straightforward way for companies to check a hotel rate before booking. Send us the hotel and the price you have found and we check live supplier rates for the same stay, then quote clearly where we can help — with the full price, refundability, cancellation policy and any pay-at-hotel charges shown before payment.",
+      "A straightforward way for companies to book hotels online. Search the hotel and dates, see the live rate, and book — with the full price, refundability, cancellation policy and any pay-at-hotel charges shown before payment.",
     sections: [
       {
-        h2: "A second pair of eyes on every rate",
+        h2: "Clear rates, clean bookings",
         body:
-          "Rather than replacing your booking process, we add a quick check: is there a better sensible rate for this exact stay? You stay in control and only proceed if a quote works for you.",
+          "See the live rate for the exact stay and book it in one place. You stay in control of the cost and the terms, with everything shown before you pay.",
       },
       {
         h2: "Transparent by design",
         body:
-          "We never hide costs. Quotes set out the total, whether it is refundable, the cancellation terms and any charges the hotel collects directly, so approvals are simple and there are no surprises later.",
+          "We never hide costs. Each booking sets out the total, whether it is refundable, the cancellation terms and any charges the hotel collects directly — so approvals are simple and there are no surprises later.",
       },
       {
         h2: "Hotel-only, clearly scoped",
         body:
-          "We provide hotel accommodation only — no flights, transfers, packages or linked travel arrangements. A booking is confirmed only once the supplier confirms it.",
+          "We provide hotel accommodation only — no flights, transfers, packages or linked travel arrangements. A booking is confirmed once the hotel confirms it.",
       },
     ],
     faqs: [
-      { q: "Do we have to change our travel process?", a: "No. Use us as a quick rate check before you book. You decide whether to proceed on each quote." },
-      { q: "How do approvals work?", a: "Each quote shows the full cost and terms in one place, which makes internal sign-off straightforward." },
-      { q: "What happens if a booking cannot be completed?", a: "If we cannot complete a paid booking with the supplier, we offer an alternative or refund in full." },
+      { q: "Do we have to change our travel process?", a: "No. Use us to book hotels online whenever you need to. You see the full cost and terms before you pay." },
+      { q: "How do approvals work?", a: "Each booking shows the full cost and terms in one place, which makes internal sign-off straightforward." },
+      { q: "What happens if a booking cannot be completed?", a: "If we cannot complete a paid booking with the hotel, we offer a suitable alternative or refund you in full." },
     ],
-    ctaHeading: "Want a quick check before booking?",
-    ctaBody: "Send the hotel and price and we will check our supplier rates. Getting a quote is free.",
+    ctaHeading: "Booking company hotels?",
+    ctaBody: "Search the hotel and dates and book online — full price and terms shown before you pay.",
   },
 
   "how-to-check-if-a-hotel-rate-is-good": {
@@ -180,7 +184,7 @@ export const SEO_CONTENT: Record<string, ServiceContent> = {
     keywords: ["how to check hotel rate", "is my hotel rate good", "compare hotel prices", "hotel booking tips"],
     h1: "How to check if a hotel rate is good",
     intro:
-      "A hotel price only means something when you compare it properly. The same room on two sites can look different once you account for board, cancellation terms and charges paid at the hotel. Here is a simple way to judge whether a rate is genuinely good before you commit.",
+      "A hotel price only means something when you compare it properly. The same room on two sites can look different once you account for board, cancellation terms and charges paid at the hotel. Here is a simple way to judge whether a rate is genuinely good before you book.",
     sections: [
       {
         h2: "Compare like-for-like",
@@ -198,18 +202,18 @@ export const SEO_CONTENT: Record<string, ServiceContent> = {
           "Non-refundable rates are usually cheaper but you lose the money if plans change. A flexible rate costs more but lets you cancel. Neither is automatically better — it depends on how certain your plans are.",
       },
       {
-        h2: "Get a second opinion",
+        h2: "Book with the full picture",
         body:
-          "If you want someone to check whether a better sensible rate exists for the exact stay you have in mind, you can send it to us. We check supplier rates and tell you plainly whether we can improve on what you have.",
+          "When you book with us, the live rate is shown with the full price, whether it is refundable, the cancellation policy and any pay-at-hotel charges — so you can see the true total and the terms before you pay.",
       },
     ],
     faqs: [
       { q: "Is the lowest price always the best deal?", a: "Not necessarily. A low room-only, non-refundable price with pay-at-hotel taxes can end up costing more or being riskier than a slightly higher flexible rate. Compare the true total and the terms." },
       { q: "What is the true total?", a: "The online price plus any taxes or fees the hotel charges directly at check-in or check-out." },
-      { q: "How do I know if a rate is refundable?", a: "The rate or quote should state it. If it is not clear, treat it as non-refundable until confirmed." },
+      { q: "How do I know if a rate is refundable?", a: "It is shown before you pay. If refundability is not clear, treat the rate as non-refundable until confirmed." },
     ],
-    ctaHeading: "Want us to check a specific rate?",
-    ctaBody: "Send us the hotel, dates and price and we will tell you whether we can improve it. Getting a quote is free.",
+    ctaHeading: "Ready to book?",
+    ctaBody: "Search your hotel and dates and book online — the full price, terms and any pay-at-hotel charges are shown before you pay.",
   },
 
   "non-refundable-hotel-rates-explained": {
@@ -249,8 +253,8 @@ export const SEO_CONTENT: Record<string, ServiceContent> = {
       { q: "Can I change the dates?", a: "Non-refundable rates are typically also non-amendable. Treat dates, names and room as fixed once booked." },
       { q: "Are non-refundable rates worth it?", a: "If your plans are firm, the saving can be worthwhile. If not, a flexible rate may be the safer choice." },
     ],
-    ctaHeading: "Not sure which rate to choose?",
-    ctaBody: "Send us your hotel and dates and we will show you the options, including whether a rate is refundable, before you decide.",
+    ctaHeading: "Choosing your rate?",
+    ctaBody: "Search your hotel and dates and book online — whether each rate is refundable is shown before you pay.",
   },
 
   "hotel-local-taxes-explained": {
@@ -282,16 +286,16 @@ export const SEO_CONTENT: Record<string, ServiceContent> = {
       {
         h2: "How we handle it",
         body:
-          "Where we are aware of taxes or fees payable at the hotel, we show them in your quote before you pay, so you can see the true total rather than just the room price.",
+          "Where we are aware of taxes or fees payable at the hotel, we show them before you pay, so you see the true total rather than just the room price.",
       },
     ],
     faqs: [
       { q: "Why are these charges not in the online price?", a: "Many local taxes and resort fees are set to be collected by the hotel directly, so they sit outside the online room rate." },
-      { q: "Do I pay them when I book or at the hotel?", a: "Usually at the hotel, at check-in or check-out. We flag them in your quote where we know they apply." },
+      { q: "Do I pay them when I book or at the hotel?", a: "Usually at the hotel, at check-in or check-out. We flag them before you pay where we know they apply." },
       { q: "Are these charges refundable?", a: "Local taxes and fees are set by the hotel or authority and are generally payable regardless. Check the specific terms for your stay." },
     ],
     ctaHeading: "Want the true total before you book?",
-    ctaBody: "Send us the hotel and dates and we will show the room price and any pay-at-hotel charges we are aware of.",
+    ctaBody: "Search the hotel and dates and book online — the room price and any pay-at-hotel charges we are aware of are shown before you pay.",
   },
 
   "free-cancellation-vs-cheaper-hotel-rates": {
@@ -329,9 +333,9 @@ export const SEO_CONTENT: Record<string, ServiceContent> = {
     faqs: [
       { q: "Is free cancellation always more expensive?", a: "Usually, yes — the flexibility carries a cost. The gap varies by hotel and date." },
       { q: "Until when can I cancel a flexible rate?", a: "Each rate has its own cancellation deadline. Always check the policy shown before you book." },
-      { q: "Can you show me both options?", a: "Yes — send us the hotel and dates and we will show what is available, including whether each rate is refundable." },
+      { q: "Can I see both options?", a: "Yes — search the hotel and dates and you will see what is available, including whether each rate is refundable, before you pay." },
     ],
     ctaHeading: "Weighing flexibility against price?",
-    ctaBody: "Send us your hotel and dates and we will lay out the options and their cancellation terms so you can choose.",
+    ctaBody: "Search your hotel and dates and book online — each rate and its cancellation terms are shown so you can choose.",
   },
 };

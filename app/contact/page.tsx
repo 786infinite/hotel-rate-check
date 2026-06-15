@@ -26,18 +26,18 @@ export default function ContactPage() {
           <h1 className="text-3xl font-bold md:text-5xl">Contact us</h1>
 
           <p className="mt-4 max-w-2xl text-lg leading-8 text-gray-700">
-            Send us your hotel and dates and we will confirm available rates and
-            a secure link to complete your booking online, with the full price
-            and terms shown before you pay.
+            Book your hotel online and see the full price and terms before you
+            pay. If you have a question about a booking, your confirmation, or
+            need a hand, our team is here to help.
           </p>
 
           <div className="mt-8 grid gap-5 md:grid-cols-2">
             <div className="rounded-2xl border border-gray-200 bg-[#f7f2e9] p-6">
               <h2 className="text-xl font-bold text-[#071526]">
-                Email enquiries
+                Email us
               </h2>
               <p className="mt-3 text-gray-700">
-                For booking enquiries, quote questions and support,
+                For help with a booking, your confirmation or any question,
                 email:
               </p>
               <a
@@ -70,9 +70,9 @@ export default function ContactPage() {
               Before you contact us
             </h2>
             <p className="mt-3 text-gray-700">
-              Please include the hotel name, destination, check-in date,
-              check-out date, number of guests, room type if known, and the
-              total price you found.
+              If your question is about an existing booking, please include your
+              booking reference, the hotel name, and the check-in and check-out
+              dates so we can help quickly.
             </p>
             <p className="mt-3 font-semibold text-[#071526]">
               We provide hotel accommodation only. We do not sell flights,
