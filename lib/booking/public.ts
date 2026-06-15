@@ -39,9 +39,16 @@ export interface PublicRoom {
 export interface PublicHotel {
   hotelCode: string;
   hotelName: string;
+  /** Hotel image: TBO static content when live, else an open-source fallback. */
+  image: string;
   currency: string;
   rooms: PublicRoom[];
 }
+
+// Open-source (Unsplash, free for commercial use) fallback used until TBO static
+// content images are available. Degrades to a gradient if it fails to load.
+const HOTEL_FALLBACK_IMAGE =
+  "https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?auto=format&fit=crop&w=1200&q=70";
 
 export interface PublicSearchParams {
   destination: string;
@@ -89,9 +96,12 @@ export async function publicSearch(params: PublicSearchParams): Promise<PublicSe
     return { status: "no_availability", hotels: [] };
   }
 
-  const hotels: PublicHotel[] = await Promise.all(res.HotelResult.map(async (hotel) => ({
+  const hotels: PublicHotel[] = await Promise.all(res.HotelResult.map(async (hotel) => {
+    const content = await index.content(hotel.HotelCode);
+    return {
     hotelCode: hotel.HotelCode,
-    hotelName: (await index.name(hotel.HotelCode)) ?? `Hotel ${hotel.HotelCode}`,
+    hotelName: content?.name ?? `Hotel ${hotel.HotelCode}`,
+    image: content?.images?.[0] ?? HOTEL_FALLBACK_IMAGE,
     currency: hotel.Currency,
     rooms: hotel.Rooms.map((room): PublicRoom => {
       const price = tbo.priceForCustomer(room, hotel.Currency);
@@ -105,7 +115,8 @@ export async function publicSearch(params: PublicSearchParams): Promise<PublicSe
         payAtHotel: price.payAtHotel,
       };
     }),
-  })));
+    };
+  }));
 
   return { status: "ok", hotels };
 }

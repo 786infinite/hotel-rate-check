@@ -3,6 +3,7 @@ import Link from "next/link";
 import { publicSearch, nightsBetween, type PublicSearchResult } from "@/lib/booking/public";
 import { parseRoomsParam, toPaxRooms, encodeRooms, occupancySummary } from "@/lib/booking/occupancy";
 import OccupancyPicker from "@/app/components/OccupancyPicker";
+import SmartImage from "@/app/components/SmartImage";
 
 export const metadata: Metadata = {
   title: "Search results | Hotel Rate Check",
@@ -112,6 +113,14 @@ export default async function SearchPage({
             </p>
             {result.hotels.map((hotel) => (
               <div key={hotel.hotelCode} className="overflow-hidden rounded-3xl bg-white shadow-sm ring-1 ring-black/5">
+                <div className="relative h-40 w-full overflow-hidden bg-gradient-to-br from-[#15324f] to-[#0a1c30]">
+                  <SmartImage
+                    src={hotel.image}
+                    alt={hotel.hotelName}
+                    sizes="(min-width: 1024px) 768px, 100vw"
+                    className="object-cover"
+                  />
+                </div>
                 <div className="border-b border-gray-100 px-6 py-4">
                   <h2 className="text-xl font-black">{hotel.hotelName}</h2>
                 </div>

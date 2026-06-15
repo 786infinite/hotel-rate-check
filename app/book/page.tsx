@@ -86,7 +86,7 @@ export default async function BookPage({
   const priceLabel = money(room.sellPrice, room.currency);
 
   return (
-    <main className="min-h-screen bg-[#f7f2e9] px-6 py-12 text-[#071526] md:py-16">
+    <main className="min-h-screen bg-[#f7f2e9] px-6 pb-28 pt-12 text-[#071526] md:py-16">
       <div className="mx-auto max-w-3xl">
         {backToSearch}
 
@@ -155,7 +155,7 @@ export default async function BookPage({
         </div>
 
         {/* Guest details + pay */}
-        <div className="mt-6">
+        <div id="guest-form" className="mt-6 scroll-mt-6">
           <TrustStrip className="mb-4 justify-center" />
           <BookingForm
             bookingCode={room.bookingCode}
@@ -165,6 +165,22 @@ export default async function BookPage({
             priceLabel={priceLabel}
             rooms={rooms.length}
           />
+        </div>
+      </div>
+
+      {/* Mobile sticky summary bar */}
+      <div className="fixed inset-x-0 bottom-0 z-30 border-t border-gray-200 bg-white/95 px-4 py-3 backdrop-blur md:hidden">
+        <div className="mx-auto flex max-w-3xl items-center justify-between gap-3">
+          <div>
+            <p className="text-lg font-black leading-none">{priceLabel}</p>
+            <p className="mt-1 text-[11px] text-gray-500">total · taxes included</p>
+          </div>
+          <a
+            href="#guest-form"
+            className="rounded-full bg-[#071526] px-6 py-3 text-sm font-bold text-white"
+          >
+            Continue
+          </a>
         </div>
       </div>
     </main>
