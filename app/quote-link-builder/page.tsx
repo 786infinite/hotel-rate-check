@@ -1,17 +1,7 @@
-import type { Metadata } from "next";
-import QuoteLinkBuilderClient from "./QuoteLinkBuilderClient";
+import { notFound } from "next/navigation";
 
-export const metadata: Metadata = {
-  title: "Quote Email Builder | Hotel Rate Check",
-  description:
-    "Internal Hotel Rate Check quote email builder for creating customer quote links.",
-  robots: {
-    index: false,
-    follow: false,
-    nocache: true,
-  },
-};
-
-export default function QuoteLinkBuilderPage() {
-  return <QuoteLinkBuilderClient />;
+// Retired with the manual quote-link flow (replaced by instant online booking).
+// Remove fully on your machine: git rm -r app/quote-link-builder
+export default function Page() {
+  notFound();
 }

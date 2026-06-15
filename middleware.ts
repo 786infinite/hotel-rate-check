@@ -1,6 +1,14 @@
 import { NextRequest, NextResponse } from "next/server";
 
-const PROTECTED_PATHS = ["/quote-link-builder", "/rate-search", "/api/tbo"];
+// Staff-only paths behind Basic Auth. NOTE: /api/payments/webhook and
+// /api/payments/status stay PUBLIC (Stripe calls the webhook; the customer
+// status page polls status) — only the price-setting create-checkout is locked.
+const PROTECTED_PATHS = [
+  "/quote-link-builder",
+  "/rate-search",
+  "/api/tbo",
+  "/api/payments/create-checkout",
+];
 
 function isProtectedPath(pathname: string) {
   return PROTECTED_PATHS.some(
@@ -89,5 +97,6 @@ export const config = {
     "/quote-link-builder/:path*",
     "/rate-search/:path*",
     "/api/tbo/:path*",
+    "/api/payments/create-checkout",
   ],
 };

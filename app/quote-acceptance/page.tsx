@@ -1,28 +1,9 @@
-import type { Metadata } from "next";
-import { Suspense } from "react";
-import QuoteAcceptanceClient from "./QuoteAcceptanceClient";
+import { notFound } from "next/navigation";
 
-export const metadata: Metadata = {
-  robots: { index: false, follow: false, nocache: true },
-  title: "Review, Accept & Pay | Hotel Rate Check",
-  description:
-    "Review your Hotel Rate Check quote, accept the booking terms and continue to secure payment.",
-};
-
-export default function QuoteAcceptancePage() {
-  return (
-    <Suspense
-      fallback={
-        <main className="min-h-screen bg-[#f7f2e9] text-[#071526]">
-          <section className="mx-auto max-w-4xl px-6 py-12 md:py-16">
-            <div className="rounded-3xl bg-white p-6 shadow-xl md:p-10">
-              <p className="text-lg font-semibold">Loading quote...</p>
-            </div>
-          </section>
-        </main>
-      }
-    >
-      <QuoteAcceptanceClient />
-    </Suspense>
-  );
+// Retired: the manual quote-link flow is replaced by instant online booking
+// (/search → /book). The /api/quote-acceptance handler never existed, so this
+// page 404s rather than silently failing. Remove fully on your machine:
+//   git rm -r app/quote-acceptance app/quote-accepted app/quote-link-builder
+export default function Page() {
+  notFound();
 }

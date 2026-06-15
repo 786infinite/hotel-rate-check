@@ -22,6 +22,11 @@ let notifier: Notifier | null = null;
 
 function build(): Notifier {
   if (process.env.NOTIFY_MOCK === "1") return new ConsoleNotifier();
+  if (process.env.ZEPTOMAIL_TOKEN) {
+    // eslint-disable-next-line @typescript-eslint/no-require-imports
+    const { ZohoNotifier } = require("./zoho") as typeof import("./zoho");
+    return new ZohoNotifier();
+  }
   if (process.env.RESEND_API_KEY) {
     // eslint-disable-next-line @typescript-eslint/no-require-imports
     const { ResendNotifier } = require("./resend") as typeof import("./resend");

@@ -103,6 +103,12 @@ export class StripeProvider implements PaymentProvider {
     const provided = parts["v1"];
     if (!timestamp || !provided) throw new PaymentError("Malformed Stripe-Signature", "signature");
 
+    // Reject replays: the signed timestamp must be within ±5 minutes of now.
+    const ts = parseInt(timestamp, 10);
+    if (!Number.isFinite(ts) || Math.abs(Date.now() / 1000 - ts) > 300) {
+      throw new PaymentError("Stripe webhook timestamp outside tolerance (possible replay)", "signature");
+    }
+
     const expected = crypto
       .createHmac("sha256", this.webhookSecret)
       .update(`${timestamp}.${input.rawBody}`, "utf8")

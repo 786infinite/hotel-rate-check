@@ -42,10 +42,17 @@ export interface QuoteStore {
   get(reference: string): Promise<AcceptedQuote | null>;
   save(quote: AcceptedQuote): Promise<void>;
   update(reference: string, patch: Partial<AcceptedQuote>): Promise<void>;
+  /**
+   * Atomically claim a reference for fulfilment. Returns true only for the FIRST
+   * caller; later callers (e.g. a retried webhook) get false. Prevents
+   * double-booking when the provider redelivers a payment event.
+   */
+  claim(reference: string): Promise<boolean>;
 }
 
 class InMemoryQuoteStore implements QuoteStore {
   private map = new Map<string, AcceptedQuote>();
+  private claimed = new Set<string>();
   async get(reference: string) {
     return this.map.get(reference) ?? null;
   }
@@ -55,6 +62,11 @@ class InMemoryQuoteStore implements QuoteStore {
   async update(reference: string, patch: Partial<AcceptedQuote>) {
     const existing = this.map.get(reference);
     if (existing) this.map.set(reference, { ...existing, ...patch });
+  }
+  async claim(reference: string) {
+    if (this.claimed.has(reference)) return false;
+    this.claimed.add(reference);
+    return true;
   }
 }
 
@@ -125,6 +137,13 @@ export async function onPaymentSucceeded(event: PaymentEvent): Promise<Fulfilmen
   }
   if (quote.status === "booked") {
     return { status: "ignored", reason: `Reference ${event.reference} already booked` };
+  }
+
+  // Idempotency: only the first delivery of this event proceeds. A retried/
+  // duplicate webhook loses the claim and is ignored, so we never double-book.
+  const won = await quotes.claim(event.reference);
+  if (!won) {
+    return { status: "ignored", reason: `Reference ${event.reference} already being processed` };
   }
 
   await quotes.update(event.reference, { status: "paid", providerPaymentId: event.providerPaymentId });

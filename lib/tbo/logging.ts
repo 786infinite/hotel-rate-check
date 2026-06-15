@@ -39,16 +39,22 @@ export function setTboLogSink(custom: Sink): void {
   sink = custom;
 }
 
-/** Redact sensitive fields (card numbers, CVV) from a request body before logging. */
+// Guest PII (names, email, phone) is scrubbed from logs by default to respect
+// GDPR. Set TBO_LOG_PII=1 only when capturing full JSON logs for TBO
+// certification — never in normal production.
+const LOG_PII = process.env.TBO_LOG_PII === "1";
+const PII_KEY = /^(email|emailid|phone|phonenumber|firstname|lastname|customernames|paxname|guestname)$/i;
+
+/** Redact card data always; guest PII unless TBO_LOG_PII=1. */
 function redact(value: unknown): unknown {
   if (value == null || typeof value !== "object") return value;
   if (Array.isArray(value)) return value.map(redact);
 
   const out: Record<string, unknown> = {};
   for (const [k, v] of Object.entries(value as Record<string, unknown>)) {
-    if (k === "PaymentInfo") {
+    if (k === "PaymentInfo" || /card|cvv|cvc/i.test(k)) {
       out[k] = "[REDACTED]";
-    } else if (/card|cvv|cvc/i.test(k)) {
+    } else if (!LOG_PII && PII_KEY.test(k)) {
       out[k] = "[REDACTED]";
     } else {
       out[k] = redact(v);

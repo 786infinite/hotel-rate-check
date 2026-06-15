@@ -13,6 +13,7 @@ import { PaymentError } from "./types";
 import type { AcceptedQuote, QuoteStore } from "./fulfilment";
 
 const QUOTE_TTL_SECONDS = 60 * 60 * 24; // 24h
+const LOCK_TTL_SECONDS = 600; // 10-min single-flight window for fulfilment
 
 export class KVQuoteStore implements QuoteStore {
   private readonly url: string;
@@ -68,5 +69,11 @@ export class KVQuoteStore implements QuoteStore {
     if (!existing) return;
     const merged = JSON.stringify({ ...existing, ...patch });
     await this.command(["SET", this.key(reference), merged, "EX", QUOTE_TTL_SECONDS]);
+  }
+
+  /** Atomic single-flight lock via SET NX. Returns true only for the first caller. */
+  async claim(reference: string): Promise<boolean> {
+    const result = await this.command(["SET", `lock:${reference}`, "1", "NX", "EX", LOCK_TTL_SECONDS]);
+    return result === "OK";
   }
 }
