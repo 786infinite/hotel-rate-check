@@ -10,6 +10,7 @@
 
 import { NextResponse } from "next/server";
 import { publicSearch } from "@/lib/booking/public";
+import { parseRoomsParam, toPaxRooms } from "@/lib/booking/occupancy";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -18,9 +19,9 @@ interface Body {
   destination?: string;
   checkIn?: string;
   checkOut?: string;
+  /** Encoded occupancy, e.g. "2|2-5,8". Legacy `adults` still accepted. */
+  rooms?: string;
   adults?: number;
-  children?: number;
-  childrenAges?: number[];
   nationality?: string;
 }
 
@@ -64,13 +65,12 @@ export async function POST(request: Request) {
   }
 
   try {
+    const roomsParam = body.rooms ?? (body.adults ? String(body.adults) : undefined);
     const result = await publicSearch({
       destination: body.destination!,
       checkIn: body.checkIn!,
       checkOut: body.checkOut!,
-      adults: Number(body.adults) || 2,
-      children: body.children,
-      childrenAges: body.childrenAges,
+      paxRooms: toPaxRooms(parseRoomsParam(roomsParam)),
       nationality: body.nationality,
     });
     return NextResponse.json(result);

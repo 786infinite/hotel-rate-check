@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { publicSearch, type PublicSearchResult } from "@/lib/booking/public";
+import { parseRoomsParam, toPaxRooms, encodeRooms, occupancySummary } from "@/lib/booking/occupancy";
+import OccupancyPicker from "@/app/components/OccupancyPicker";
 
 export const metadata: Metadata = {
   title: "Search results | Hotel Rate Check",
@@ -40,7 +42,10 @@ export default async function SearchPage({
   const destination = first(sp.destination);
   const checkIn = first(sp.checkIn);
   const checkOut = first(sp.checkOut);
-  const adults = Number(first(sp.adults)) || 2;
+  const roomsParam = first(sp.rooms) || first(sp.adults); // accept legacy ?adults=
+  const rooms = parseRoomsParam(roomsParam || undefined);
+  const encodedRooms = encodeRooms(rooms);
+  const summary = occupancySummary(rooms);
 
   const hasQuery = Boolean(destination && checkIn && checkOut);
 
@@ -48,7 +53,7 @@ export default async function SearchPage({
   let error: string | null = null;
   if (hasQuery) {
     try {
-      result = await publicSearch({ destination, checkIn, checkOut, adults });
+      result = await publicSearch({ destination, checkIn, checkOut, paxRooms: toPaxRooms(rooms) });
     } catch (e) {
       error = e instanceof Error ? e.message : "Search failed";
     }
@@ -71,10 +76,7 @@ export default async function SearchPage({
             <span className={fieldLabel + " text-white/60"}>Check-out</span>
             <input name="checkOut" type="date" defaultValue={checkOut} required className={fieldInput} />
           </label>
-          <label>
-            <span className={fieldLabel + " text-white/60"}>Guests</span>
-            <input name="adults" type="number" min="1" defaultValue={adults} required className={fieldInput} />
-          </label>
+          <OccupancyPicker initial={rooms} />
           <div className="md:col-span-5">
             <button className="rounded-xl bg-[#d8a84f] px-6 py-3 text-sm font-bold text-[#071526] transition hover:bg-[#f0c76b]">
               Search
@@ -105,7 +107,7 @@ export default async function SearchPage({
         {hasQuery && !error && result?.status === "ok" && (
           <div className="space-y-8">
             <p className="text-sm text-gray-600">
-              Showing live rates for {checkIn} → {checkOut}, {adults} guest{adults === 1 ? "" : "s"}.
+              Showing live rates for {checkIn} → {checkOut} · {summary}.
             </p>
             {result.hotels.map((hotel) => (
               <div key={hotel.hotelCode} className="overflow-hidden rounded-3xl bg-white shadow-sm ring-1 ring-black/5">
@@ -143,7 +145,7 @@ export default async function SearchPage({
                               hotel: hotel.hotelName,
                               checkIn,
                               checkOut,
-                              adults,
+                              rooms: encodedRooms,
                             },
                           }}
                           className="rounded-full bg-[#071526] px-6 py-3 text-sm font-bold text-white transition hover:bg-[#b88434]"

@@ -41,9 +41,8 @@ export interface PublicSearchParams {
   checkIn: string;
   /** YYYY-MM-DD */
   checkOut: string;
-  adults: number;
-  children?: number;
-  childrenAges?: number[];
+  /** One entry per room (TBO limits: ≤6 rooms, ≤6 adults & ≤4 children each). */
+  paxRooms: tbo.PaxRoom[];
   /** ISO 3166-1 alpha-2; defaults to GB. */
   nationality?: string;
 }
@@ -65,18 +64,16 @@ export async function publicSearch(params: PublicSearchParams): Promise<PublicSe
   }
   const hotelCodes = codes.join(",");
 
-  const paxRoom: tbo.PaxRoom = {
-    Adults: Math.max(1, params.adults || 1),
-    Children: params.children ?? 0,
-    ChildrenAges: params.childrenAges ?? [],
-  };
+  const paxRooms = params.paxRooms?.length
+    ? params.paxRooms
+    : [{ Adults: 2, Children: 0, ChildrenAges: [] }];
 
   const res = await tbo.search({
     CheckIn: params.checkIn,
     CheckOut: params.checkOut,
     HotelCodes: hotelCodes,
     GuestNationality: params.nationality ?? "GB",
-    PaxRooms: [paxRoom],
+    PaxRooms: paxRooms,
     IsDetailedResponse: false,
   });
 

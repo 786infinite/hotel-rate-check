@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { publicPreBook } from "@/lib/booking/public";
+import { parseRoomsParam, occupancySummary } from "@/lib/booking/occupancy";
 import BookingForm from "./BookingForm";
 
 export const metadata: Metadata = {
@@ -37,6 +38,7 @@ export default async function BookPage({
   const hotel = first(sp.hotel) || "Your hotel";
   const checkIn = first(sp.checkIn);
   const checkOut = first(sp.checkOut);
+  const occupancy = occupancySummary(parseRoomsParam(first(sp.rooms)));
 
   const backToSearch = (
     <Link href="/#book" className="inline-flex rounded-full border border-[#b88434] px-4 py-2 text-sm font-semibold text-[#071526] hover:bg-[#b88434] hover:text-white">
@@ -97,6 +99,7 @@ export default async function BookPage({
               {room.isRefundable ? "Refundable" : "Non-refundable"}
             </span>
             {checkIn && checkOut ? ` · ${checkIn} → ${checkOut}` : ""}
+            {` · ${occupancy}`}
           </p>
 
           <div className="mt-4 flex items-baseline justify-between border-t border-gray-100 pt-4">

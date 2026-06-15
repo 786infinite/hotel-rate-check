@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { SearchIcon, TagIcon, ShieldIcon, CheckIcon, BedIcon, CardIcon, StarIcon } from "./components/icons";
 import SmartImage from "./components/SmartImage";
+import OccupancyPicker from "./components/OccupancyPicker";
 
 const trust = ["Clear prices — all charges shown", "Secure online payment", "Hotel accommodation only", "Terms shown before you pay"];
 
@@ -107,10 +108,7 @@ export default function Home() {
                 <span className={fieldLabel}>Check-out</span>
                 <input required name="checkOut" type="date" className={fieldInput} />
               </label>
-              <label>
-                <span className={fieldLabel}>Guests</span>
-                <input required name="adults" type="number" min="1" defaultValue={2} className={fieldInput} />
-              </label>
+              <OccupancyPicker />
             </div>
             <button type="submit" className="mt-4 flex w-full items-center justify-center gap-2 rounded-xl bg-[#0b1b2e] px-7 py-4 text-base font-bold text-white transition hover:bg-[#b88434]">
               <SearchIcon className="h-5 w-5" /> Search hotels
