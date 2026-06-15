@@ -92,47 +92,31 @@ export default function Home() {
             charge, including anything payable at the hotel, shown before you pay.
           </p>
 
-          {/* Search panel */}
-          <form action="/api/rate-check" method="POST" className="mx-auto mt-10 max-w-4xl rounded-[1.75rem] bg-white/95 p-4 text-left shadow-2xl ring-1 ring-black/5 backdrop-blur md:p-5">
-            <input type="hidden" name="form_name" value="Hotel Booking Enquiry" />
-            <input type="hidden" name="destination" value="See hotel/destination field" />
+          {/* Search panel — live rates via the TBO API */}
+          <form action="/search" method="GET" className="mx-auto mt-10 max-w-4xl rounded-[1.75rem] bg-white/95 p-4 text-left shadow-2xl ring-1 ring-black/5 backdrop-blur md:p-5">
             <div className="grid gap-3 md:grid-cols-4">
               <label className="md:col-span-1">
                 <span className={fieldLabel}>Hotel / destination</span>
-                <input required name="hotel_name" placeholder="e.g. Hilton London" className={fieldInput} />
+                <input required name="destination" placeholder="e.g. Hilton London" className={fieldInput} />
               </label>
               <label>
                 <span className={fieldLabel}>Check-in</span>
-                <input required name="check_in" type="date" className={fieldInput} />
+                <input required name="checkIn" type="date" className={fieldInput} />
               </label>
               <label>
                 <span className={fieldLabel}>Check-out</span>
-                <input required name="check_out" type="date" className={fieldInput} />
+                <input required name="checkOut" type="date" className={fieldInput} />
               </label>
               <label>
                 <span className={fieldLabel}>Guests</span>
                 <input required name="adults" type="number" min="1" defaultValue={2} className={fieldInput} />
               </label>
             </div>
-            <div className="mt-3 grid gap-3 md:grid-cols-3">
-              <label>
-                <span className={fieldLabel}>Your name</span>
-                <input required name="full_name" placeholder="Full name" className={fieldInput} />
-              </label>
-              <label>
-                <span className={fieldLabel}>Email</span>
-                <input required name="email" type="email" placeholder="you@email.com" className={fieldInput} />
-              </label>
-              <label>
-                <span className={fieldLabel}>Phone</span>
-                <input required name="phone" placeholder="Mobile number" className={fieldInput} />
-              </label>
-            </div>
             <button type="submit" className="mt-4 flex w-full items-center justify-center gap-2 rounded-xl bg-[#0b1b2e] px-7 py-4 text-base font-bold text-white transition hover:bg-[#b88434]">
-              <SearchIcon className="h-5 w-5" /> Find my hotel
+              <SearchIcon className="h-5 w-5" /> Search hotels
             </button>
             <p className="mt-2 text-center text-xs text-gray-500">
-              Secure online payment. Full price, cancellation terms and any pay-at-hotel charges shown before you pay.
+              See live rates instantly. Full price, cancellation terms and any pay-at-hotel charges shown before you pay.
             </p>
           </form>
 
