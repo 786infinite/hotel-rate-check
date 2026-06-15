@@ -24,6 +24,8 @@ export interface AcceptedQuote {
   currency: string;
   clientReferenceId: string;
   guest: { title: "Mr" | "Mrs" | "Ms"; firstName: string; lastName: string };
+  /** Lead guest per room (order matches the searched rooms). Falls back to [guest]. */
+  guests?: { title: "Mr" | "Mrs" | "Ms"; firstName: string; lastName: string }[];
   email: string;
   phone: string;
   /** What the customer was charged, in pence (for records/reconciliation). */
@@ -145,15 +147,14 @@ export async function onPaymentSucceeded(event: PaymentEvent): Promise<Fulfilmen
     };
   }
 
+  const leadGuests = quote.guests?.length ? quote.guests : [quote.guest];
   const outcome = await bookWithRecovery({
     BookingCode: quote.bookingCode as string,
-    CustomerDetails: [
-      {
-        CustomerNames: [
-          { Title: quote.guest.title, FirstName: quote.guest.firstName, LastName: quote.guest.lastName, Type: "Adult" },
-        ],
-      },
-    ],
+    CustomerDetails: leadGuests.map((g) => ({
+      CustomerNames: [
+        { Title: g.title, FirstName: g.firstName, LastName: g.lastName, Type: "Adult" as const },
+      ],
+    })),
     ClientReferenceId: quote.clientReferenceId,
     BookingReferenceId: quote.reference,
     TotalFare: quote.totalFare as number,

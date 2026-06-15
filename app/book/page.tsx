@@ -38,7 +38,8 @@ export default async function BookPage({
   const hotel = first(sp.hotel) || "Your hotel";
   const checkIn = first(sp.checkIn);
   const checkOut = first(sp.checkOut);
-  const occupancy = occupancySummary(parseRoomsParam(first(sp.rooms)));
+  const rooms = parseRoomsParam(first(sp.rooms));
+  const occupancy = occupancySummary(rooms);
 
   const backToSearch = (
     <Link href="/#book" className="inline-flex rounded-full border border-[#b88434] px-4 py-2 text-sm font-semibold text-[#071526] hover:bg-[#b88434] hover:text-white">
@@ -153,6 +154,7 @@ export default async function BookPage({
             checkIn={checkIn}
             checkOut={checkOut}
             priceLabel={priceLabel}
+            rooms={rooms.length}
           />
         </div>
       </div>

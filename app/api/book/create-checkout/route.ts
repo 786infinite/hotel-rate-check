@@ -27,7 +27,8 @@ interface Body {
   hotel?: string;
   checkIn?: string;
   checkOut?: string;
-  guest?: { title?: "Mr" | "Mrs" | "Ms"; firstName?: string; lastName?: string };
+  /** One lead guest per room (order matches the searched rooms). */
+  guests?: { title?: "Mr" | "Mrs" | "Ms"; firstName?: string; lastName?: string }[];
   email?: string;
   phone?: string;
 }
@@ -43,8 +44,14 @@ export async function POST(request: Request) {
   if (!body.bookingCode) {
     return NextResponse.json({ error: "Missing bookingCode" }, { status: 400 });
   }
-  if (!body.guest?.firstName || !body.guest?.lastName || !body.email || !body.phone) {
-    return NextResponse.json({ error: "Please provide guest name, email and phone." }, { status: 400 });
+  const guests = (Array.isArray(body.guests) ? body.guests : [])
+    .filter((g) => g?.firstName && g?.lastName)
+    .map((g) => ({ title: g.title ?? "Mr", firstName: g.firstName as string, lastName: g.lastName as string }));
+  if (!guests.length || !body.email || !body.phone) {
+    return NextResponse.json(
+      { error: "Please provide a lead guest name for each room, plus email and phone." },
+      { status: 400 },
+    );
   }
 
   // Re-derive price + net fare from the live rate (server-only).
@@ -60,11 +67,6 @@ export async function POST(request: Request) {
   }
 
   const reference = newBookingReferenceId();
-  const guest = {
-    title: body.guest.title ?? "Mr",
-    firstName: body.guest.firstName,
-    lastName: body.guest.lastName,
-  };
 
   await getQuoteStore().save({
     reference,
@@ -72,7 +74,8 @@ export async function POST(request: Request) {
     totalFare: quote.netTotalFare,
     currency: quote.currency,
     clientReferenceId: `HRC-${reference}`,
-    guest,
+    guest: guests[0],
+    guests,
     email: body.email,
     phone: body.phone,
     sellPriceMinor: quote.sellPriceMinor,
