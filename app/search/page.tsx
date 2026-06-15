@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { publicSearch, type PublicSearchResult } from "@/lib/booking/public";
+import { publicSearch, nightsBetween, type PublicSearchResult } from "@/lib/booking/public";
 import { parseRoomsParam, toPaxRooms, encodeRooms, occupancySummary } from "@/lib/booking/occupancy";
 import OccupancyPicker from "@/app/components/OccupancyPicker";
 
@@ -46,6 +46,7 @@ export default async function SearchPage({
   const rooms = parseRoomsParam(roomsParam || undefined);
   const encodedRooms = encodeRooms(rooms);
   const summary = occupancySummary(rooms);
+  const nights = checkIn && checkOut ? nightsBetween(checkIn, checkOut) : 0;
 
   const hasQuery = Boolean(destination && checkIn && checkOut);
 
@@ -135,7 +136,9 @@ export default async function SearchPage({
                       <div className="flex items-center gap-4 md:flex-col md:items-end">
                         <div className="text-right">
                           <p className="text-2xl font-black">{money(room.sellPrice, room.currency)}</p>
-                          <p className="text-[11px] text-gray-500">total · taxes included</p>
+                          <p className="text-[11px] text-gray-500">
+                            {nights > 0 ? `${money(room.sellPrice / nights, room.currency)}/night · ` : ""}total · taxes incl.
+                          </p>
                         </div>
                         <Link
                           href={{

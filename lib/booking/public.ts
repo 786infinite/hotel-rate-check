@@ -11,6 +11,14 @@
 import * as tbo from "@/lib/tbo";
 import { getHotelIndex } from "./destination";
 
+/** Whole nights between two YYYY-MM-DD dates (min 1). */
+export function nightsBetween(checkIn: string, checkOut: string): number {
+  const a = Date.parse(checkIn);
+  const b = Date.parse(checkOut);
+  if (!Number.isFinite(a) || !Number.isFinite(b) || b <= a) return 1;
+  return Math.max(1, Math.round((b - a) / 86_400_000));
+}
+
 export interface PublicPayAtHotel {
   description: string;
   price: number;

@@ -12,6 +12,7 @@
  */
 
 import { NextResponse } from "next/server";
+import { after } from "next/server";
 import { getPaymentProvider, PaymentError } from "@/lib/payments";
 import { onPaymentSucceeded } from "@/lib/payments/fulfilment";
 
@@ -36,9 +37,18 @@ export async function POST(request: Request) {
   }
 
   if (event.type === "payment_succeeded") {
-    const result = await onPaymentSucceeded(event);
-    // Log-worthy outcomes; respond 200 regardless so the provider stops retrying.
-    return NextResponse.json({ received: true, result });
+    // Acknowledge immediately, then fulfil out-of-band. A slow TBO Book (incl. the
+    // 120s recovery) must never hold the webhook open — that causes serverless
+    // timeouts and Stripe retry storms. The idempotency claim in onPaymentSucceeded
+    // makes a redelivered event safe. `after` keeps the function alive for the work.
+    after(async () => {
+      try {
+        await onPaymentSucceeded(event);
+      } catch (err) {
+        console.error(`[webhook] fulfilment failed for ${event.reference}:`, err);
+      }
+    });
+    return NextResponse.json({ received: true });
   }
 
   if (event.type === "payment_failed") {

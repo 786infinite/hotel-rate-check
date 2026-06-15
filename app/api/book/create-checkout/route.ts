@@ -18,6 +18,7 @@ import { getPaymentProvider } from "@/lib/payments";
 import { getQuoteStore, onPaymentSucceeded } from "@/lib/payments/fulfilment";
 import { quoteForBooking } from "@/lib/booking/public";
 import { newBookingReferenceId } from "@/lib/tbo";
+import { rateLimit, clientIp } from "@/lib/ratelimit";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -34,6 +35,10 @@ interface Body {
 }
 
 export async function POST(request: Request) {
+  if (!(await rateLimit(`book:${clientIp(request)}`, 10, 60))) {
+    return NextResponse.json({ error: "Too many requests. Please slow down." }, { status: 429 });
+  }
+
   let body: Body;
   try {
     body = (await request.json()) as Body;
@@ -64,6 +69,20 @@ export async function POST(request: Request) {
   }
   if (!quote.sellable) {
     return NextResponse.json({ error: quote.reason ?? "This rate is no longer available." }, { status: 409 });
+  }
+
+  // #7 currency guard: we charge in GBP. Refuse loudly rather than silently
+  // charging a foreign amount as if it were sterling. (Revisit once TBO confirms
+  // the currency our B2C rates return in / once FX conversion is added.)
+  if (quote.currency !== "GBP") {
+    return NextResponse.json(
+      { error: "This rate isn't available to book online yet (non-GBP pricing)." },
+      { status: 409 },
+    );
+  }
+  // Amount sanity: must be a positive integer number of pence.
+  if (!Number.isInteger(quote.sellPriceMinor) || quote.sellPriceMinor <= 0) {
+    return NextResponse.json({ error: "Could not price this room. Please try again." }, { status: 502 });
   }
 
   const reference = newBookingReferenceId();

@@ -36,6 +36,13 @@ const orgJsonLd = {
   description: "Online hotel booking service. Hotel accommodation only, with clear prices and terms shown before payment.",
 };
 
+const siteJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  name: "Hotel Rate Check",
+  url: "https://www.hotelratecheck.com",
+};
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -45,6 +52,7 @@ export default function RootLayout({
     <html lang="en">
       <body className="flex min-h-screen flex-col bg-[#f7f2e9]">
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(orgJsonLd) }} />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(siteJsonLd) }} />
         <SiteHeader />
         <div className="flex-1">{children}</div>
         <SiteFooter />

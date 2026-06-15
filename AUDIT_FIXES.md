@@ -51,6 +51,26 @@ positive. Status of each finding below.
   format in checkout; `<label>`s on the homepage search form; custom `not-found.tsx`;
   Organization/WebSite JSON-LD. (Some overlap with the conversion enhancements.)
 
+## Update (15 Jun) — remaining items addressed
+
+- **#2b** — webhook now **acknowledges immediately and fulfils out-of-band** via
+  `after()`, so a slow TBO Book never holds it open (no Stripe retry storm); the
+  idempotency claim guards redelivery. *Optional further hardening:* a scheduled
+  reconcile (Vercel Cron) for the rare case the function dies mid-recovery —
+  needs a pending-reference index; deferred pending your Vercel plan.
+- **#3** — shared **KV-backed rate limiter** (`lib/ratelimit.ts`) now guards
+  `/api/search` (20/min/IP) and `/api/book/create-checkout` (10/min/IP); in-memory
+  fallback in dev. Cloudflare Turnstile on the forms is still recommended as a bot
+  layer (config-time, needs your site keys).
+- **#7** — checkout now **refuses a non-GBP rate** rather than charging a foreign
+  amount as sterling. Resolves once TBO confirms our B2C rate currency; if non-GBP,
+  add net→GBP conversion and relax the guard.
+- **#4** — the three retired quote-link pages return 404; folders removed via `git rm`.
+- **#6, #8, polish (404, WebSite JSON-LD)** — done.
+
+All audit findings are now fixed or have a guard + documented follow-up. The only
+remaining optional hardening is the #2b reconcile cron (infra-dependent).
+
 ## Verification note
 
 All edits are byte-clean on disk and structurally confirmed via the editor view.

@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { publicPreBook } from "@/lib/booking/public";
+import { publicPreBook, nightsBetween } from "@/lib/booking/public";
 import { parseRoomsParam, occupancySummary } from "@/lib/booking/occupancy";
 import BookingForm from "./BookingForm";
+import TrustStrip from "@/app/components/TrustStrip";
 
 export const metadata: Metadata = {
   title: "Review & book | Hotel Rate Check",
@@ -40,6 +41,7 @@ export default async function BookPage({
   const checkOut = first(sp.checkOut);
   const rooms = parseRoomsParam(first(sp.rooms));
   const occupancy = occupancySummary(rooms);
+  const nights = checkIn && checkOut ? nightsBetween(checkIn, checkOut) : 0;
 
   const backToSearch = (
     <Link href="/#book" className="inline-flex rounded-full border border-[#b88434] px-4 py-2 text-sm font-semibold text-[#071526] hover:bg-[#b88434] hover:text-white">
@@ -107,6 +109,12 @@ export default async function BookPage({
             <span className="text-sm text-gray-600">Total to pay now</span>
             <span className="text-2xl font-black">{priceLabel}</span>
           </div>
+          {nights > 0 && (
+            <p className="mt-1 text-right text-xs text-gray-500">
+              {money(room.sellPrice / nights, room.currency)} / night × {nights} night{nights === 1 ? "" : "s"}
+              {rooms.length > 1 ? ` · ${rooms.length} rooms` : ""} · taxes included
+            </p>
+          )}
 
           {room.payAtHotel.length > 0 && (
             <div className="mt-4 rounded-xl bg-[#f7f2e9] p-4 text-sm">
@@ -148,6 +156,7 @@ export default async function BookPage({
 
         {/* Guest details + pay */}
         <div className="mt-6">
+          <TrustStrip className="mb-4 justify-center" />
           <BookingForm
             bookingCode={room.bookingCode}
             hotel={hotel}

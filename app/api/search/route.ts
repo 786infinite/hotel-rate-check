@@ -11,6 +11,7 @@
 import { NextResponse } from "next/server";
 import { publicSearch } from "@/lib/booking/public";
 import { parseRoomsParam, toPaxRooms } from "@/lib/booking/occupancy";
+import { rateLimit, clientIp } from "@/lib/ratelimit";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -25,27 +26,8 @@ interface Body {
   nationality?: string;
 }
 
-// Best-effort in-memory rate limit (per warm instance). Real protection should
-// come from the platform edge / a KV-backed limiter; this just blunts abuse.
-const HITS = new Map<string, { count: number; resetAt: number }>();
-const WINDOW_MS = 60_000;
-const MAX_PER_WINDOW = 20;
-
-function rateLimited(ip: string): boolean {
-  const now = Date.now();
-  const rec = HITS.get(ip);
-  if (!rec || now > rec.resetAt) {
-    HITS.set(ip, { count: 1, resetAt: now + WINDOW_MS });
-    return false;
-  }
-  rec.count += 1;
-  return rec.count > MAX_PER_WINDOW;
-}
-
 export async function POST(request: Request) {
-  const ip =
-    request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() || "unknown";
-  if (rateLimited(ip)) {
+  if (!(await rateLimit(`search:${clientIp(request)}`, 20, 60))) {
     return NextResponse.json({ error: "Too many requests. Please slow down." }, { status: 429 });
   }
 
