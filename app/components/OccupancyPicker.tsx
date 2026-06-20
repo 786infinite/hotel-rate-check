@@ -120,11 +120,23 @@ export default function OccupancyPicker({
         onClick={() => setOpen((o) => !o)}
         className={
           dark
-            ? "mt-1.5 w-full truncate bg-transparent text-left text-[15px] font-medium text-white outline-none"
-            : "mt-1 w-full truncate rounded-xl border border-gray-200 bg-white px-3.5 py-3 text-left text-sm font-medium text-[#071526] outline-none focus:border-[#b88434]"
+            ? "mt-1.5 flex w-full items-center justify-between gap-2 bg-transparent text-left text-[15px] font-medium text-white outline-none"
+            : "mt-1 flex w-full items-center justify-between gap-2 rounded-xl border border-gray-200 bg-white px-3.5 py-3 text-left text-sm font-medium text-[#071526] outline-none focus:border-[#b88434]"
         }
       >
-        {occupancySummary(rooms)}
+        <span className="truncate">{occupancySummary(rooms)}</span>
+        <svg
+          viewBox="0 0 20 20"
+          className={`h-4 w-4 shrink-0 transition ${open ? "rotate-180" : ""} ${dark ? "text-[#f0c76b]" : "text-[#b88434]"}`}
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="1.7"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          aria-hidden="true"
+        >
+          <path d="M5.5 7.5 10 12l4.5-4.5" />
+        </svg>
       </button>
 
       {open && (

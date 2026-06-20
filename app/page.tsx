@@ -18,10 +18,10 @@ const trustBand = [
  * gradient shows automatically — the site never breaks.
  * The example Unsplash URLs below are seeds: verify or replace each one.
  */
-// Hero photo. To use the exact image you liked, save it as public/images/hero.jpg
-// (any wide, cinematic shot). Or paste an Unsplash/Pexels URL here. If the file is
-// missing it falls back cleanly to the navy hero. A coastal/dusk luxury hotel works best.
-const HERO_IMAGE = "/images/hero.jpg";
+// Hero photo. This is a close coastal/dusk luxury-hotel match for the mockup.
+// To use the EXACT image from your mockup, save it as public/images/hero.jpg and
+// change this to "/images/hero.jpg" (or drop the mockup file and I'll crop it).
+const HERO_IMAGE = "https://images.unsplash.com/photo-1455587734955-081b22074882?auto=format&fit=crop&w=1920&q=72";
 
 const destinations = [
   { city: "Paris", country: "France", price: "from £128", big: true, from: "from-[#2a4d6e]", to: "to-[#10243a]", img: "https://images.unsplash.com/photo-1502602898657-3e91760cbb34?auto=format&fit=crop&w=1200&q=72" },
@@ -132,7 +132,7 @@ export default function Home() {
       </section>
 
       {/* ===== DESTINATIONS (bento) ===== */}
-      <section className="mx-auto max-w-7xl px-6 py-16 lg:px-8">
+      <section id="destinations" className="mx-auto max-w-7xl px-6 py-16 lg:px-8">
         <div className="flex items-end justify-between">
           <div>
             <p className="text-xs font-semibold uppercase tracking-[0.25em] text-[#b88434]">Popular destinations</p>
