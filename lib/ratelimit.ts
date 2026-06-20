@@ -35,8 +35,13 @@ export async function rateLimit(key: string, limit: number, windowSec: number): 
   if (process.env.KV_REST_API_URL && process.env.KV_REST_API_TOKEN) {
     const k = `rl:${key}`;
     const count = Number(await kv(["INCR", k])) || 0;
+    if (count === 0) {
+      // KV failed → fail OPEN, but make it visible so the gap can be alerted on.
+      console.warn(`[ratelimit] KV unavailable, failing open for ${key}`);
+      return true;
+    }
     if (count === 1) await kv(["EXPIRE", k, windowSec]);
-    return count === 0 ? true : count <= limit; // count===0 means KV failed → fail open
+    return count <= limit;
   }
   const now = Date.now();
   const rec = mem.get(key);

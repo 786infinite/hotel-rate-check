@@ -14,11 +14,10 @@ export default function robots(): MetadataRoute.Robots {
       disallow: [
         "/api/",
         "/rate-search",
-        "/quote-link-builder",
-        "/quote-acceptance",
-        "/quote-accepted",
         "/payment-received",
         "/booking-status",
+        "/book",
+        "/search",
         "/thank-you",
       ],
     },
