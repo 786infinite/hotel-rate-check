@@ -44,11 +44,10 @@ compiler couldn't read freshly-edited files). Run the build + tests locally firs
   The mock fixture is single-room so this can't be confirmed offline. **Action:**
   verify against a real multi-room TBO response during certification; until then,
   either confirm the bundled-rate model or restrict search to 1 room.
-- **MEDIUM — price-drift could silently overcharge.** `quoteForBooking` re-PreBooks
-  at payment time and charges the *current* price. TBO rates are live; if the rate
-  rose between the `/book` render and submit, the customer pays more than shown with
-  no confirmation. **Action:** send the displayed price from the client and reject
-  (409 "price changed — please review") beyond a small tolerance. (~30 min build.)
+- **~~MEDIUM — price-drift could silently overcharge.~~ ✅ FIXED.** `/book` now sends
+  the shown price (`expectedMinor`); `/api/book/create-checkout` rejects with 409
+  "price has changed" if the live re-priced amount exceeds it (a lower price still
+  goes through at the lower amount).
 - **LOW — `/api/payments/create-checkout` trusts client price.** It's Basic-Auth
   staff-only (contained), but unlike the public route it doesn't re-derive price
   server-side. Re-derive from `bookingCode` for defence-in-depth, or treat as

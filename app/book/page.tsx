@@ -164,6 +164,7 @@ export default async function BookPage({
             checkOut={checkOut}
             priceLabel={priceLabel}
             rooms={rooms.length}
+            expectedMinor={Math.round(room.sellPrice * 100)}
           />
         </div>
       </div>

@@ -32,6 +32,8 @@ interface Body {
   guests?: { title?: "Mr" | "Mrs" | "Ms"; firstName?: string; lastName?: string }[];
   email?: string;
   phone?: string;
+  /** Sell price (pence) the customer was shown on /book, for drift protection. */
+  expectedMinor?: number;
 }
 
 export async function POST(request: Request) {
@@ -83,6 +85,17 @@ export async function POST(request: Request) {
   // Amount sanity: must be a positive integer number of pence.
   if (!Number.isInteger(quote.sellPriceMinor) || quote.sellPriceMinor <= 0) {
     return NextResponse.json({ error: "Could not price this room. Please try again." }, { status: 502 });
+  }
+  // Price-drift protection: never silently charge MORE than the customer was shown.
+  // (A lower live price is fine — we charge the lower amount.)
+  if (typeof body.expectedMinor === "number" && quote.sellPriceMinor > body.expectedMinor + 1) {
+    return NextResponse.json(
+      {
+        error: "The price for this room has changed since you reviewed it. Please go back and check the new price before paying.",
+        priceChanged: true,
+      },
+      { status: 409 },
+    );
   }
 
   const reference = newBookingReferenceId();

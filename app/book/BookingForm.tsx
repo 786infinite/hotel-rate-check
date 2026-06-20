@@ -20,6 +20,7 @@ export default function BookingForm({
   checkOut,
   priceLabel,
   rooms = 1,
+  expectedMinor,
 }: {
   bookingCode: string;
   hotel: string;
@@ -27,6 +28,7 @@ export default function BookingForm({
   checkOut: string;
   priceLabel: string;
   rooms?: number;
+  expectedMinor: number;
 }) {
   const roomCount = Math.max(1, rooms);
   const [guests, setGuests] = useState<Guest[]>(
@@ -49,7 +51,7 @@ export default function BookingForm({
       const res = await fetch("/api/book/create-checkout", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ bookingCode, hotel, checkIn, checkOut, guests, email, phone }),
+        body: JSON.stringify({ bookingCode, hotel, checkIn, checkOut, guests, email, phone, expectedMinor }),
       });
       const data = (await res.json()) as { checkoutUrl?: string; error?: string };
       if (!res.ok || !data.checkoutUrl) {
