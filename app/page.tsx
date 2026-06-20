@@ -18,7 +18,10 @@ const trustBand = [
  * gradient shows automatically — the site never breaks.
  * The example Unsplash URLs below are seeds: verify or replace each one.
  */
-const HERO_IMAGE = "https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=1920&q=70";
+// Hero photo. To use the exact image you liked, save it as public/images/hero.jpg
+// (any wide, cinematic shot). Or paste an Unsplash/Pexels URL here. If the file is
+// missing it falls back cleanly to the navy hero. A coastal/dusk luxury hotel works best.
+const HERO_IMAGE = "/images/hero.jpg";
 
 const destinations = [
   { city: "Paris", country: "France", price: "from £128", big: true, from: "from-[#2a4d6e]", to: "to-[#10243a]", img: "https://images.unsplash.com/photo-1502602898657-3e91760cbb34?auto=format&fit=crop&w=1200&q=72" },
@@ -89,7 +92,7 @@ export default function Home() {
             Transparent prices.<br />Exceptional stays.
           </h1>
           <p className="mt-6 max-w-xl text-lg leading-8 text-white/80">
-            Boutique hotel rooms, booked with confidence — every charge shown before you pay.
+            Hotel rooms, booked with confidence — every charge shown before you pay.
           </p>
 
           {/* Glass search bar — live rates via the TBO API */}

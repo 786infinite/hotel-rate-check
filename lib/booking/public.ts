@@ -60,6 +60,8 @@ export interface PublicSearchParams {
   paxRooms: tbo.PaxRoom[];
   /** ISO 3166-1 alpha-2; defaults to GB. */
   nationality?: string;
+  /** Board basis filter. "All" (or omitted) = no filter. */
+  mealPlan?: tbo.MealPlan;
 }
 
 export interface PublicSearchResult {
@@ -90,6 +92,7 @@ export async function publicSearch(params: PublicSearchParams): Promise<PublicSe
     GuestNationality: params.nationality ?? "GB",
     PaxRooms: paxRooms,
     IsDetailedResponse: false,
+    Filters: params.mealPlan && params.mealPlan !== "All" ? { MealType: params.mealPlan } : undefined,
   });
 
   if (res.Status.Code === tbo.TBO_STATUS.NO_AVAILABILITY || !res.HotelResult?.length) {

@@ -24,6 +24,8 @@ interface Body {
   rooms?: string;
   adults?: number;
   nationality?: string;
+  /** Board basis filter: "RoomOnly" | "WithMeal" | "All". */
+  board?: string;
 }
 
 export async function POST(request: Request) {
@@ -54,6 +56,7 @@ export async function POST(request: Request) {
       checkOut: body.checkOut!,
       paxRooms: toPaxRooms(parseRoomsParam(roomsParam)),
       nationality: body.nationality,
+      mealPlan: body.board === "RoomOnly" || body.board === "WithMeal" ? body.board : undefined,
     });
     return NextResponse.json(result);
   } catch (err) {

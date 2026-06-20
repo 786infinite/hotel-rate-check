@@ -48,6 +48,7 @@ export default async function SearchPage({
   const encodedRooms = encodeRooms(rooms);
   const summary = occupancySummary(rooms);
   const nights = checkIn && checkOut ? nightsBetween(checkIn, checkOut) : 0;
+  const board = first(sp.board);
 
   const hasQuery = Boolean(destination && checkIn && checkOut);
 
@@ -55,7 +56,13 @@ export default async function SearchPage({
   let error: string | null = null;
   if (hasQuery) {
     try {
-      result = await publicSearch({ destination, checkIn, checkOut, paxRooms: toPaxRooms(rooms) });
+      result = await publicSearch({
+        destination,
+        checkIn,
+        checkOut,
+        paxRooms: toPaxRooms(rooms),
+        mealPlan: board === "RoomOnly" || board === "WithMeal" ? board : undefined,
+      });
     } catch (e) {
       error = e instanceof Error ? e.message : "Search failed";
     }
@@ -65,7 +72,7 @@ export default async function SearchPage({
     <main className="min-h-screen bg-[#f7f2e9] text-[#071526]">
       {/* Search bar */}
       <section className="bg-[#0b1b2e] px-6 py-8 text-white">
-        <form action="/search" method="GET" className="mx-auto grid max-w-5xl gap-3 md:grid-cols-5">
+        <form action="/search" method="GET" className="mx-auto grid max-w-6xl gap-3 md:grid-cols-6">
           <label className="md:col-span-2">
             <span className={fieldLabel + " text-white/60"}>Hotel / destination</span>
             <input name="destination" defaultValue={destination} placeholder="e.g. Hilton London" required className={fieldInput} />
@@ -78,8 +85,16 @@ export default async function SearchPage({
             <span className={fieldLabel + " text-white/60"}>Check-out</span>
             <input name="checkOut" type="date" defaultValue={checkOut} required className={fieldInput} />
           </label>
+          <label>
+            <span className={fieldLabel + " text-white/60"}>Board</span>
+            <select name="board" defaultValue={board || "All"} className={fieldInput}>
+              <option value="All">Any board</option>
+              <option value="RoomOnly">Room only</option>
+              <option value="WithMeal">With meals</option>
+            </select>
+          </label>
           <OccupancyPicker initial={rooms} />
-          <div className="md:col-span-5">
+          <div className="md:col-span-6">
             <button className="rounded-xl bg-[#d8a84f] px-6 py-3 text-sm font-bold text-[#071526] transition hover:bg-[#f0c76b]">
               Search
             </button>

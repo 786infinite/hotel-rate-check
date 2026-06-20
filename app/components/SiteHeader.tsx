@@ -1,7 +1,6 @@
 import Link from "next/link";
 
 const NAV = [
-  { href: "/#how-it-works", label: "How it works" },
   { href: "/business-hotel-rate-check", label: "Business" },
   { href: "/hotel-rate-check", label: "Guides" },
   { href: "/contact", label: "Contact" },
