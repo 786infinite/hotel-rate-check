@@ -79,10 +79,12 @@ export default function Home() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }} />
 
       {/* ===== HERO ===== */}
-      <section id="book" className="relative overflow-hidden bg-[#071526] text-white">
-        <SmartImage src={HERO_IMAGE} alt="" priority sizes="100vw" className="object-cover object-right opacity-95" />
-        <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(90deg,#071526_0%,rgba(7,21,38,0.92)_32%,rgba(7,21,38,0.5)_68%,rgba(7,21,38,0.12)_100%)]" />
-        <div className="pointer-events-none absolute -left-24 top-10 h-72 w-72 rounded-full bg-[#d8a84f]/15 blur-3xl animate-floaty-slow" />
+      <section id="book" className="relative z-30 bg-[#071526] text-white">
+        <div className="pointer-events-none absolute inset-0 overflow-hidden">
+          <SmartImage src={HERO_IMAGE} alt="" priority sizes="100vw" className="object-cover object-right opacity-95" />
+          <div className="absolute inset-0 bg-[linear-gradient(90deg,#071526_0%,rgba(7,21,38,0.92)_32%,rgba(7,21,38,0.5)_68%,rgba(7,21,38,0.12)_100%)]" />
+          <div className="absolute -left-24 top-10 h-72 w-72 rounded-full bg-[#d8a84f]/15 blur-3xl animate-floaty-slow" />
+        </div>
 
         <div className="relative mx-auto max-w-7xl px-6 pb-16 pt-16 lg:px-8 lg:pb-24 lg:pt-24">
           <p className="mb-6 inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-[#f0c76b] backdrop-blur rise-in">

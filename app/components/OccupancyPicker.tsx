@@ -140,7 +140,7 @@ export default function OccupancyPicker({
       </button>
 
       {open && (
-        <div className="absolute z-20 mt-2 w-72 rounded-2xl border border-gray-200 bg-white p-4 text-[#071526] shadow-2xl">
+        <div className="absolute z-50 mt-2 w-72 rounded-2xl border border-gray-200 bg-white p-4 text-[#071526] shadow-2xl">
           {rooms.map((room, i) => (
             <div key={i} className="border-b border-gray-100 pb-3 last:border-0">
               <div className="flex items-center justify-between">
