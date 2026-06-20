@@ -5,6 +5,12 @@ import OccupancyPicker from "./components/OccupancyPicker";
 
 const trust = ["Clear prices — all charges shown", "Secure online payment", "Hotel accommodation only", "Terms shown before you pay"];
 
+const trustBand = [
+  { Icon: ShieldIcon, title: "Secure payment", text: "Your card is handled by Stripe over an encrypted connection — we never store it." },
+  { Icon: CheckIcon, title: "Confirmed with the hotel", text: "Your booking is confirmed directly with the property before your voucher is issued." },
+  { Icon: TagIcon, title: "All charges shown", text: "The price you see is the price you pay. Any pay-at-hotel charges are shown up front." },
+];
+
 /**
  * PHOTOS — set `img` to a licensed image URL (Unsplash/Pexels, free for
  * commercial use) or a local file you drop in /public, e.g. "/images/london.jpg".
@@ -153,6 +159,23 @@ export default function Home() {
                 <p className="mt-2 text-sm font-semibold text-[#f0c76b]">View hotels →</p>
               </div>
             </Link>
+          ))}
+        </div>
+      </section>
+
+      {/* ===== TRUST BAND ===== */}
+      <section className="border-y border-[#e7ddcd] bg-[#f3ece0]">
+        <div className="mx-auto grid max-w-7xl gap-8 px-6 py-12 sm:grid-cols-3 lg:px-8">
+          {trustBand.map((t) => (
+            <div key={t.title} className="flex items-start gap-4">
+              <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-white text-[#b88434] ring-1 ring-[#e7ddcd]">
+                <t.Icon className="h-5 w-5" />
+              </span>
+              <div>
+                <p className="font-display text-lg font-semibold">{t.title}</p>
+                <p className="mt-1 text-sm leading-6 text-gray-600">{t.text}</p>
+              </div>
+            </div>
           ))}
         </div>
       </section>
