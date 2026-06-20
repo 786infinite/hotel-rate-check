@@ -101,16 +101,28 @@ export default function OccupancyPicker({
     setRooms((rs) => (rs.length > 1 ? rs.filter((_, idx) => idx !== i) : rs));
   }
 
-  const triggerText = tone === "dark" ? "text-white" : "text-[#071526]";
+  const dark = tone === "dark";
 
   return (
     <div className="relative" ref={ref}>
       <input type="hidden" name={name} value={encodeRooms(rooms)} />
-      <span className="block text-[11px] font-bold uppercase tracking-wide text-gray-500">Rooms &amp; guests</span>
+      <span
+        className={
+          dark
+            ? "block text-[10px] font-semibold uppercase tracking-[0.16em] text-white/55"
+            : "block text-[11px] font-bold uppercase tracking-wide text-gray-500"
+        }
+      >
+        Rooms &amp; guests
+      </span>
       <button
         type="button"
         onClick={() => setOpen((o) => !o)}
-        className={`mt-1 w-full truncate rounded-xl border border-gray-200 bg-white px-3.5 py-3 text-left text-sm font-medium ${triggerText} outline-none focus:border-[#b88434]`}
+        className={
+          dark
+            ? "mt-1.5 w-full truncate bg-transparent text-left text-[15px] font-medium text-white outline-none"
+            : "mt-1 w-full truncate rounded-xl border border-gray-200 bg-white px-3.5 py-3 text-left text-sm font-medium text-[#071526] outline-none focus:border-[#b88434]"
+        }
       >
         {occupancySummary(rooms)}
       </button>

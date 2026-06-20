@@ -15,11 +15,11 @@ const trust = ["Clear prices — all charges shown", "Secure online payment", "H
 const HERO_IMAGE = "https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=1920&q=70";
 
 const destinations = [
-  { city: "London", big: true, from: "from-[#15324f]", to: "to-[#0a1c30]", img: "https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?auto=format&fit=crop&w=1200&q=70" },
-  { city: "Paris", from: "from-[#2a4d6e]", to: "to-[#10243a]", img: "https://images.unsplash.com/photo-1502602898657-3e91760cbb34?auto=format&fit=crop&w=800&q=70" },
-  { city: "Istanbul", from: "from-[#5c2b3a]", to: "to-[#26121a]", img: "https://images.unsplash.com/photo-1524231757912-21f4fe3a7200?auto=format&fit=crop&w=800&q=70" },
-  { city: "New York", from: "from-[#34506b]", to: "to-[#141f2c]", img: "https://images.unsplash.com/photo-1496442226666-8d4d0e62e6e9?auto=format&fit=crop&w=800&q=70" },
-  { city: "Dubai", from: "from-[#5a4a22]", to: "to-[#241c0c]", img: "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=800&q=70" },
+  { city: "Paris", country: "France", price: "from £128", big: true, from: "from-[#2a4d6e]", to: "to-[#10243a]", img: "https://images.unsplash.com/photo-1502602898657-3e91760cbb34?auto=format&fit=crop&w=1200&q=72" },
+  { city: "Barcelona", country: "Spain", price: "from £114", from: "from-[#1f4a4a]", to: "to-[#0c2222]", img: "https://images.unsplash.com/photo-1583422409516-2895a77efded?auto=format&fit=crop&w=800&q=72" },
+  { city: "Rome", country: "Italy", price: "from £98", from: "from-[#5c4327]", to: "to-[#251a0f]", img: "https://images.unsplash.com/photo-1552832230-c0197dd311b5?auto=format&fit=crop&w=800&q=72" },
+  { city: "London", country: "UK", price: "from £140", from: "from-[#15324f]", to: "to-[#0a1c30]", img: "https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?auto=format&fit=crop&w=800&q=72" },
+  { city: "Amsterdam", country: "Netherlands", price: "from £121", from: "from-[#34506b]", to: "to-[#141f2c]", img: "https://images.unsplash.com/photo-1534351590666-13e3e96b5017?auto=format&fit=crop&w=800&q=72" },
 ];
 
 const steps = [
@@ -44,9 +44,6 @@ const faqs = [
   { q: "Do you provide flights or packages?", a: "No. We provide hotel accommodation only — flights, transfers, car hire and packages are not included." },
   { q: "What if a booking can't be completed?", a: "If we cannot complete your booking with the hotel after payment, we offer a suitable alternative or refund you in full." },
 ];
-
-const fieldLabel = "block text-[11px] font-bold uppercase tracking-wide text-gray-500";
-const fieldInput = "mt-1 w-full rounded-xl border border-gray-200 bg-white px-3.5 py-3 text-sm outline-none focus:border-[#b88434] focus:ring-2 focus:ring-[#d8a84f]/30";
 
 function Skyline({ className }: { className?: string }) {
   const buildings = [70, 42, 96, 58, 120, 84, 52, 104, 66, 112, 46, 92, 76, 132, 60, 88];
@@ -73,52 +70,49 @@ export default function Home() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }} />
 
       {/* ===== HERO ===== */}
-      <section id="book" className="relative overflow-hidden bg-[#0b1b2e] text-white">
-        <SmartImage src={HERO_IMAGE} alt="" priority sizes="100vw" className="object-cover opacity-30" />
-        <div className="pointer-events-none absolute inset-0 bg-[#0b1b2e]/70" />
-        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_15%_12%,#1c3f63,transparent_45%),radial-gradient(circle_at_88%_8%,#7a5320,transparent_42%)]" />
-        <div className="pointer-events-none absolute -left-24 top-12 h-72 w-72 rounded-full bg-[#3b6ea5]/30 blur-3xl animate-floaty" />
-        <div className="pointer-events-none absolute -right-16 top-44 h-80 w-80 rounded-full bg-[#d8a84f]/20 blur-3xl animate-floaty-slow" />
-        <Skyline className="pointer-events-none absolute bottom-0 left-0 h-40 w-full text-white/[0.06]" />
+      <section id="book" className="relative overflow-hidden bg-[#071526] text-white">
+        <SmartImage src={HERO_IMAGE} alt="" priority sizes="100vw" className="object-cover object-right opacity-95" />
+        <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(90deg,#071526_0%,rgba(7,21,38,0.92)_32%,rgba(7,21,38,0.5)_68%,rgba(7,21,38,0.12)_100%)]" />
+        <div className="pointer-events-none absolute -left-24 top-10 h-72 w-72 rounded-full bg-[#d8a84f]/15 blur-3xl animate-floaty-slow" />
 
-        <div className="relative mx-auto max-w-5xl px-6 pb-28 pt-20 text-center lg:px-8 lg:pt-24">
-          <p className="mb-6 inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-4 py-2 text-sm font-semibold text-[#f0c76b] backdrop-blur rise-in">
+        <div className="relative mx-auto max-w-7xl px-6 pb-16 pt-16 lg:px-8 lg:pb-24 lg:pt-24">
+          <p className="mb-6 inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-[#f0c76b] backdrop-blur rise-in">
             <ShieldIcon className="h-4 w-4" /> Clear prices · clear terms · hotel-only
           </p>
-          <h1 className="rise-in text-5xl font-black leading-[1.05] tracking-tight md:text-7xl">
-            Book your <span className="text-gold-gradient">hotel</span> online
+          <h1 className="font-display-italic rise-in max-w-3xl text-5xl font-semibold leading-[1.02] tracking-tight md:text-[5.25rem]">
+            Transparent prices.<br />Exceptional stays.
           </h1>
-          <p className="mx-auto mt-6 max-w-2xl text-lg leading-8 text-white/80">
-            Search hotel rates, see the full price and terms up front, and book securely online — with every
-            charge, including anything payable at the hotel, shown before you pay.
+          <p className="mt-6 max-w-xl text-lg leading-8 text-white/80">
+            Boutique hotel rooms, booked with confidence — every charge shown before you pay.
           </p>
 
-          {/* Search panel — live rates via the TBO API */}
-          <form action="/search" method="GET" className="mx-auto mt-10 max-w-4xl rounded-[1.75rem] bg-white/95 p-4 text-left shadow-2xl ring-1 ring-black/5 backdrop-blur md:p-5">
-            <div className="grid gap-3 md:grid-cols-4">
-              <label className="md:col-span-1">
-                <span className={fieldLabel}>Hotel / destination</span>
-                <input required name="destination" placeholder="e.g. Hilton London" className={fieldInput} />
+          {/* Glass search bar — live rates via the TBO API */}
+          <form action="/search" method="GET" className="mt-10 max-w-5xl rounded-[1.5rem] border border-white/15 bg-white/10 p-2 shadow-2xl backdrop-blur-xl">
+            <div className="grid items-stretch gap-1 md:grid-cols-[1.5fr_1fr_1fr_1.1fr_auto]">
+              <label className="rounded-2xl px-4 py-3 transition hover:bg-white/5">
+                <span className="block text-[10px] font-semibold uppercase tracking-[0.16em] text-white/55">Destination</span>
+                <input required name="destination" placeholder="Where are you going?" className="mt-1.5 w-full bg-transparent text-[15px] font-medium text-white placeholder-white/40 outline-none" />
               </label>
-              <label>
-                <span className={fieldLabel}>Check-in</span>
-                <input required name="checkIn" type="date" className={fieldInput} />
+              <label className="rounded-2xl px-4 py-3 transition hover:bg-white/5 md:border-l md:border-white/10">
+                <span className="block text-[10px] font-semibold uppercase tracking-[0.16em] text-white/55">Check-in</span>
+                <input required name="checkIn" type="date" className="mt-1.5 w-full bg-transparent text-[15px] font-medium text-white outline-none [color-scheme:dark]" />
               </label>
-              <label>
-                <span className={fieldLabel}>Check-out</span>
-                <input required name="checkOut" type="date" className={fieldInput} />
+              <label className="rounded-2xl px-4 py-3 transition hover:bg-white/5 md:border-l md:border-white/10">
+                <span className="block text-[10px] font-semibold uppercase tracking-[0.16em] text-white/55">Check-out</span>
+                <input required name="checkOut" type="date" className="mt-1.5 w-full bg-transparent text-[15px] font-medium text-white outline-none [color-scheme:dark]" />
               </label>
-              <OccupancyPicker />
+              <div className="px-4 py-3 md:border-l md:border-white/10">
+                <OccupancyPicker tone="dark" />
+              </div>
+              <div className="p-1">
+                <button type="submit" className="flex h-full w-full items-center justify-center gap-2 rounded-2xl bg-[#d8a84f] px-7 py-4 text-base font-bold text-[#071526] transition hover:bg-[#f0c76b]">
+                  Search <SearchIcon className="h-4 w-4" />
+                </button>
+              </div>
             </div>
-            <button type="submit" className="mt-4 flex w-full items-center justify-center gap-2 rounded-xl bg-[#0b1b2e] px-7 py-4 text-base font-bold text-white transition hover:bg-[#b88434]">
-              <SearchIcon className="h-5 w-5" /> Search hotels
-            </button>
-            <p className="mt-2 text-center text-xs text-gray-500">
-              See live rates instantly. Full price, cancellation terms and any pay-at-hotel charges shown before you pay.
-            </p>
           </form>
 
-          <div className="mx-auto mt-8 flex max-w-3xl flex-wrap justify-center gap-x-6 gap-y-2">
+          <div className="mt-7 flex flex-wrap gap-x-7 gap-y-2">
             {trust.map((t) => (
               <span key={t} className="flex items-center gap-2 text-sm font-medium text-white/75">
                 <CheckIcon className="h-4 w-4 text-[#f0c76b]" /> {t}
@@ -132,10 +126,10 @@ export default function Home() {
       <section className="mx-auto max-w-7xl px-6 py-16 lg:px-8">
         <div className="flex items-end justify-between">
           <div>
-            <p className="text-sm font-black uppercase tracking-[0.25em] text-[#b88434]">Popular destinations</p>
-            <h2 className="mt-3 text-3xl font-black tracking-tight md:text-4xl">Where to next?</h2>
+            <p className="text-xs font-semibold uppercase tracking-[0.25em] text-[#b88434]">Popular destinations</p>
+            <h2 className="font-display mt-2 text-4xl font-semibold tracking-tight md:text-5xl">Where to next?</h2>
           </div>
-          <Link href="#book" className="hidden text-sm font-bold text-[#b88434] hover:underline sm:block">Book any hotel →</Link>
+          <Link href="#book" className="hidden text-sm font-semibold text-[#b88434] hover:underline sm:block">Explore all destinations →</Link>
         </div>
         <div className="mt-8 grid auto-rows-[150px] grid-cols-2 gap-4 md:grid-cols-4">
           {destinations.map((d) => (
@@ -151,10 +145,12 @@ export default function Home() {
                 className="object-cover transition duration-500 group-hover:scale-105"
               />
               <Skyline className="absolute bottom-0 left-0 h-16 w-full text-white/10" />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent transition duration-300 group-hover:from-black/40" />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/15 to-transparent transition duration-300 group-hover:from-black/55" />
+              <span className="absolute right-4 top-4 rounded-full bg-[#d8a84f] px-3 py-1 text-xs font-bold text-[#071526]">{d.price}/night</span>
               <div className="relative flex h-full flex-col justify-end">
-                <p className={`font-black ${d.big ? "text-3xl md:text-4xl" : "text-xl"}`}>{d.city}</p>
-                <p className="mt-1 text-sm text-white/75 transition group-hover:text-[#f0c76b]">Book a hotel →</p>
+                <p className={`font-display font-semibold leading-none ${d.big ? "text-4xl md:text-5xl" : "text-2xl"}`}>{d.city}</p>
+                <p className="mt-1 text-sm font-medium text-white/70">{d.country}</p>
+                <p className="mt-2 text-sm font-semibold text-[#f0c76b]">View hotels →</p>
               </div>
             </Link>
           ))}
@@ -165,7 +161,7 @@ export default function Home() {
       <section id="how-it-works" className="bg-white py-16">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <p className="text-sm font-black uppercase tracking-[0.25em] text-[#b88434]">How it works</p>
-          <h2 className="mt-3 text-3xl font-black tracking-tight md:text-4xl">Book online in four steps</h2>
+          <h2 className="mt-3 font-display text-3xl font-semibold tracking-tight md:text-4xl">Book online in four steps</h2>
           <div className="relative mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-4">
             {steps.map((s, i) => (
               <div key={s.title} className="lift relative rounded-3xl border border-gray-100 bg-[#f7f2e9] p-6">
@@ -186,7 +182,7 @@ export default function Home() {
       {/* ===== FEATURES ===== */}
       <section className="mx-auto max-w-7xl px-6 py-16 lg:px-8">
         <p className="text-sm font-black uppercase tracking-[0.25em] text-[#b88434]">Why book with us</p>
-        <h2 className="mt-3 text-3xl font-black tracking-tight md:text-4xl">Clear, fair, no surprises</h2>
+        <h2 className="mt-3 font-display text-3xl font-semibold tracking-tight md:text-4xl">Clear, fair, no surprises</h2>
         <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
           {features.map((f) => (
             <div key={f.title} className="lift rounded-3xl bg-white p-6 shadow-sm ring-1 ring-black/5">
@@ -206,7 +202,7 @@ export default function Home() {
         <div className="relative mx-auto grid max-w-7xl items-center gap-8 px-6 lg:grid-cols-2 lg:px-8">
           <div>
             <p className="text-sm font-black uppercase tracking-[0.25em] text-[#d8a84f]">For business</p>
-            <h2 className="mt-3 text-3xl font-black tracking-tight md:text-4xl">Hotel bookings for teams &amp; contractors</h2>
+            <h2 className="mt-3 font-display text-3xl font-semibold tracking-tight md:text-4xl">Hotel bookings for teams &amp; contractors</h2>
             <p className="mt-4 max-w-xl text-lg leading-8 text-white/75">
               Booking for staff, contractors, events or client visits? Clear pricing, terms shown up front, and
               help with multiple rooms and longer stays.
@@ -222,7 +218,7 @@ export default function Home() {
       {/* ===== FAQ ===== */}
       <section id="faq" className="mx-auto max-w-5xl px-6 py-16 lg:px-8">
         <p className="text-sm font-black uppercase tracking-[0.25em] text-[#b88434]">FAQ</p>
-        <h2 className="mt-3 text-3xl font-black tracking-tight md:text-4xl">Common questions</h2>
+        <h2 className="mt-3 font-display text-3xl font-semibold tracking-tight md:text-4xl">Common questions</h2>
         <div className="mt-8 grid gap-4">
           {faqs.map((f) => (
             <details key={f.q} className="group rounded-2xl border border-gray-200 bg-white p-5 transition hover:border-[#d8a84f]/50">
@@ -241,7 +237,7 @@ export default function Home() {
         <div className="relative overflow-hidden rounded-[2rem] bg-gradient-to-br from-[#b88434] to-[#8a632a] px-8 py-14 text-center text-white shadow-xl">
           <Skyline className="pointer-events-none absolute bottom-0 left-0 h-24 w-full text-white/10" />
           <div className="relative">
-            <h2 className="text-3xl font-black tracking-tight md:text-4xl">Ready to book your hotel?</h2>
+            <h2 className="font-display text-3xl font-semibold tracking-tight md:text-4xl">Ready to book your hotel?</h2>
             <p className="mx-auto mt-3 max-w-xl text-white/90">
               Search your hotel and dates and book online — full price and terms shown before you pay.
             </p>
