@@ -35,14 +35,10 @@ export default function SiteFooter() {
     <footer className="bg-[#071526] text-white">
       <div className="mx-auto grid max-w-7xl gap-10 px-6 py-14 lg:grid-cols-4 lg:px-8">
         <div>
-          <div className="flex items-center gap-3">
-            <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#d8a84f] text-sm font-black text-[#071526]">
-              HRC
-            </span>
-            <span className="text-lg font-black tracking-tight">
-              Hotel<span className="text-[#d8a84f]">Rate</span>Check
-            </span>
-          </div>
+          <Link href="/" aria-label="Hotel Rate Check — home" className="inline-flex">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src="/images/logo.png" alt="Hotel Rate Check" className="h-12 w-auto" />
+          </Link>
           <p className="mt-4 max-w-xs text-sm leading-6 text-white/65">
             Book hotels online with clear prices and terms. Every charge shown before you pay.
             Hotel accommodation only.
