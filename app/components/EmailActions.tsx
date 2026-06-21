@@ -27,7 +27,7 @@ export default function EmailActions() {
       <div className="flex flex-col gap-2 sm:flex-row sm:items-center">
         <a
           href="mailto:quotes@hotelratecheck.com?subject=Hotel%20Rate%20Check%20enquiry"
-          className="font-semibold text-[#071526] hover:text-[#b88434]"
+          className="font-semibold text-white/80 hover:text-[#d8a84f]"
         >
           quotes@hotelratecheck.com
         </a>
@@ -35,7 +35,7 @@ export default function EmailActions() {
         <button
           type="button"
           onClick={copyEmail}
-          className="rounded-full border border-gray-300 px-4 py-2 text-xs font-bold text-[#071526] hover:border-[#b88434] hover:text-[#b88434]"
+          className="rounded-full border border-white/25 px-4 py-2 text-xs font-bold text-white/85 hover:border-[#d8a84f] hover:text-[#d8a84f]"
         >
           {copied ? "Copied" : "Copy email"}
         </button>
@@ -43,18 +43,18 @@ export default function EmailActions() {
 
       <nav
         aria-label="Footer legal links"
-        className="flex flex-wrap gap-x-4 gap-y-2 text-sm text-gray-600 md:justify-end"
+        className="flex flex-wrap gap-x-4 gap-y-2 text-sm text-white/65 md:justify-end"
       >
-        <Link href="/terms" className="hover:text-[#b88434]">
+        <Link href="/terms" className="hover:text-[#d8a84f]">
           Terms
         </Link>
-        <Link href="/privacy" className="hover:text-[#b88434]">
+        <Link href="/privacy" className="hover:text-[#d8a84f]">
           Privacy
         </Link>
-        <Link href="/cookies" className="hover:text-[#b88434]">
+        <Link href="/cookies" className="hover:text-[#d8a84f]">
           Cookies
         </Link>
-        <Link href="/contact" className="hover:text-[#b88434]">
+        <Link href="/contact" className="hover:text-[#d8a84f]">
           Contact
         </Link>
       </nav>

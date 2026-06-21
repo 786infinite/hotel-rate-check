@@ -28,7 +28,7 @@ export default function BrandLogo() {
     <img
       src="/images/logo.png"
       alt="Hotel Rate Check"
-      className="h-12 w-auto md:h-14"
+      className="h-24 w-auto md:h-28"
       onError={() => setFailed(true)}
     />
   );
