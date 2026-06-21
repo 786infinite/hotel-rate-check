@@ -41,6 +41,8 @@ export interface PublicHotel {
   hotelName: string;
   /** Hotel image: TBO static content when live, else an open-source fallback. */
   image: string;
+  starRating?: number;
+  address?: string;
   currency: string;
   rooms: PublicRoom[];
 }
@@ -105,6 +107,8 @@ export async function publicSearch(params: PublicSearchParams): Promise<PublicSe
     hotelCode: hotel.HotelCode,
     hotelName: content?.name ?? `Hotel ${hotel.HotelCode}`,
     image: content?.images?.[0] ?? HOTEL_FALLBACK_IMAGE,
+    starRating: content?.starRating,
+    address: content?.address,
     currency: hotel.Currency,
     rooms: hotel.Rooms.map((room): PublicRoom => {
       const price = tbo.priceForCustomer(room, hotel.Currency);

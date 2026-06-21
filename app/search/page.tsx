@@ -129,6 +129,7 @@ async function SearchResults({
   const rows: ResultRow[] = result.hotels.flatMap((h) =>
     h.rooms.map((r) => ({
       hotelCode: h.hotelCode, hotelName: h.hotelName, image: h.image,
+      starRating: h.starRating, address: h.address,
       bookingCode: r.bookingCode, roomName: r.name, mealType: r.mealType,
       isRefundable: r.isRefundable, sellPrice: r.sellPrice, currency: r.currency,
       payAtHotel: r.payAtHotel,

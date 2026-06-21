@@ -3,12 +3,14 @@
 import { useMemo, useState } from "react";
 import Link from "next/link";
 import SmartImage from "@/app/components/SmartImage";
-import { CheckIcon } from "@/app/components/icons";
+import { CheckIcon, StarIcon } from "@/app/components/icons";
 
 export interface ResultRow {
   hotelCode: string;
   hotelName: string;
   image: string;
+  starRating?: number;
+  address?: string;
   bookingCode: string;
   roomName: string;
   mealType: string;
@@ -34,6 +36,7 @@ type Sort = "priceAsc" | "priceDesc";
 interface RoomType { name: string; rates: ResultRow[]; lead: ResultRow }
 interface HotelGroup {
   hotelCode: string; hotelName: string; image: string;
+  starRating?: number; address?: string;
   lead: ResultRow; rateCount: number; anyRefundable: boolean; roomTypes: RoomType[];
 }
 
@@ -71,6 +74,7 @@ export default function ResultsList({
       const lead = roomTypes[0].lead;
       out.push({
         hotelCode: code, hotelName: opts[0].hotelName, image: opts[0].image,
+        starRating: opts[0].starRating, address: opts[0].address,
         lead, rateCount: opts.length, anyRefundable: opts.some((o) => o.isRefundable), roomTypes,
       });
     }
@@ -134,8 +138,14 @@ export default function ResultsList({
                   </div>
                   <div className="p-6">
                     <h3 className="font-display text-2xl font-semibold leading-tight">{g.hotelName}</h3>
-                    <p className="mt-1 text-sm text-gray-600">{g.roomTypes.length} room type{g.roomTypes.length === 1 ? "" : "s"} · {g.rateCount} rate{g.rateCount === 1 ? "" : "s"}</p>
-                    <p className="mt-3 text-sm text-gray-600">Cheapest: {g.roomTypes[0].name} — {mealLabel(g.lead.mealType)}</p>
+                    {g.starRating ? (
+                      <div className="mt-1 flex items-center gap-0.5" aria-label={`${g.starRating}-star hotel`}>
+                        {Array.from({ length: g.starRating }).map((_, i) => <StarIcon key={i} className="h-4 w-4 text-[#d8a84f]" />)}
+                      </div>
+                    ) : null}
+                    {g.address && <p className="mt-1 text-sm text-gray-500">{g.address}</p>}
+                    <p className="mt-2 text-sm text-gray-600">{g.roomTypes.length} room type{g.roomTypes.length === 1 ? "" : "s"} · {g.rateCount} rate{g.rateCount === 1 ? "" : "s"}</p>
+                    <p className="mt-2 text-sm text-gray-600">Cheapest: {g.roomTypes[0].name} — {mealLabel(g.lead.mealType)}</p>
                   </div>
                   <div className="flex flex-col items-end justify-center gap-1 border-t border-[#efe6d6] bg-[#fbf7ef] p-6 md:border-l md:border-t-0">
                     <p className="text-xs font-semibold text-gray-500">from</p>
