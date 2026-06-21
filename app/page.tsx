@@ -3,8 +3,6 @@ import { SearchIcon, TagIcon, ShieldIcon, CheckIcon, BedIcon, CardIcon, StarIcon
 import SmartImage from "./components/SmartImage";
 import OccupancyPicker from "./components/OccupancyPicker";
 
-const trust = ["Clear prices — all charges shown", "Secure online payment", "Hotel accommodation only", "Terms shown before you pay"];
-
 const trustBand = [
   { Icon: ShieldIcon, title: "Secure payment", text: "Your card is handled by Stripe over an encrypted connection — we never store it." },
   { Icon: CheckIcon, title: "Confirmed with the hotel", text: "Your booking is confirmed directly with the property before your voucher is issued." },
@@ -86,7 +84,7 @@ export default function Home() {
           <div className="absolute -left-24 top-10 h-72 w-72 rounded-full bg-[#d8a84f]/15 blur-3xl animate-floaty-slow" />
         </div>
 
-        <div className="relative mx-auto max-w-7xl px-6 pb-16 pt-16 lg:px-8 lg:pb-24 lg:pt-24">
+        <div className="relative mx-auto max-w-7xl px-6 pb-10 pt-12 lg:px-8 lg:pb-14 lg:pt-16">
           <p className="mb-6 inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-[#f0c76b] backdrop-blur rise-in">
             <ShieldIcon className="h-4 w-4" /> Clear prices · clear terms · hotel-only
           </p>
@@ -123,13 +121,6 @@ export default function Home() {
             </div>
           </form>
 
-          <div className="mt-7 flex flex-wrap gap-x-7 gap-y-2">
-            {trust.map((t) => (
-              <span key={t} className="flex items-center gap-2 text-sm font-medium text-white/75">
-                <CheckIcon className="h-4 w-4 text-[#f0c76b]" /> {t}
-              </span>
-            ))}
-          </div>
         </div>
       </section>
 
