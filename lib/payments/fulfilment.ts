@@ -35,6 +35,8 @@ export interface AcceptedQuote {
   checkIn?: string;
   checkOut?: string;
   providerPaymentId?: string;
+  /** TBO/supplier confirmation number, saved once the booking confirms. */
+  confirmationNumber?: string;
   status?: "pending" | "paid" | "booked" | "failed" | "refund_due" | "awaiting_manual_booking";
 }
 
@@ -182,7 +184,7 @@ export async function onPaymentSucceeded(event: PaymentEvent): Promise<Fulfilmen
   });
 
   if (outcome.status === "confirmed" || outcome.status === "confirmed_via_recovery") {
-    await quotes.update(event.reference, { status: "booked" });
+    await quotes.update(event.reference, { status: "booked", confirmationNumber: outcome.confirmationNumber });
     await sendBookingEmail("confirmed", quote, outcome.confirmationNumber);
     return { status: "booked", confirmationNumber: outcome.confirmationNumber, outcome };
   }

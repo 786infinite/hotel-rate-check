@@ -2,6 +2,17 @@ import Link from "next/link";
 import { SearchIcon, TagIcon, ShieldIcon, CheckIcon, BedIcon, CardIcon, StarIcon } from "./components/icons";
 import SmartImage from "./components/SmartImage";
 import OccupancyPicker from "./components/OccupancyPicker";
+import DateRange from "./components/DateRange";
+
+export const revalidate = 3600;
+
+function defaultStay() {
+  const iso = (x: Date) => x.toISOString().slice(0, 10);
+  const now = new Date();
+  const ci = new Date(now); ci.setDate(now.getDate() + 1);
+  const co = new Date(now); co.setDate(now.getDate() + 3);
+  return { today: iso(now), checkIn: iso(ci), checkOut: iso(co) };
+}
 
 const trustBand = [
   { Icon: ShieldIcon, title: "Secure payment", text: "Your card is handled by Stripe over an encrypted connection — we never store it." },
@@ -63,6 +74,7 @@ function Skyline({ className }: { className?: string }) {
 }
 
 export default function Home() {
+  const stay = defaultStay();
   const faqJsonLd = {
     "@context": "https://schema.org",
     "@type": "FAQPage",
@@ -99,14 +111,7 @@ export default function Home() {
                 <span className="block text-[10px] font-semibold uppercase tracking-[0.16em] text-white/55">Destination</span>
                 <input required name="destination" placeholder="Where are you going?" className="mt-1.5 w-full bg-transparent text-[15px] font-medium text-white placeholder-white/40 outline-none" />
               </label>
-              <label className="rounded-2xl px-4 py-3 transition hover:bg-white/5 md:border-l md:border-white/10">
-                <span className="block text-[10px] font-semibold uppercase tracking-[0.16em] text-white/55">Check-in</span>
-                <input required name="checkIn" type="date" className="mt-1.5 w-full bg-transparent text-[15px] font-medium text-white outline-none [color-scheme:dark]" />
-              </label>
-              <label className="rounded-2xl px-4 py-3 transition hover:bg-white/5 md:border-l md:border-white/10">
-                <span className="block text-[10px] font-semibold uppercase tracking-[0.16em] text-white/55">Check-out</span>
-                <input required name="checkOut" type="date" className="mt-1.5 w-full bg-transparent text-[15px] font-medium text-white outline-none [color-scheme:dark]" />
-              </label>
+              <DateRange defaultCheckIn={stay.checkIn} defaultCheckOut={stay.checkOut} min={stay.today} />
               <div className="px-4 py-3 md:border-l md:border-white/10">
                 <OccupancyPicker tone="dark" />
               </div>
@@ -117,6 +122,12 @@ export default function Home() {
               </div>
             </div>
           </form>
+
+          <ul className="mt-6 flex flex-wrap gap-x-6 gap-y-2 text-sm text-white/80">
+            <li className="flex items-center gap-2"><CheckIcon className="h-4 w-4 text-[#f0c76b]" /> All taxes &amp; fees included</li>
+            <li className="flex items-center gap-2"><CheckIcon className="h-4 w-4 text-[#f0c76b]" /> Free-cancellation rooms clearly marked</li>
+            <li className="flex items-center gap-2"><CheckIcon className="h-4 w-4 text-[#f0c76b]" /> Hotel-only — no packages or upsells</li>
+          </ul>
 
         </div>
       </section>
@@ -137,7 +148,7 @@ export default function Home() {
             {destinations.slice(0, 3).map((d) => (
               <Link
                 key={d.city}
-                href="#book"
+                href={{ pathname: "/search", query: { destination: d.city, checkIn: stay.checkIn, checkOut: stay.checkOut } }}
                 className={`group relative overflow-hidden rounded-3xl bg-gradient-to-br ${d.from} ${d.to} p-5 text-white shadow-lg ${d.big ? "row-span-2" : ""}`}
               >
                 <SmartImage
@@ -261,6 +272,11 @@ export default function Home() {
               Booking for staff, contractors, events or client visits? Clear pricing, terms shown up front, and
               help with multiple rooms and longer stays.
             </p>
+            <ul className="mt-5 flex flex-wrap gap-x-6 gap-y-2 text-sm text-white/75">
+              <li className="flex items-center gap-2"><CheckIcon className="h-4 w-4 text-[#f0c76b]" /> VAT receipts &amp; invoices</li>
+              <li className="flex items-center gap-2"><CheckIcon className="h-4 w-4 text-[#f0c76b]" /> Contractor &amp; multi-room friendly</li>
+              <li className="flex items-center gap-2"><CheckIcon className="h-4 w-4 text-[#f0c76b]" /> Transparent, all-in rates</li>
+            </ul>
           </div>
           <div className="flex flex-wrap gap-3 lg:justify-end">
             <Link href="/business-hotel-rate-check" className="rounded-full bg-[#d8a84f] px-6 py-3 text-sm font-bold text-[#071526] transition hover:bg-[#f0c76b]">Business bookings</Link>

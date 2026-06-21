@@ -27,5 +27,9 @@ export async function GET(request: Request) {
     status: quote.status ?? "pending",
     currency: quote.currency,
     sellPriceMinor: quote.sellPriceMinor ?? null,
+    hotel: quote.hotel ?? null,
+    checkIn: quote.checkIn ?? null,
+    checkOut: quote.checkOut ?? null,
+    confirmationNumber: quote.confirmationNumber ?? null,
   });
 }

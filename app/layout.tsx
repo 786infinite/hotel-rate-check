@@ -1,16 +1,24 @@
 import type { Metadata } from "next";
-import { Fraunces, Inter } from "next/font/google";
+import localFont from "next/font/local";
 import "./globals.css";
 import SiteHeader from "./components/SiteHeader";
 import SiteFooter from "./components/SiteFooter";
 
-const fraunces = Fraunces({
-  subsets: ["latin"],
+const fraunces = localFont({
+  src: [
+    { path: "./fonts/fraunces-vf.woff2", style: "normal" },
+    { path: "./fonts/fraunces-italic-vf.woff2", style: "italic" },
+  ],
   variable: "--font-fraunces",
   display: "swap",
-  style: ["normal", "italic"],
+  weight: "100 900",
 });
-const inter = Inter({ subsets: ["latin"], variable: "--font-inter", display: "swap" });
+const inter = localFont({
+  src: "./fonts/inter-vf.woff2",
+  variable: "--font-inter",
+  display: "swap",
+  weight: "100 900",
+});
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.hotelratecheck.com"),

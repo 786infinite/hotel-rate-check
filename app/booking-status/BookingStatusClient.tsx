@@ -10,6 +10,16 @@ interface StatusResponse {
   status: string;
   currency?: string;
   sellPriceMinor?: number | null;
+  hotel?: string | null;
+  checkIn?: string | null;
+  checkOut?: string | null;
+  confirmationNumber?: string | null;
+}
+
+function money(minor: number | null | undefined, currency?: string): string {
+  if (minor == null || !currency) return "";
+  try { return new Intl.NumberFormat("en-GB", { style: "currency", currency }).format(minor / 100); }
+  catch { return `${currency} ${(minor / 100).toFixed(2)}`; }
 }
 
 const COPY: Record<string, { title: string; body: string; tone: "ok" | "wait" | "warn" }> = {
@@ -78,6 +88,24 @@ export default function BookingStatusClient() {
               <div className={`mt-6 rounded-2xl border p-5 ${toneClass}`}>
                 <p className="text-gray-800">{copy.body}</p>
               </div>
+
+              {data && (data.hotel || data.sellPriceMinor != null) && (
+                <dl className="mt-6 grid gap-3 rounded-2xl border border-[#e7ddcd] bg-[#fbf8f1] p-5 text-sm">
+                  {data.hotel && (
+                    <div className="flex justify-between gap-4"><dt className="text-gray-500">Hotel</dt><dd className="text-right font-semibold">{data.hotel}</dd></div>
+                  )}
+                  {data.checkIn && data.checkOut && (
+                    <div className="flex justify-between gap-4"><dt className="text-gray-500">Stay</dt><dd className="text-right font-semibold">{data.checkIn} → {data.checkOut}</dd></div>
+                  )}
+                  {data.sellPriceMinor != null && (
+                    <div className="flex justify-between gap-4"><dt className="text-gray-500">Total paid</dt><dd className="text-right font-semibold tabular-nums">{money(data.sellPriceMinor, data.currency)} <span className="font-normal text-gray-500">· all taxes &amp; fees incl.</span></dd></div>
+                  )}
+                  {data.confirmationNumber && (
+                    <div className="flex justify-between gap-4"><dt className="text-gray-500">Hotel confirmation</dt><dd className="text-right font-semibold">{data.confirmationNumber}</dd></div>
+                  )}
+                  <div className="flex justify-between gap-4"><dt className="text-gray-500">Reference</dt><dd className="text-right font-semibold">{reference}</dd></div>
+                </dl>
+              )}
 
               {status !== "booked" && (
                 <div className="mt-6 rounded-2xl border border-gray-200 bg-white p-5">

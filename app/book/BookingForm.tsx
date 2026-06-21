@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { ShieldIcon } from "../components/icons";
 
 const fieldLabel = "block text-[11px] font-bold uppercase tracking-wide text-gray-500";
 const fieldInput =
@@ -67,7 +68,7 @@ export default function BookingForm({
   }
 
   return (
-    <form onSubmit={submit} className="rounded-3xl bg-white p-6 shadow-sm ring-1 ring-black/5">
+    <form onSubmit={submit} className="rounded-3xl bg-white p-6 pb-24 md:pb-6 shadow-sm ring-1 ring-black/5">
       <h2 className="text-lg font-black">Guest details</h2>
       <p className="mt-1 text-sm text-gray-600">
         {roomCount === 1 ? "The lead guest for this booking." : "A lead guest for each room."}
@@ -108,27 +109,44 @@ export default function BookingForm({
         <div className="grid gap-3 sm:grid-cols-2">
           <label>
             <span className={fieldLabel}>Email</span>
-            <input required type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="you@email.com" className={fieldInput} />
+            <input required type="email" autoComplete="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="you@email.com" className={fieldInput} />
           </label>
           <label>
             <span className={fieldLabel}>Phone</span>
-            <input required value={phone} onChange={(e) => setPhone(e.target.value)} placeholder="Mobile number" className={fieldInput} />
+            <input required type="tel" inputMode="tel" autoComplete="tel" value={phone} onChange={(e) => setPhone(e.target.value)} placeholder="Mobile number" className={fieldInput} />
           </label>
         </div>
       </div>
 
       {error && <p className="mt-4 rounded-xl bg-red-50 px-4 py-3 text-sm text-red-700">{error}</p>}
 
+      <div className="mt-5 flex items-start gap-2 rounded-xl bg-[#f3ece0] px-4 py-3 text-xs text-gray-600">
+        <ShieldIcon className="mt-0.5 h-4 w-4 shrink-0 text-[#1d6b3f]" />
+        <span>Payments are encrypted and processed by <strong className="font-semibold text-[#071526]">Stripe</strong>. We never see or store your card details.</span>
+      </div>
+      <p className="mt-2 text-center text-[11px] font-semibold uppercase tracking-wide text-gray-400">Visa · Mastercard · American Express</p>
+
       <button
         type="submit"
         disabled={loading}
-        className="mt-5 flex w-full items-center justify-center gap-2 rounded-xl bg-[#0b1b2e] px-7 py-4 text-base font-bold text-white transition hover:bg-[#b88434] disabled:opacity-60"
+        className="mt-5 hidden md:flex w-full items-center justify-center gap-2 rounded-xl bg-[#0b1b2e] px-7 py-4 text-base font-bold text-white transition hover:bg-[#b88434] disabled:opacity-60"
       >
         {loading ? "Taking you to secure payment…" : `Pay ${priceLabel} securely`}
       </button>
       <p className="mt-2 text-center text-xs text-gray-500">
         Your booking is confirmed once the hotel confirms it. We email your confirmation or voucher.
       </p>
+
+      {/* Mobile sticky pay bar */}
+      <div className="fixed inset-x-0 bottom-0 z-40 border-t border-[#e7ddcd] bg-white/95 p-3 shadow-[0_-8px_24px_-12px_rgba(8,20,35,0.35)] backdrop-blur md:hidden">
+        <button
+          type="submit"
+          disabled={loading}
+          className="flex w-full items-center justify-center gap-2 rounded-xl bg-[#0b1b2e] px-6 py-3.5 text-base font-bold text-white transition hover:bg-[#b88434] disabled:opacity-60"
+        >
+          {loading ? "Taking you to secure payment…" : `Pay ${priceLabel} securely`}
+        </button>
+      </div>
     </form>
   );
 }
