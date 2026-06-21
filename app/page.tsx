@@ -14,12 +14,9 @@ const trustBand = [
  * commercial use) or a local file you drop in /public, e.g. "/images/london.jpg".
  * Leave blank ("") to keep the brand gradient. If a URL fails to load, the
  * gradient shows automatically — the site never breaks.
- * The example Unsplash URLs below are seeds: verify or replace each one.
  */
-// Hero photo. This is a close coastal/dusk luxury-hotel match for the mockup.
-// To use the EXACT image from your mockup, save it as public/images/hero.jpg and
-// change this to "/images/hero.jpg" (or drop the mockup file and I'll crop it).
-const HERO_IMAGE = "https://images.unsplash.com/photo-1455587734955-081b22074882?auto=format&fit=crop&w=1920&q=72";
+// Hero photo — your licensed coastal/dusk luxury-hotel image (public/images/hero.jpg).
+const HERO_IMAGE = "/images/hero.jpg";
 
 const destinations = [
   { city: "Paris", country: "France", price: "from £128", big: true, from: "from-[#2a4d6e]", to: "to-[#10243a]", img: "https://images.unsplash.com/photo-1502602898657-3e91760cbb34?auto=format&fit=crop&w=1200&q=72" },
@@ -124,7 +121,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ===== DESTINATIONS (bento) ===== */}
+      {/* ===== DESTINATIONS + FEATURED (side-by-side) ===== */}
       <section id="destinations" className="mx-auto max-w-7xl px-6 py-16 lg:px-8">
         <div className="flex items-end justify-between">
           <div>
@@ -133,29 +130,67 @@ export default function Home() {
           </div>
           <Link href="#book" className="hidden text-sm font-semibold text-[#b88434] hover:underline sm:block">Explore all destinations →</Link>
         </div>
-        <div className="mt-8 grid auto-rows-[150px] grid-cols-2 gap-4 md:grid-cols-4">
-          {destinations.map((d) => (
-            <Link
-              key={d.city}
-              href="#book"
-              className={`group relative overflow-hidden rounded-3xl bg-gradient-to-br ${d.from} ${d.to} p-5 text-white shadow-lg ${d.big ? "col-span-2 row-span-2" : ""}`}
-            >
+
+        <div className="mt-8 grid gap-4 lg:grid-cols-[0.95fr_1.05fr]">
+          {/* Bento: Paris large + Barcelona / Rome stacked */}
+          <div className="grid auto-rows-[160px] grid-cols-2 gap-4 sm:auto-rows-[180px]">
+            {destinations.slice(0, 3).map((d) => (
+              <Link
+                key={d.city}
+                href="#book"
+                className={`group relative overflow-hidden rounded-3xl bg-gradient-to-br ${d.from} ${d.to} p-5 text-white shadow-lg ${d.big ? "row-span-2" : ""}`}
+              >
+                <SmartImage
+                  src={d.img}
+                  alt={`${d.city} hotels`}
+                  sizes="(min-width: 1024px) 22vw, (min-width: 640px) 45vw, 50vw"
+                  className="object-cover transition duration-500 group-hover:scale-105"
+                />
+                <Skyline className="absolute bottom-0 left-0 h-16 w-full text-white/10" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/15 to-transparent transition duration-300 group-hover:from-black/55" />
+                <span className="absolute right-4 top-4 rounded-full bg-[#d8a84f] px-3 py-1 text-xs font-bold text-[#071526]">{d.price}/night</span>
+                <div className="relative flex h-full flex-col justify-end">
+                  <p className={`font-display font-semibold leading-none ${d.big ? "text-4xl md:text-5xl" : "text-2xl"}`}>{d.city}</p>
+                  <p className="mt-1 text-sm font-medium text-white/70">{d.country}</p>
+                  <p className="mt-2 text-sm font-semibold text-[#f0c76b]">View hotels →</p>
+                </div>
+              </Link>
+            ))}
+          </div>
+
+          {/* Featured: honest "what a result shows" card — premium listing look,
+              no fabricated hotel name or reviews. Reinforces the transparency brand. */}
+          <article className="group relative flex flex-col overflow-hidden rounded-3xl border border-[#e7ddcd] bg-white shadow-lg">
+            <div className="relative h-52 overflow-hidden sm:h-60">
               <SmartImage
-                src={d.img}
-                alt={`${d.city} hotels`}
-                sizes={d.big ? "(min-width: 768px) 50vw, 100vw" : "(min-width: 768px) 25vw, 50vw"}
+                src="https://images.unsplash.com/photo-1611892440504-42a792e24d32?auto=format&fit=crop&w=1100&q=72"
+                alt="A hotel room"
+                sizes="(min-width: 1024px) 52vw, 100vw"
                 className="object-cover transition duration-500 group-hover:scale-105"
               />
-              <Skyline className="absolute bottom-0 left-0 h-16 w-full text-white/10" />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/15 to-transparent transition duration-300 group-hover:from-black/55" />
-              <span className="absolute right-4 top-4 rounded-full bg-[#d8a84f] px-3 py-1 text-xs font-bold text-[#071526]">{d.price}/night</span>
-              <div className="relative flex h-full flex-col justify-end">
-                <p className={`font-display font-semibold leading-none ${d.big ? "text-4xl md:text-5xl" : "text-2xl"}`}>{d.city}</p>
-                <p className="mt-1 text-sm font-medium text-white/70">{d.country}</p>
-                <p className="mt-2 text-sm font-semibold text-[#f0c76b]">View hotels →</p>
+              <span className="absolute left-4 top-4 rounded-full bg-white/90 px-3 py-1 text-xs font-bold text-[#071526] backdrop-blur">
+                What you see
+              </span>
+            </div>
+            <div className="flex flex-1 flex-col p-6">
+              <p className="text-xs font-semibold uppercase tracking-[0.22em] text-[#b88434]">Before you pay</p>
+              <h3 className="font-display mt-2 text-2xl font-semibold tracking-tight">The full price — nothing hidden</h3>
+              <ul className="mt-4 space-y-2.5 text-sm text-gray-700">
+                <li className="flex items-start gap-2.5"><CheckIcon className="mt-0.5 h-4 w-4 shrink-0 text-[#b88434]" /> The total for your exact dates and guests</li>
+                <li className="flex items-start gap-2.5"><CheckIcon className="mt-0.5 h-4 w-4 shrink-0 text-[#b88434]" /> Refundable or non-refundable, clearly marked</li>
+                <li className="flex items-start gap-2.5"><CheckIcon className="mt-0.5 h-4 w-4 shrink-0 text-[#b88434]" /> Any taxes or fees payable at the hotel</li>
+              </ul>
+              <div className="mt-6 flex items-end justify-between border-t border-[#efe7d8] pt-5">
+                <div>
+                  <p className="text-xs font-medium text-gray-500">Indicative — search for live rates</p>
+                  <p className="font-display text-2xl font-semibold text-[#071526]">from £98 <span className="text-sm font-medium text-gray-500">/ night</span></p>
+                </div>
+                <Link href="#book" className="rounded-full bg-[#d8a84f] px-5 py-3 text-sm font-bold text-[#071526] transition hover:bg-[#f0c76b]">
+                  Search hotels →
+                </Link>
               </div>
-            </Link>
-          ))}
+            </div>
+          </article>
         </div>
       </section>
 
