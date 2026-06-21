@@ -29,6 +29,8 @@ export interface HotelContent {
   name: string;
   starRating?: number;
   address?: string;
+  latitude?: number;
+  longitude?: number;
   description?: string;
   images: string[];
 }
@@ -50,6 +52,8 @@ const MOCK_CONTENT: Record<string, HotelContent> = {
     name: "Golden Sands Hotel Apartments",
     starRating: 3,
     address: "Bur Dubai, Dubai, United Arab Emirates",
+    latitude: 25.2582,
+    longitude: 55.2962,
     description: "Comfortable apartment-style rooms a short walk from the creek.",
     images: [],
   },
@@ -58,6 +62,8 @@ const MOCK_CONTENT: Record<string, HotelContent> = {
     name: "City Centre Hotel",
     starRating: 4,
     address: "City Centre",
+    latitude: 25.2300,
+    longitude: 55.3000,
     images: [],
   },
 };
@@ -120,6 +126,15 @@ function pickString(rec: Record<string, unknown>, keys: string[]): string | unde
     const v = rec[k];
     if (typeof v === "string" && v) return v;
     if (typeof v === "number") return String(v);
+  }
+  return undefined;
+}
+
+function pickNumber(rec: Record<string, unknown>, keys: string[]): number | undefined {
+  for (const k of keys) {
+    const v = rec[k];
+    if (typeof v === "number" && Number.isFinite(v)) return v;
+    if (typeof v === "string") { const n = parseFloat(v); if (Number.isFinite(n)) return n; }
   }
   return undefined;
 }
@@ -203,6 +218,8 @@ class TboHotelIndex implements HotelIndex {
       name: pickString(rec, ["HotelName", "Name"]) ?? `Hotel ${hotelCode}`,
       starRating: Number.isFinite(ratingNum) ? ratingNum : undefined,
       address: pickString(rec, ["Address", "HotelAddress"]),
+      latitude: pickNumber(rec, ["Latitude", "Lat", "HotelLatitude"]),
+      longitude: pickNumber(rec, ["Longitude", "Long", "Lng", "HotelLongitude"]),
       description: pickString(rec, ["Description", "HotelDescription"]),
       images,
     };

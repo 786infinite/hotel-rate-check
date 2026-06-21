@@ -2,8 +2,14 @@
 
 import { useMemo, useState } from "react";
 import Link from "next/link";
+import dynamic from "next/dynamic";
 import SmartImage from "@/app/components/SmartImage";
 import { CheckIcon, StarIcon } from "@/app/components/icons";
+
+const ResultsMap = dynamic(() => import("./ResultsMap"), {
+  ssr: false,
+  loading: () => <div className="h-[520px] w-full animate-pulse rounded-3xl bg-[#e9e1d2]" />,
+});
 
 export interface ResultRow {
   hotelCode: string;
@@ -11,6 +17,8 @@ export interface ResultRow {
   image: string;
   starRating?: number;
   address?: string;
+  latitude?: number;
+  longitude?: number;
   bookingCode: string;
   roomName: string;
   mealType: string;
@@ -37,6 +45,7 @@ interface RoomType { name: string; rates: ResultRow[]; lead: ResultRow }
 interface HotelGroup {
   hotelCode: string; hotelName: string; image: string;
   starRating?: number; address?: string;
+  latitude?: number; longitude?: number;
   lead: ResultRow; rateCount: number; anyRefundable: boolean; roomTypes: RoomType[];
 }
 
@@ -49,6 +58,7 @@ export default function ResultsList({
   const [sort, setSort] = useState<Sort>("priceAsc");
   const [refundableOnly, setRefundableOnly] = useState(false);
   const [expanded, setExpanded] = useState<Record<string, boolean>>({});
+  const [view, setView] = useState<"list" | "map">("list");
 
   const groups = useMemo<HotelGroup[]>(() => {
     const filtered = refundableOnly ? rows.filter((r) => r.isRefundable) : rows;
@@ -75,6 +85,7 @@ export default function ResultsList({
       out.push({
         hotelCode: code, hotelName: opts[0].hotelName, image: opts[0].image,
         starRating: opts[0].starRating, address: opts[0].address,
+        latitude: opts[0].latitude, longitude: opts[0].longitude,
         lead, rateCount: opts.length, anyRefundable: opts.some((o) => o.isRefundable), roomTypes,
       });
     }
@@ -88,6 +99,10 @@ export default function ResultsList({
   function bookHref(row: ResultRow) {
     return { pathname: "/book", query: { bookingCode: row.bookingCode, hotel: row.hotelName, checkIn, checkOut, rooms: encodedRooms } };
   }
+
+  const mapHotels = groups
+    .filter((g) => g.latitude != null && g.longitude != null)
+    .map((g) => ({ hotelCode: g.hotelCode, hotelName: g.hotelName, lat: g.latitude as number, lng: g.longitude as number, priceLabel: money(g.lead.sellPrice, g.lead.currency) }));
 
   return (
     <div className="space-y-6">
@@ -117,9 +132,21 @@ export default function ResultsList({
         {isFiltered && (
           <button type="button" onClick={() => { setRefundableOnly(false); setSort("priceAsc"); }} className="text-sm font-semibold text-[#b88434] hover:underline">Clear</button>
         )}
+        <div className="ml-auto inline-flex overflow-hidden rounded-full border border-gray-300">
+          <button type="button" onClick={() => setView("list")} aria-pressed={view === "list"}
+            className={`px-4 py-1.5 text-sm font-semibold ${view === "list" ? "bg-[#0b1b2e] text-white" : "text-gray-700"}`}>List</button>
+          <button type="button" onClick={() => setView("map")} aria-pressed={view === "map"}
+            className={`px-4 py-1.5 text-sm font-semibold ${view === "map" ? "bg-[#0b1b2e] text-white" : "text-gray-700"}`}>Map</button>
+        </div>
       </div>
 
-      {groups.length === 0 ? (
+      {view === "map" ? (
+        mapHotels.length ? (
+          <ResultsMap hotels={mapHotels} />
+        ) : (
+          <p className="rounded-2xl border border-gray-200 bg-white p-6 text-sm text-gray-600">Map view needs hotel location data, which arrives with live content. Showing the list for now.</p>
+        )
+      ) : groups.length === 0 ? (
         <p className="rounded-2xl border border-gray-200 bg-white p-6 text-sm text-gray-600">
           No rooms match these filters. <button type="button" onClick={() => setRefundableOnly(false)} className="font-semibold text-[#b88434] hover:underline">Clear filters</button>.
         </p>

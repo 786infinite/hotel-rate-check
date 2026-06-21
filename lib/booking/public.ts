@@ -43,6 +43,8 @@ export interface PublicHotel {
   image: string;
   starRating?: number;
   address?: string;
+  latitude?: number;
+  longitude?: number;
   currency: string;
   rooms: PublicRoom[];
 }
@@ -109,6 +111,8 @@ export async function publicSearch(params: PublicSearchParams): Promise<PublicSe
     image: content?.images?.[0] ?? HOTEL_FALLBACK_IMAGE,
     starRating: content?.starRating,
     address: content?.address,
+    latitude: content?.latitude,
+    longitude: content?.longitude,
     currency: hotel.Currency,
     rooms: hotel.Rooms.map((room): PublicRoom => {
       const price = tbo.priceForCustomer(room, hotel.Currency);

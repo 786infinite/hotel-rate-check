@@ -130,6 +130,7 @@ async function SearchResults({
     h.rooms.map((r) => ({
       hotelCode: h.hotelCode, hotelName: h.hotelName, image: h.image,
       starRating: h.starRating, address: h.address,
+      latitude: h.latitude, longitude: h.longitude,
       bookingCode: r.bookingCode, roomName: r.name, mealType: r.mealType,
       isRefundable: r.isRefundable, sellPrice: r.sellPrice, currency: r.currency,
       payAtHotel: r.payAtHotel,
