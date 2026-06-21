@@ -3,6 +3,7 @@ import localFont from "next/font/local";
 import "./globals.css";
 import SiteHeader from "./components/SiteHeader";
 import SiteFooter from "./components/SiteFooter";
+import { COMPANY } from "@/lib/company";
 
 const fraunces = localFont({
   src: [
@@ -47,7 +48,16 @@ const orgJsonLd = {
   "@context": "https://schema.org",
   "@type": "Organization",
   name: "Hotel Rate Check",
-  legalName: "786 Infinite Ltd",
+  legalName: COMPANY.legalName,
+  vatID: COMPANY.vatNumber,
+  taxID: COMPANY.companyNumber,
+  address: {
+    "@type": "PostalAddress",
+    streetAddress: COMPANY.address.line1,
+    addressLocality: COMPANY.address.city,
+    postalCode: COMPANY.address.postcode,
+    addressCountry: COMPANY.address.country,
+  },
   url: "https://www.hotelratecheck.com",
   email: "quotes@hotelratecheck.com",
   description: "Online hotel booking service. Hotel accommodation only, with clear prices and terms shown before payment.",

@@ -37,6 +37,8 @@ export interface AcceptedQuote {
   providerPaymentId?: string;
   /** TBO/supplier confirmation number, saved once the booking confirms. */
   confirmationNumber?: string;
+  /** Optional business details for the receipt. */
+  company?: { name?: string; reference?: string };
   status?: "pending" | "paid" | "booked" | "failed" | "refund_due" | "awaiting_manual_booking";
 }
 
@@ -52,9 +54,21 @@ export interface QuoteStore {
   claim(reference: string): Promise<boolean>;
 }
 
+// In dev, route handlers and RSC pages load this module in separate bundles, so
+// a plain instance field would NOT be shared between them (the /receipt page
+// couldn't see a quote saved by the checkout route). Anchor the maps on
+// globalThis so every bundle — and HMR reload — sees the same data. This only
+// affects the offline/in-memory fallback; production uses the shared KV store.
+const g = globalThis as typeof globalThis & {
+  __hrcQuoteMap?: Map<string, AcceptedQuote>;
+  __hrcQuoteClaimed?: Set<string>;
+};
+g.__hrcQuoteMap ??= new Map<string, AcceptedQuote>();
+g.__hrcQuoteClaimed ??= new Set<string>();
+
 class InMemoryQuoteStore implements QuoteStore {
-  private map = new Map<string, AcceptedQuote>();
-  private claimed = new Set<string>();
+  private map = g.__hrcQuoteMap!;
+  private claimed = g.__hrcQuoteClaimed!;
   async get(reference: string) {
     return this.map.get(reference) ?? null;
   }

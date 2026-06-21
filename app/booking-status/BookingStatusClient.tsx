@@ -125,6 +125,12 @@ export default function BookingStatusClient() {
                 </a>{" "}
                 quoting your reference.
               </p>
+
+              {["paid", "awaiting_manual_booking", "booked"].includes(status) && (
+                <a href={`/receipt?reference=${encodeURIComponent(reference)}`} className="mt-4 inline-block text-sm font-semibold text-[#b88434] underline">
+                  Download receipt (PDF)
+                </a>
+              )}
             </>
           )}
 

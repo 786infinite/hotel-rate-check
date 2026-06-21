@@ -37,6 +37,9 @@ export default function BookingForm({
   );
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
+  const [showBusiness, setShowBusiness] = useState(false);
+  const [companyName, setCompanyName] = useState("");
+  const [companyRef, setCompanyRef] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -52,7 +55,7 @@ export default function BookingForm({
       const res = await fetch("/api/book/create-checkout", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ bookingCode, hotel, checkIn, checkOut, guests, email, phone, expectedMinor }),
+        body: JSON.stringify({ bookingCode, hotel, checkIn, checkOut, guests, email, phone, expectedMinor, company: showBusiness && companyName.trim() ? { name: companyName.trim(), reference: companyRef.trim() || undefined } : undefined }),
       });
       const data = (await res.json()) as { checkoutUrl?: string; error?: string };
       if (!res.ok || !data.checkoutUrl) {
@@ -116,6 +119,25 @@ export default function BookingForm({
             <input required type="tel" inputMode="tel" autoComplete="tel" value={phone} onChange={(e) => setPhone(e.target.value)} placeholder="Mobile number" className={fieldInput} />
           </label>
         </div>
+      </div>
+
+      <div className="mt-5 border-t border-gray-100 pt-4">
+        <label className="flex items-center gap-2 text-sm font-semibold text-[#071526]">
+          <input type="checkbox" checked={showBusiness} onChange={(e) => setShowBusiness(e.target.checked)} className="h-4 w-4 accent-[#b88434]" />
+          Booking for a business? (adds company details to your receipt)
+        </label>
+        {showBusiness && (
+          <div className="mt-3 grid gap-3 sm:grid-cols-2">
+            <label>
+              <span className={fieldLabel}>Company name</span>
+              <input value={companyName} onChange={(e) => setCompanyName(e.target.value)} autoComplete="organization" className={fieldInput} />
+            </label>
+            <label>
+              <span className={fieldLabel}>PO / cost-centre (optional)</span>
+              <input value={companyRef} onChange={(e) => setCompanyRef(e.target.value)} className={fieldInput} />
+            </label>
+          </div>
+        )}
       </div>
 
       {error && <p className="mt-4 rounded-xl bg-red-50 px-4 py-3 text-sm text-red-700">{error}</p>}

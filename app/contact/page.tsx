@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { COMPANY } from "@/lib/company";
 
 export const metadata: Metadata = {
   title: "Contact | Hotel Rate Check",
@@ -83,9 +84,14 @@ export default function ContactPage() {
           <div className="mt-8 rounded-2xl border border-gray-200 bg-[#f7f2e9] p-6">
             <h2 className="text-xl font-bold text-[#071526]">Company details</h2>
             <p className="mt-3 text-gray-700">
-              Hotel Rate Check is a trading name of 786 Infinite Ltd, a company
+              {COMPANY.tradingName} is a trading name of {COMPANY.legalName}, a company
               registered in England and Wales.
             </p>
+            <dl className="mt-3 space-y-1 text-sm text-gray-700">
+              <div><dt className="inline font-semibold">Registered office:</dt> <dd className="inline">{COMPANY.addressLine}</dd></div>
+              <div><dt className="inline font-semibold">Company No.:</dt> <dd className="inline">{COMPANY.companyNumber}</dd></div>
+              <div><dt className="inline font-semibold">VAT No.:</dt> <dd className="inline">{COMPANY.vatNumber}</dd></div>
+            </dl>
           </div>
         </div>
       </section>

@@ -34,6 +34,7 @@ interface Body {
   phone?: string;
   /** Sell price (pence) the customer was shown on /book, for drift protection. */
   expectedMinor?: number;
+  company?: { name?: string; reference?: string };
 }
 
 export async function POST(request: Request) {
@@ -114,6 +115,9 @@ export async function POST(request: Request) {
     hotel: body.hotel,
     checkIn: body.checkIn,
     checkOut: body.checkOut,
+    company: body.company?.name
+      ? { name: String(body.company.name).trim().slice(0, 120), reference: body.company.reference ? String(body.company.reference).trim().slice(0, 60) : undefined }
+      : undefined,
     status: "pending",
   });
 
