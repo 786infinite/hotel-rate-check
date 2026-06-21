@@ -62,3 +62,8 @@ body {
   .no-print { display: none !important; }
   body { background: #fff; }
 }
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-floaty, .animate-floaty-slow, .rise-in, .lift { animation: none !important; transition: none !important; }
+}
+:focus-visible { outline: 2px solid #b88434; outline-offset: 2px; }

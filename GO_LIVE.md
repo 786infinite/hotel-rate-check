@@ -41,6 +41,7 @@ This file tracks everything still needed to go live, beyond the build itself.
 - **Stripe:** live secret key + publishable key + **webhook signing secret**, and **register the webhook endpoint** (`/api/payments/webhook`) in the Stripe dashboard. Turn off `PAYMENTS_MOCK`.
 - **Zoho ZeptoMail:** `ZEPTOMAIL_TOKEN` (Send-Mail token) + `EMAIL_FROM` + `ZEPTOMAIL_API_URL` for your region (EU default) + verify the sending domain in ZeptoMail (SPF/DKIM). Turn off `NOTIFY_MOCK`.
 - **Vercel KV:** attach a KV store so `KV_REST_API_URL` / `KV_REST_API_TOKEN` are injected (the in-memory quote store does not survive serverless). Set `BOOKING_MODE=auto`, `HRC_ADMIN_USERNAME` / `HRC_ADMIN_PASSWORD`.
+- **Pricing markup:** `PRICE_MARKUP_PERCENT` — customer markup over TBO net, e.g. `PRICE_MARKUP_PERCENT=18`. Unset, blank, or out-of-range (outside `0`–`100`) falls back to the default 10%. Never sells below `RecommendedSellingRate`.
 
 ## Build remaining (can be done now, no credentials)
 

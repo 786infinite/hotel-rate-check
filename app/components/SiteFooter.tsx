@@ -64,7 +64,7 @@ export default function SiteFooter() {
         <div className="mx-auto flex max-w-7xl flex-col gap-3 px-6 py-6 text-sm text-white/55 md:flex-row md:items-center md:justify-between lg:px-8">
           <div className="space-y-1">
             <p>© 2026 Hotel Rate Check · 786 Infinite Ltd. All rights reserved.</p>
-            <p className="text-xs text-gray-400">
+            <p className="text-xs text-gray-300">
               {COMPANY.legalName} trading as {COMPANY.tradingName} · Company No. {COMPANY.companyNumber} · VAT {COMPANY.vatNumber}
               <br />
               {COMPANY.addressLine}

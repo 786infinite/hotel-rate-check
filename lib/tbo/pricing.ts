@@ -13,6 +13,22 @@ import type { RoomResult, PreBookRoomResult, Supplement } from "./types";
 
 export const DEFAULT_MARKUP_PCT = 10;
 
+/** Hard cap to catch fat-finger env values (e.g. "1000"). */
+export const MAX_MARKUP_PCT = 100;
+
+/**
+ * Markup % from PRICE_MARKUP_PERCENT (e.g. "18" or "18.5"). Falls back to
+ * DEFAULT_MARKUP_PCT when unset, blank, or out of the [0, MAX_MARKUP_PCT] range,
+ * so a bad value can never silently sell at cost or at an absurd price.
+ */
+export function markupFromEnv(): number {
+  const raw = process.env.PRICE_MARKUP_PERCENT;
+  if (raw == null || raw.trim() === "") return DEFAULT_MARKUP_PCT;
+  const n = Number(raw);
+  if (!Number.isFinite(n) || n < 0 || n > MAX_MARKUP_PCT) return DEFAULT_MARKUP_PCT;
+  return n;
+}
+
 export interface PayAtHotelCharge {
   description: string;
   price: number;
@@ -63,12 +79,12 @@ export function extractPayAtHotel(
  *
  * @param room          a Search or PreBook room result (use the PreBook value before payment)
  * @param currency      the hotel result currency
- * @param markupPct     your markup percentage over TotalFare (default 10%)
+ * @param markupPct     your markup % over TotalFare (defaults to PRICE_MARKUP_PERCENT, else 10%)
  */
 export function priceForCustomer(
   room: RoomResult | PreBookRoomResult,
   currency: string,
-  markupPct: number = DEFAULT_MARKUP_PCT,
+  markupPct: number = markupFromEnv(),
 ): CustomerPrice {
   const net = room.TotalFare;
   const marked = net * (1 + markupPct / 100);

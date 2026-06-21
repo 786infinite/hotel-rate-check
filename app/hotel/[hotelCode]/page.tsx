@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { publicSearch, nightsBetween, type PublicHotel } from "@/lib/booking/public";
 import { parseRoomsParam, toPaxRooms, encodeRooms } from "@/lib/booking/occupancy";
@@ -5,6 +6,11 @@ import { getHotelIndex } from "@/lib/booking/destination";
 import HotelGallery from "@/app/components/HotelGallery";
 import HotelMapClient from "@/app/components/HotelMapClient";
 import { StarIcon, CheckIcon } from "@/app/components/icons";
+
+export const metadata: Metadata = {
+  title: "Hotel details | Hotel Rate Check",
+  robots: { index: false, follow: true },
+};
 
 export const dynamic = "force-dynamic";
 

@@ -68,13 +68,22 @@ export default function CookiesPage() {
                 4. Analytics and non-essential cookies
               </h2>
               <p className="mt-3">
-                If we add analytics, advertising or other non-essential cookies
-                in the future, we will update this policy and add any required
-                consent controls before using them.
+                We use Plausible Analytics, a privacy-friendly, cookieless
+                analytics service, to understand how the website is used in
+                aggregate. Plausible does not set cookies, does not collect
+                personal data, and does not track you across other websites.
               </p>
               <p className="mt-3">
-                Hotel Rate Check runs with online booking and enquiry functionality
-                and core website features.
+                Analytics only loads after you choose &ldquo;Accept&rdquo; on our
+                consent banner. If you choose &ldquo;Reject&rdquo;, no analytics
+                is loaded. We do not use any advertising or cross-site tracking
+                cookies.
+              </p>
+              <p className="mt-3">
+                Your choice is remembered in your browser&rsquo;s local storage
+                under <code>hrc-consent</code>. To change or withdraw it, clear
+                this site&rsquo;s data (or that key) in your browser settings and
+                reload the page — the consent banner will appear again.
               </p>
             </section>
 

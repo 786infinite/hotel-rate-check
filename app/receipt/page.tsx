@@ -1,7 +1,13 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { getQuoteStore } from "@/lib/payments/fulfilment";
 import { COMPANY } from "@/lib/company";
 import PrintButton from "./PrintButton";
+
+export const metadata: Metadata = {
+  title: "Booking receipt | Hotel Rate Check",
+  robots: { index: false, follow: true },
+};
 
 export const dynamic = "force-dynamic";
 

@@ -3,6 +3,8 @@ import localFont from "next/font/local";
 import "./globals.css";
 import SiteHeader from "./components/SiteHeader";
 import SiteFooter from "./components/SiteFooter";
+import CookieConsent from "./components/CookieConsent";
+import Analytics from "./components/Analytics";
 import { COMPANY } from "@/lib/company";
 
 const fraunces = localFont({
@@ -78,11 +80,14 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${fraunces.variable} ${inter.variable}`}>
       <body className="flex min-h-screen flex-col bg-[#f7f2e9]">
+        <a href="#main" className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-[100] focus:rounded focus:bg-white focus:px-4 focus:py-2 focus:font-semibold">Skip to content</a>
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(orgJsonLd) }} />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(siteJsonLd) }} />
         <SiteHeader />
-        <div className="flex-1">{children}</div>
+        <div id="main" className="flex-1">{children}</div>
         <SiteFooter />
+        <CookieConsent />
+        <Analytics />
       </body>
     </html>
   );
