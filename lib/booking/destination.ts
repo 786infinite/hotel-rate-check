@@ -32,6 +32,7 @@ export interface HotelContent {
   latitude?: number;
   longitude?: number;
   description?: string;
+  amenities?: string[];
   images: string[];
 }
 
@@ -55,7 +56,12 @@ const MOCK_CONTENT: Record<string, HotelContent> = {
     latitude: 25.2582,
     longitude: 55.2962,
     description: "Comfortable apartment-style rooms a short walk from the creek.",
-    images: [],
+    images: [
+      "https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=1200&q=72",
+      "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=1200&q=72",
+      "https://images.unsplash.com/photo-1631049307264-da0ec9d70304?auto=format&fit=crop&w=1200&q=72",
+    ],
+    amenities: ["Free WiFi", "Outdoor pool", "24-hour reception", "Air conditioning", "Family rooms", "Airport shuttle"],
   },
   "1435427": {
     hotelCode: "1435427",
@@ -64,7 +70,11 @@ const MOCK_CONTENT: Record<string, HotelContent> = {
     address: "City Centre",
     latitude: 25.2300,
     longitude: 55.3000,
-    images: [],
+    images: [
+      "https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?auto=format&fit=crop&w=1200&q=72",
+      "https://images.unsplash.com/photo-1611892440504-42a792e24d32?auto=format&fit=crop&w=1200&q=72",
+    ],
+    amenities: ["Free WiFi", "Restaurant", "Bar", "Fitness centre"],
   },
 };
 
@@ -220,6 +230,9 @@ class TboHotelIndex implements HotelIndex {
       address: pickString(rec, ["Address", "HotelAddress"]),
       latitude: pickNumber(rec, ["Latitude", "Lat", "HotelLatitude"]),
       longitude: pickNumber(rec, ["Longitude", "Long", "Lng", "HotelLongitude"]),
+      amenities: Array.isArray(rec.HotelFacilities)
+        ? (rec.HotelFacilities as unknown[]).filter((x): x is string => typeof x === "string").slice(0, 24)
+        : undefined,
       description: pickString(rec, ["Description", "HotelDescription"]),
       images,
     };

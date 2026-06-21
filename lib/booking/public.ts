@@ -41,6 +41,9 @@ export interface PublicHotel {
   hotelName: string;
   /** Hotel image: TBO static content when live, else an open-source fallback. */
   image: string;
+  images?: string[];
+  amenities?: string[];
+  description?: string;
   starRating?: number;
   address?: string;
   latitude?: number;
@@ -109,6 +112,9 @@ export async function publicSearch(params: PublicSearchParams): Promise<PublicSe
     hotelCode: hotel.HotelCode,
     hotelName: content?.name ?? `Hotel ${hotel.HotelCode}`,
     image: content?.images?.[0] ?? HOTEL_FALLBACK_IMAGE,
+    images: content?.images,
+    amenities: content?.amenities,
+    description: content?.description,
     starRating: content?.starRating,
     address: content?.address,
     latitude: content?.latitude,

@@ -164,7 +164,11 @@ export default function ResultsList({
                     )}
                   </div>
                   <div className="p-6">
-                    <h3 className="font-display text-2xl font-semibold leading-tight">{g.hotelName}</h3>
+                    <h3 className="font-display text-2xl font-semibold leading-tight">
+                      <Link href={`/hotel/${g.hotelCode}?checkIn=${encodeURIComponent(checkIn)}&checkOut=${encodeURIComponent(checkOut)}&rooms=${encodeURIComponent(encodedRooms)}`} className="hover:text-[#b88434] hover:underline">
+                        {g.hotelName}
+                      </Link>
+                    </h3>
                     {g.starRating ? (
                       <div className="mt-1 flex items-center gap-0.5" aria-label={`${g.starRating}-star hotel`}>
                         {Array.from({ length: g.starRating }).map((_, i) => <StarIcon key={i} className="h-4 w-4 text-[#d8a84f]" />)}
