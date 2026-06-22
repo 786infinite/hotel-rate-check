@@ -14,12 +14,17 @@ export interface ReceiptData {
   confirmationNumber?: string;
   currency: string;
   sellPriceMinor?: number;
+  roomName?: string;
+  board?: string;
+  refundable?: boolean;
 }
 
 function gbp(minor: number, currency: string): string {
   const amt = (minor / 100).toFixed(2);
   return currency === "GBP" ? `£${amt}` : `${currency} ${amt}`;
 }
+
+function boardLabel(b?: string): string { return b ? b.replace(/_/g, " ") : "Room only"; }
 
 /** Build a branded receipt/invoice PDF. `baseUrl` is used to fetch the logo. */
 export async function buildReceiptPdf(d: ReceiptData, baseUrl: string): Promise<Uint8Array> {
@@ -80,6 +85,9 @@ export async function buildReceiptPdf(d: ReceiptData, baseUrl: string): Promise<
   const amount = gbp(d.sellPriceMinor ?? 0, d.currency);
   page.drawText(d.hotel ?? "Hotel booking", { x: M, y, size: 11, font, color: navy });
   page.drawText(amount, { x: W - M - font.widthOfTextAtSize(amount, 11), y, size: 11, font, color: navy }); y -= 14;
+  if (d.roomName) { page.drawText(`Room: ${d.roomName}`, { x: M, y, size: 9, font, color: gray }); y -= 12; }
+  const board = `Board: ${boardLabel(d.board)}${d.refundable != null ? ` · ${d.refundable ? "Refundable" : "Non-refundable"}` : ""}`;
+  page.drawText(board, { x: M, y, size: 9, font, color: gray }); y -= 12;
   if (d.checkIn && d.checkOut) { page.drawText(`${d.checkIn} to ${d.checkOut}`, { x: M, y, size: 9, font, color: gray }); y -= 12; }
   if (d.confirmationNumber) { page.drawText(`Hotel confirmation: ${d.confirmationNumber}`, { x: M, y, size: 9, font, color: gray }); y -= 12; }
   y -= 10; page.drawLine({ start: { x: M, y }, end: { x: W - M, y }, thickness: 1, color: line }); y -= 22;

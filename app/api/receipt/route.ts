@@ -21,6 +21,7 @@ export async function GET(request: Request) {
     confirmationNumber: quote.confirmationNumber,
     currency: quote.currency,
     sellPriceMinor: quote.sellPriceMinor,
+    roomName: quote.roomName, board: quote.board, refundable: quote.refundable,
   };
   const pdf = await buildReceiptPdf(data, url.origin);
   const title = quote.company?.name ? "INVOICE" : "RECEIPT";

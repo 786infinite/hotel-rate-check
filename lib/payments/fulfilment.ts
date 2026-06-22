@@ -40,6 +40,10 @@ export interface AcceptedQuote {
   confirmationNumber?: string;
   /** Optional business details for the receipt. */
   company?: { name?: string; reference?: string };
+  /** Booked room details (server-derived from PreBook) for receipts/emails. */
+  roomName?: string;
+  board?: string;        // meal plan, e.g. "Half_Board"
+  refundable?: boolean;
   status?: "pending" | "paid" | "booked" | "failed" | "refund_due" | "awaiting_manual_booking";
 }
 
@@ -134,6 +138,7 @@ async function sendBookingEmail(
       currency: quote.currency,
       amountMinor: quote.sellPriceMinor,
       confirmationNumber,
+      roomName: quote.roomName, board: quote.board, refundable: quote.refundable,
     };
     const msg = kind === "confirmed" ? composeConfirmationEmail(data) : composeReceivedEmail(data);
 
@@ -150,6 +155,7 @@ async function sendBookingEmail(
         confirmationNumber,
         currency: quote.currency,
         sellPriceMinor: quote.sellPriceMinor,
+        roomName: quote.roomName, board: quote.board, refundable: quote.refundable,
       };
       const pdf = await buildReceiptPdf(receipt, baseUrl);
       const title = quote.company?.name ? "INVOICE" : "RECEIPT";

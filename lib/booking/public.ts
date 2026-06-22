@@ -210,6 +210,8 @@ export interface BookingQuote {
   reason?: string;
   bookingCode: string;
   roomName: string;
+  mealType: string;
+  isRefundable: boolean;
   currency: string;
   /** Customer charge in minor units (pence). */
   sellPriceMinor: number;
@@ -226,11 +228,11 @@ export async function quoteForBooking(bookingCode: string): Promise<BookingQuote
   const res = await tbo.preBook({ BookingCode: bookingCode });
   const hotel = res.HotelResult?.[0];
   if (!hotel) {
-    return { sellable: false, reason: "This rate is no longer available.", bookingCode, roomName: "", currency: "", sellPriceMinor: 0, netTotalFare: 0 };
+    return { sellable: false, reason: "This rate is no longer available.", bookingCode, roomName: "", mealType: "", isRefundable: false, currency: "", sellPriceMinor: 0, netTotalFare: 0 };
   }
   const rooms = tbo.filterSellableRooms(hotel);
   if (!rooms.length) {
-    return { sellable: false, reason: "This rate can't be booked on its own.", bookingCode, roomName: "", currency: hotel.Currency, sellPriceMinor: 0, netTotalFare: 0 };
+    return { sellable: false, reason: "This rate can't be booked on its own.", bookingCode, roomName: "", mealType: "", isRefundable: false, currency: hotel.Currency, sellPriceMinor: 0, netTotalFare: 0 };
   }
   const room = rooms[0];
   const price = tbo.priceForCustomer(room, hotel.Currency);
@@ -238,6 +240,8 @@ export async function quoteForBooking(bookingCode: string): Promise<BookingQuote
     sellable: true,
     bookingCode: room.BookingCode,
     roomName: room.Name?.[0] ?? "Room",
+    mealType: room.MealType ?? "",
+    isRefundable: room.IsRefundable,
     currency: hotel.Currency,
     sellPriceMinor: Math.round(price.sellPrice * 100),
     netTotalFare: room.TotalFare,

@@ -14,6 +14,9 @@ interface StatusResponse {
   checkIn?: string | null;
   checkOut?: string | null;
   confirmationNumber?: string | null;
+  roomName?: string | null;
+  board?: string | null;
+  refundable?: boolean | null;
 }
 
 function money(minor: number | null | undefined, currency?: string): string {
@@ -93,6 +96,16 @@ export default function BookingStatusClient() {
                 <dl className="mt-6 grid gap-3 rounded-2xl border border-[#e7ddcd] bg-[#fbf8f1] p-5 text-sm">
                   {data.hotel && (
                     <div className="flex justify-between gap-4"><dt className="text-gray-500">Hotel</dt><dd className="text-right font-semibold">{data.hotel}</dd></div>
+                  )}
+                  {data.roomName && (
+                    <div className="flex justify-between gap-4">
+                      <dt className="text-gray-500">Room</dt>
+                      <dd className="text-right font-semibold">
+                        {data.roomName}
+                        {data.board ? ` · ${data.board.replace(/_/g, " ")}` : ""}
+                        {data.refundable != null ? ` · ${data.refundable ? "Refundable" : "Non-refundable"}` : ""}
+                      </dd>
+                    </div>
                   )}
                   {data.checkIn && data.checkOut && (
                     <div className="flex justify-between gap-4"><dt className="text-gray-500">Stay</dt><dd className="text-right font-semibold">{data.checkIn} → {data.checkOut}</dd></div>

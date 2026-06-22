@@ -31,5 +31,8 @@ export async function GET(request: Request) {
     checkIn: quote.checkIn ?? null,
     checkOut: quote.checkOut ?? null,
     confirmationNumber: quote.confirmationNumber ?? null,
+    roomName: quote.roomName ?? null,
+    board: quote.board ?? null,
+    refundable: quote.refundable ?? null,
   });
 }

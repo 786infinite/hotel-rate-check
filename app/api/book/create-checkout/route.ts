@@ -115,6 +115,9 @@ export async function POST(request: Request) {
     hotel: body.hotel,
     checkIn: body.checkIn,
     checkOut: body.checkOut,
+    roomName: quote.roomName,
+    board: quote.mealType,
+    refundable: quote.isRefundable,
     company: body.company?.name
       ? { name: String(body.company.name).trim().slice(0, 120), reference: body.company.reference ? String(body.company.reference).trim().slice(0, 60) : undefined }
       : undefined,

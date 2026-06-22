@@ -71,6 +71,8 @@ export default async function ReceiptPage({ searchParams }: { searchParams: Prom
             <tr className="border-b border-[#efe6d6]">
               <td className="py-3">
                 {quote.hotel ?? "Hotel booking"}
+                {quote.roomName && <span className="block text-xs text-gray-500">Room: {quote.roomName}</span>}
+                <span className="block text-xs text-gray-500">Board: {quote.board ? quote.board.replace(/_/g, " ") : "Room only"}{quote.refundable != null ? ` · ${quote.refundable ? "Refundable" : "Non-refundable"}` : ""}</span>
                 {quote.checkIn && quote.checkOut && <span className="block text-xs text-gray-500">{quote.checkIn} → {quote.checkOut}</span>}
                 {quote.confirmationNumber && <span className="block text-xs text-gray-500">Hotel confirmation: {quote.confirmationNumber}</span>}
               </td>

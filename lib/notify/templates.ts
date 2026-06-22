@@ -20,6 +20,9 @@ export interface BookingEmailData {
   amountMinor?: number;
   /** TBO/supplier confirmation number (confirmed bookings only). */
   confirmationNumber?: string;
+  roomName?: string;
+  board?: string;
+  refundable?: boolean;
 }
 
 function money(amountMinor: number | undefined, currency: string): string {
@@ -35,6 +38,21 @@ function money(amountMinor: number | undefined, currency: string): string {
 function stayLine(d: BookingEmailData): string {
   if (d.checkIn && d.checkOut) return `Stay: ${d.checkIn} to ${d.checkOut}\n`;
   return "";
+}
+
+function roomLine(d: BookingEmailData): string {
+  if (!d.roomName) return "";
+  const board = d.board ? d.board.replace(/_/g, " ") : "Room only";
+  const refund = d.refundable != null ? ` (${d.refundable ? "refundable" : "non-refundable"})` : "";
+  return `Room: ${d.roomName} — ${board}${refund}\n`;
+}
+
+/** HTML equivalent of roomLine, as a spreadable array (empty when no room). */
+function htmlRoomLines(d: BookingEmailData): string[] {
+  if (!d.roomName) return [];
+  const board = d.board ? d.board.replace(/_/g, " ") : "Room only";
+  const refund = d.refundable != null ? ` (${d.refundable ? "refundable" : "non-refundable"})` : "";
+  return [`Room: <strong>${esc(d.roomName)}</strong> — ${esc(board)}${esc(refund)}`];
 }
 
 function esc(s: string): string {
@@ -65,6 +83,7 @@ export function composeConfirmationEmail(d: BookingEmailData): EmailMessage {
     `Good news — your booking at ${hotel} is confirmed.\n\n` +
     `Booking reference: ${d.reference}\n` +
     (d.confirmationNumber ? `Hotel confirmation: ${d.confirmationNumber}\n` : "") +
+    roomLine(d) +
     stayLine(d) +
     (paid ? `Amount paid: ${paid}\n` : "") +
     `\nYour voucher is attached to your account/booking record. Some hotels charge ` +
@@ -77,6 +96,7 @@ export function composeConfirmationEmail(d: BookingEmailData): EmailMessage {
     `Good news — your booking at <strong>${esc(hotel)}</strong> is confirmed.`,
     `Booking reference: <strong>${esc(d.reference)}</strong>`,
     ...(d.confirmationNumber ? [`Hotel confirmation: <strong>${esc(d.confirmationNumber)}</strong>`] : []),
+    ...htmlRoomLines(d),
     ...(d.checkIn && d.checkOut ? [`Stay: ${esc(d.checkIn)} to ${esc(d.checkOut)}`] : []),
     ...(paid ? [`Amount paid: <strong>${esc(paid)}</strong>`] : []),
     `Your voucher is attached to your account/booking record. Some hotels charge local taxes or fees directly at check-in — these were shown before you paid.`,
@@ -94,6 +114,7 @@ export function composeReceivedEmail(d: BookingEmailData): EmailMessage {
     `Hi ${d.guestName},\n\n` +
     `Thanks — we've received your payment for ${hotel} and are confirming your booking with the hotel.\n\n` +
     `Booking reference: ${d.reference}\n` +
+    roomLine(d) +
     stayLine(d) +
     (paid ? `Amount paid: ${paid}\n` : "") +
     `\nWe'll email your confirmation and voucher as soon as the hotel confirms. ` +
@@ -105,6 +126,7 @@ export function composeReceivedEmail(d: BookingEmailData): EmailMessage {
     `Hi ${esc(d.guestName)},`,
     `Thanks — we've received your payment for <strong>${esc(hotel)}</strong> and are confirming your booking with the hotel.`,
     `Booking reference: <strong>${esc(d.reference)}</strong>`,
+    ...htmlRoomLines(d),
     ...(d.checkIn && d.checkOut ? [`Stay: ${esc(d.checkIn)} to ${esc(d.checkOut)}`] : []),
     ...(paid ? [`Amount paid: <strong>${esc(paid)}</strong>`] : []),
     `We'll email your confirmation and voucher as soon as the hotel confirms. Please don't make non-refundable travel arrangements until you receive it.`,
