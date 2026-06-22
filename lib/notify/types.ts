@@ -13,6 +13,8 @@ export interface EmailMessage {
   text: string;
   /** Optional HTML body. */
   html?: string;
+  /** Optional file attachments (content is base64-encoded). */
+  attachments?: { filename: string; content: string /* base64 */; contentType: string }[];
 }
 
 export interface SendResult {

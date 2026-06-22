@@ -57,6 +57,7 @@ export class ZohoNotifier implements Notifier {
         subject: msg.subject,
         textbody: msg.text,
         ...(msg.html ? { htmlbody: msg.html } : {}),
+        ...(msg.attachments?.length ? { attachments: msg.attachments.map((a) => ({ name: a.filename, content: a.content, mime_type: a.contentType })) } : {}),
       }),
       cache: "no-store",
     });

@@ -13,6 +13,7 @@
 
 import { bookWithRecovery, type BookOutcome } from "../tbo";
 import { getNotifier, composeConfirmationEmail, composeReceivedEmail } from "../notify";
+import { buildReceiptPdf, type ReceiptData } from "../receipt/pdf";
 import type { PaymentEvent } from "./types";
 
 export interface AcceptedQuote {
@@ -135,6 +136,32 @@ async function sendBookingEmail(
       confirmationNumber,
     };
     const msg = kind === "confirmed" ? composeConfirmationEmail(data) : composeReceivedEmail(data);
+
+    try {
+      const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://www.hotelratecheck.com";
+      const receipt: ReceiptData = {
+        reference: quote.reference,
+        email: quote.email,
+        guestName: `${quote.guest.firstName} ${quote.guest.lastName}`.trim(),
+        company: quote.company,
+        hotel: quote.hotel,
+        checkIn: quote.checkIn,
+        checkOut: quote.checkOut,
+        confirmationNumber,
+        currency: quote.currency,
+        sellPriceMinor: quote.sellPriceMinor,
+      };
+      const pdf = await buildReceiptPdf(receipt, baseUrl);
+      const title = quote.company?.name ? "INVOICE" : "RECEIPT";
+      msg.attachments = [{
+        filename: `Hotel-Rate-Check-${title}-${quote.reference}.pdf`,
+        content: Buffer.from(pdf).toString("base64"),
+        contentType: "application/pdf",
+      }];
+    } catch {
+      // attachment is best-effort; never block the email
+    }
+
     await getNotifier().send(msg);
   } catch {
     // Email delivery is best-effort; a failure here must not fail the booking.

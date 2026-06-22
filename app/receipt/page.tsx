@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { getQuoteStore } from "@/lib/payments/fulfilment";
 import { COMPANY } from "@/lib/company";
-import PrintButton from "./PrintButton";
 
 export const metadata: Metadata = {
   title: "Booking receipt | Hotel Rate Check",
@@ -87,7 +86,7 @@ export default async function ReceiptPage({ searchParams }: { searchParams: Prom
         <p className="mt-4 text-xs text-gray-500">Price includes all applicable taxes and fees. Any charges payable directly at the hotel were shown before payment and are not included above.</p>
 
         <div className="mt-8 flex justify-end">
-          <PrintButton />
+          <a href={`/api/receipt?reference=${encodeURIComponent(quote.reference)}`} className="rounded-full bg-[#0b1b2e] px-6 py-3 text-sm font-bold text-white hover:bg-[#b88434]">Download PDF</a>
         </div>
       </div>
     </main>
